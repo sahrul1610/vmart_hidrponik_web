@@ -22,11 +22,17 @@
 
 
 
-<!-- js for select only -->
+{{-- <!-- js for select only -->
 <script src="{{ url('/template') }}/plugins/jquery/dist/jquery.min.js"></script>
 <script src="{{ url('/template') }}/plugins/select2/dist/js/select2.min.js"></script>
-    <!-- ======= -->
+    <!-- ======= --> --}}
+    
+    {{-- <script>
+        $(function () {
+            $('.select2').select2(),
 
+        })
+    </script> --}}
       <!-- js for datapicker only -->
 <script src="{{ url('/template') }}/plugins/jquery/dist/jquery.min.js"></script>
 <script src="{{ url('/template') }}/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>

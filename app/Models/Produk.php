@@ -14,4 +14,12 @@ class Produk extends Model
 
     public $timestamps = false;
 
+    public function getKategori()
+    {
+        // SELECT * FROM buku JOIN kategori ON buku.id_kategori = kategori.id_kategori
+
+        // return $this->belongsTo(ModelYangInginDiJoin, AtributJoinChild , AtributJoinParent)
+        return $this->hasOne("App\Models\Kategori", "id", "categories_id");
+    }
+
 }

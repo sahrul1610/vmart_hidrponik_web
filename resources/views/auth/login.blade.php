@@ -79,6 +79,7 @@
 
                         <button class="btn btn-danger icon-left" type="button"><i class="fab fa-google"></i> Login
                             with Google</button>
+                        <a href="/login/google" class="btn btn-danger icon-left"><i class="fab fa-google"> Login with Google</i></a>
                     </div>
                 </div>
                 <div class="card-footer py-3 border-0">
