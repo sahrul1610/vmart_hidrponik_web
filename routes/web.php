@@ -24,7 +24,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/produk', [ProdukController::class, 'index'])->name('produk')->middleware('auth');
 Route::get('/produk/add', [ProdukController::class, 'add'])->middleware('auth');
-Route::get('/produk/edit', [ProdukController::class, 'edit'])->middleware('auth');
+Route::get('/produk/edit/{id}', [ProdukController::class, 'edit'])->middleware('auth');
+Route::post('/produk/insert', [ProdukController::class, 'insert']);
+Route::post('/produk/update', [ProdukController::class, 'update']);
+
 Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/auth', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout']);
