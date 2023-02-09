@@ -20,7 +20,13 @@
     <li class="{{ request()->is('pengguna')? 'active' : '' }}">
         <a href="{{url('/pengguna')}}" class="link">
             <i class="ti-user"></i>
-            <span>Charts</span>
+            <span>Pengguna</span>
+        </a>
+    </li>
+    <li class="{{ request()->is('transaksi')? 'active' : '' }}">
+        <a href="{{url('/transaksi')}}" class="link">
+            <i class="ti-user"></i>
+            <span>Transaksi</span>
         </a>
     </li>
 </ul>

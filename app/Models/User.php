@@ -47,7 +47,7 @@ class User extends Authenticatable
     //     'email_verified_at' => 'datetime',
     // ];
     public function socialAccounts() {
-        return $this->hasMAny(socialAccount::class);
+        return $this->hasMAny(SocialAccount::class);
     }
 
 }

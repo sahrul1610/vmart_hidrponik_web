@@ -66,6 +66,19 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Gambar</label>
+
+                                    <input type="file" class="form-control" name="url" id='url' placeholder="" value="">
+
+                            </div>
+                            <div class="text-danger">
+                                @error('url')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
@@ -78,6 +91,7 @@
                                 @enderror
                             </div>
                         </div>
+
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>

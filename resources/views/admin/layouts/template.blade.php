@@ -166,7 +166,7 @@
                                 <a class="dropdown-item" href="#">Notifikasi</a>
                             </li> -->
                             <li class="menu-content ps-menu">
-                                <a href="#">
+                                <a href="{{url('/profile')}}">
                                     <div class="description">
                                         <i class="ti-user"></i> Profile
                                     </div>
@@ -284,7 +284,7 @@
         </div>
 
         <footer>
-            Copyright © 2022 &nbsp <a href="https://www.youtube.com/c/mulaidarinull" target="_blank" class="ml-1"> Mulai Dari Null </a> <span> . All rights Reserved</span>
+            Copyright © 2023 &nbsp <a href="https://www.youtube.com/c/mulaidarinull" target="_blank" class="ml-1"> Web Vmart Hidroponik </a> <span> . All rights Reserved</span>
         </footer>
         <div class="overlay action-toggle">
         </div>
