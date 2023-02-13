@@ -1,3 +1,4 @@
+{{-- @if(auth()->user()->roles == 'ADMIN') --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -294,3 +295,6 @@
 </body>
 
 </html>
+{{-- @else
+@extends('admin.layouts.error-404')
+@endif --}}

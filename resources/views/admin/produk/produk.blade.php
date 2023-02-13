@@ -1,3 +1,4 @@
+@if(auth()->user()->roles == 'ADMIN')
 @extends('admin.layouts.template')
 @section('title','Produk')
 @section('content')
@@ -47,3 +48,4 @@
         </div>
     </div>
 @endsection
+@endif

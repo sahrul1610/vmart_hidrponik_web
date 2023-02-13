@@ -67,7 +67,7 @@
                                                 <a href="#" class="btn btn-danger btn-sm"
                                                     onclick="DeleteData({{ $dt->id }})"><i
                                                         class="fa fa-trash"></i></a>
-                                                
+
                                             </td>
                                         </tr>
                                     @endforeach

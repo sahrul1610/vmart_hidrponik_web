@@ -39,7 +39,13 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->route('produk');
+            if(Auth::user()->roles == "USER"){
+                return redirect()->intended(RouteServiceProvider::HOME);
+            } elseif (Auth::user()->roles == "ADMIN") {
+                return redirect()->intended(RouteServiceProvider::ADMIN);
+            }else {
+                return abort(403);
+            }
         }
 
         // return back()->withErrors([
@@ -87,7 +93,14 @@ class LoginController extends Controller
         Auth()->login($authUser, true);
 
         // setelah login redirect ke dashboard
-        return redirect()->route('produk');
+        // return redirect()->route('produk');
+        if(Auth::user()->roles == "USER"){
+            return redirect()->intended(RouteServiceProvider::HOME);
+        } elseif (Auth::user()->roles == "ADMIN") {
+            return redirect()->intended(RouteServiceProvider::ADMIN);
+        }else {
+            return abort(403);
+        }
     }
 
     public function findOrCreateUser($socialUser, $provider)
