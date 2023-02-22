@@ -1,4 +1,4 @@
-{{-- @if(auth()->user()->roles == 'ADMIN') --}}
+{{--  --}}
 <!DOCTYPE html>
 <html lang="en">
 

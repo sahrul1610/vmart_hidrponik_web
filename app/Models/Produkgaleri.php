@@ -13,4 +13,9 @@ class Produkgaleri extends Model
     protected $guarded = [''];
 
     public $timestamps = false;
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'products_id');
+    }
 }

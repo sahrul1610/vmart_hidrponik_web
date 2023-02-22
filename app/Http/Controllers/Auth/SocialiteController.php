@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\Exception;
 use App\Models\SocialAccount;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
@@ -32,7 +33,14 @@ class SocialiteController extends Controller
         Auth()->login($authUser, true);
 
         // setelah login redirect ke dashboard
-        return redirect()->route('dashboard');
+        // return redirect()->route('dashboard');
+        if(Auth::user()->roles == "USER"){
+            return redirect()->intended(RouteServiceProvider::HOME);
+        } elseif (Auth::user()->roles == "ADMIN") {
+            return redirect()->intended(RouteServiceProvider::ADMIN);
+        }else {
+            return abort(403);
+        }
     }
 
     public function findOrCreateUser($socialUser, $provider)
@@ -56,7 +64,7 @@ class SocialiteController extends Controller
             if (!$user) {
                 // Create user baru
                 $user = User::create([
-                    'roles' => "ADMIN",
+                    'roles' => "USER",
                     'name'  => $socialUser->getName(),
                     'email' => $socialUser->getEmail(),
                     'password' => Hash::make(0),

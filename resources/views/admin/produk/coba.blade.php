@@ -1,8 +1,7 @@
 @extends('admin.layouts.template')
 @section('title', 'Produk')
-@section('page_scripts')
+{{-- @section('page_scripts')
 
-    {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
     @if (session('gagal'))
         <script>
@@ -17,7 +16,8 @@
             Swal.fire(
                 'Berhasil!',
                 '{{ session('sukses') }}',
-                'success'
+                'success',
+                session()->forget('sukses');
             )
         </script>
     @elseif(session('konfirmasi'))
@@ -30,7 +30,79 @@
         </script>
     @endif
 
-@endsection
+@stop --}}
+{{-- @section('page_scripts')
+    @if (session('gagal'))
+        <script>
+            Swal.fire(
+                'Gagal!',
+                '{{ session('gagal') }}',
+                'error'
+            ).then((result) => {
+                // Menghapus session gagal
+                @php session()->forget('gagal'); @endphp
+            })
+        </script>
+    @elseif(session('sukses'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                '{{ session('sukses') }}',
+                'success'
+            ).then((result) => {
+                // Menghapus session sukses
+                @php session()->forget('sukses'); @endphp
+            })
+        </script>
+    @elseif(session('konfirmasi'))
+        <script>
+            Swal.fire(
+                'Berhasil!',
+                '{{ sesi('konfirmasi') }}',
+                'konfirmasi'
+            ).then((result) => {
+                // Menghapus session konfirmasi
+                @php session()->forget('konfirmasi'); @endphp
+            })
+        </script>
+    @endif
+@stop --}}
+@section('page_scripts')
+    @if (session('gagal'))
+        <script>
+            Swal.fire({
+                title: 'Gagal!',
+                text: '{{ session('gagal') }}',
+                icon: 'error'
+            }).then(function() {
+                {{ session()->forget('gagal') }}
+            });
+        </script>
+    @elseif(session('sukses'))
+        <script>
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('sukses') }}',
+                icon: 'success'
+            }).then(function() {
+                location.reload();
+                {{ session()->forget('sukses') }}
+            });
+        </script>
+    @elseif(session('konfirmasi'))
+        <script>
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('konfirmasi') }}',
+                icon: 'confirmation'
+            }).then(function() {
+                {{ session()->forget('konfirmasi') }}
+            });
+        </script>
+    @endif
+@stop
+
+{{-- @endsection --}}
 @section('content')
     <div class="content-wrapper">
         <div class="row same-height">
@@ -75,6 +147,7 @@
                                                     <th>Harga</th>
                                                     <th>Deskripsi</th>
                                                     <th>Tag</th>
+                                                    <th>Gambar</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -87,6 +160,13 @@
                                                         <td>{{ $dt->price }}</td>
                                                         <td>{{ $dt->description }}</td>
                                                         <td>{{ $dt->tags }}</td>
+                                                        <td>
+                                                            @if ($dt->produkgaleri->count() > 0)
+                                                            <img src="{{ asset('storage/gambar/'.$dt->produkgaleri->url) }}"  width="45px" height="45px">
+                                                        @else
+                                                            Tidak ada gambar
+                                                        @endif
+                                                        <td>
                                                         <td>
                                                             <a href="{{ url('/produk/edit') }}/{{ $dt->id }}"
                                                                 class="btn btn-sm btn-warning"><i
@@ -153,32 +233,33 @@
                 </div>
             </div>
         </div>
-    @endsection
-    <script>
-        function DeleteData(id) {
-            // console.log('tes delete');
-            Swal.fire({
-                title: "Anda Yakin Ingin Menghapus Data Ini ?",
-                text: "Klik Batal Untuk Membatalkan Penghapusan",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Hapus"
-            }).then(result => {
-                if (result.isConfirmed) {
-                    form_string =
-                        "<form method=\"POST\" action=\"{{ url('/produk/hapus/') }}/" +
-                        id +
-                        "\" accept-charset=\"UTF-8\"><input name=\"_method\" type=\"hidden\" value=\"DELETE\"><input name=\"_token\" type=\"hidden\" value=\"{{ csrf_token() }}\"></form>"
-                    form = $(form_string)
-                    form.appendTo('body');
-                    form.submit();
-                } else {
-                    Swal.fire('Selamat!', 'Data anda tidak jadi dihapus', 'error');
-                }
-            });
+    </div>
+@endsection
+<script>
+    function DeleteData(id) {
+        // console.log('tes delete');
+        Swal.fire({
+            title: "Anda Yakin Ingin Menghapus Data Ini ?",
+            text: "Klik Batal Untuk Membatalkan Penghapusan",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Hapus"
+        }).then(result => {
+            if (result.isConfirmed) {
+                form_string =
+                    "<form method=\"POST\" action=\"{{ url('/produk/hapus/') }}/" +
+                    id +
+                    "\" accept-charset=\"UTF-8\"><input name=\"_method\" type=\"hidden\" value=\"DELETE\"><input name=\"_token\" type=\"hidden\" value=\"{{ csrf_token() }}\"></form>"
+                form = $(form_string)
+                form.appendTo('body');
+                form.submit();
+            } else {
+                Swal.fire('Selamat!', 'Data anda tidak jadi dihapus', 'error');
+            }
+        });
 
 
-        }
-    </script>
+    }
+</script>

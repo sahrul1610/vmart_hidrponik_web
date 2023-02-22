@@ -84,7 +84,7 @@
                 </div>
                 <div class="card-footer py-3 border-0">
                     <div class="text-center">
-                        Don't have an account yet? <a href="auth-register.html" class="text-dark">Create an account</a>
+                        Don't have an account yet? <a href="{{route('register')}}" class="text-dark">Create an account</a>
                     </div>
                 </div>
             </div>

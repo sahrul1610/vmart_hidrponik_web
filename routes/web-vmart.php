@@ -7,7 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\TransaksiController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Admin\KategoriProdukController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\customer\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*

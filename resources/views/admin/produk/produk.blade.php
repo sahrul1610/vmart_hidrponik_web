@@ -3,7 +3,7 @@
 @section('title','Produk')
 @section('content')
     <div class="content-wrapper">
-        <div class="row same-height">
+        <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -44,8 +44,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection
-@endif

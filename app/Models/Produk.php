@@ -22,4 +22,10 @@ class Produk extends Model
         return $this->hasOne("App\Models\Kategori", "id", "categories_id");
     }
 
+    public function produkgaleri()
+    {
+        return $this->hasOne(ProdukGaleri::class, 'products_id');
+    }
+
+
 }

@@ -51,13 +51,6 @@ class ProdukController extends Controller
     }
     public function insert(Request $request)
     {
-
-        // $request->validate([
-        //     'nama_produk' => 'required',
-        //     'deskripsi' => 'required',
-        //     'harga' => 'required|numeric',
-        //     'gambar' => 'required|image'
-        // ]);
         $request->validate([
             "categories_id" => "required",
             // 'sku' => 'required',
@@ -91,101 +84,9 @@ class ProdukController extends Controller
             $galeri->url = $filename;
             $galeri->save();
         }
-
-        // $path = 'img/produk/';
-
-
-        // $input = [
-        //     'categories_id' => $request->categories_id,
-        //     'name' => $request->name,
-        //     'description' => $request->description,
-        //     'price' => $request->price,
-        //     'tags' => $request->tags,
-
-        // ];
-        // $Produk = Produk::create($input);
-
-        // if ($request->hasFile('url')) {
-        //     $img = $request->file('url');
-        //     foreach ($img as $key) {
-        //         $filename = $key->hashName();
-        //         $key->storeAs($path, $filename, 'files');
-        //         $images = Produkgaleri::create(['product_id' => $Produk->id, 'image' => $filename]);
-        //     }
-
-        //    return 1;
-        // }
         return redirect()->route('produk')->with('sukses','data berhasil ditambahkan');
     }
-    // public function insert(Request $request){
 
-    //     $validateData = $request->validate([
-    //         "categories_id" => "required",
-    //         // 'sku' => 'required',
-    //         'name' => 'required',
-    //         'description' => 'required',
-    //         //'picture_name' => 'required',
-    //         //'product_unit' => 'required',
-    //         'price' => 'required|numeric',
-    //         'tags' => 'required',
-    //     ]);
-
-
-    //     //     $Produkgaleri = new Produkgaleri;
-    //     // //$product = new product;
-
-    //     //     $customer->user_id = $user->id;
-
-
-    //     //     $customer->save();
-
-    //     // if ($request->file("picture_name")) {
-
-    //     //     $validateData['picture_name'] = $request->file("picture_name")->store("post-image");
-
-    //     // }
-
-
-    //     Produk::create($validateData);
-
-    //     return redirect()->route('produk')->with('sukses','data berhasil ditambahkan');
-    // }
-    // public function insert(ProdukRequest $request){
-
-    //     $validateData = $request->validate([
-
-    //     ]);
-
-    //     $validateData = $this->validate($request, [
-    //          "categories_id" => "required",
-    //         // 'sku' => 'required',
-    //         'name' => 'required',
-    //         'description' => 'required',
-    //         //'picture_name' => 'required',
-    //         //'product_unit' => 'required',
-    //         'price' => 'required|numeric',
-    //         'tags' => 'required',
-    //         ], $message);
-
-    //     //     $Produkgaleri = new Produkgaleri;
-    //     // //$product = new product;
-
-    //     //     $customer->user_id = $user->id;
-
-
-    //     //     $customer->save();
-
-    //     // if ($request->file("picture_name")) {
-
-    //     //     $validateData['picture_name'] = $request->file("picture_name")->store("post-image");
-
-    //     // }
-
-
-    //     Produk::create($validateData);
-
-    //     return redirect()->route('produk')->with('sukses','data berhasil ditambahkan');
-    // }
 
     public function update(Request $request)
     {

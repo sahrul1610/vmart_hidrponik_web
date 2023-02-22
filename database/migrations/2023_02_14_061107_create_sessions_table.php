@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('user_id');
-            $table->text('address');
-            $table->double('total_price');
-            $table->double('shipping_price');
-            $table->string('status');
-            $table->string('payment');
-            $table->timestamp('deleted_at');
+        Schema::create('sessions', function (Blueprint $table) {
+            $table->string('id');
+            $table->bigInteger('user_id')->nullable();
+            $table->string('ip_address')->nullable();
+            $table->text('user_agent')->nullable();
+            $table->text('payload');
+            $table->integer('last_activity')->unique();
+
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('sessions');
     }
 };

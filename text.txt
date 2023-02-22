@@ -1,0 +1,52 @@
+membuat migration produk
+membuat migration produk kategori
+membuat migration produk galeri
+membuat migration user
+membuat migration transaksi
+membuat migration transaksi item
+membuat migration password reset
+membuat migration personal acces token
+membuat migration session
+membuat migration sosial account
+
+membuat view admin
+membuat view login
+membuat view register
+membuat view dashboard
+membuat view produk
+membuat view tambah produk
+membuat view edit produk
+membuat view kategori
+membuat view tambah kategori
+membuat view edit kategori
+membuat view pengguna atau user
+
+membuat view alert sukses ketika menambahkan produk
+membuat view alert verifikasi untuk menghapus data
+membuat view alert error ketika gagal eksekusi
+
+controller admin
+membuat logincontroller
+membuat DashboardController
+membuat PenggunaController
+membuat transaksicontroller
+membuat produkcontroller
+membuat kategoricontroller
+
+controller customer
+membuat homecontroller
+membuat registerdusercontroller
+profile controller
+membuat auth SocialiteController
+provider
+config RouteServiceProvider untuk membuat akses
+
+middleware
+membuat AdminMiddleware
+membuat CustomerMiddleware
+membuat AuthenticationMiddleware
+menconfigurasi kernel
+
+membuat login menggunakan google
+
+
