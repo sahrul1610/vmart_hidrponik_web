@@ -8,6 +8,7 @@ use App\Models\Produkgaleri;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProdukRequest;
+use Illuminate\Support\Facades\Storage; // tambahkan ini
 use Illuminate\Support\Facades\DB;
 
 class ProdukController extends Controller
@@ -25,7 +26,7 @@ class ProdukController extends Controller
             "data" => produk::orderBy("id", "DESC")->get()
         ];
 
-        return view('admin.produk.coba', $data);
+        return view('admin.produk.produk', $data);
     }
     public function add(){
 
@@ -88,62 +89,186 @@ class ProdukController extends Controller
     }
 
 
+    // public function update(Request $request)
+    // {
+
+    //     $request->validate([
+    //         "categories_id" => "required",
+    //         'name' => 'required',
+    //         'description' => 'required',
+    //         'price' => 'required|numeric',
+    //         'tags' => 'required',
+    //         'url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ], [
+    //         'categories_id.required' => 'Kategori produk wajib diisi',
+    //         'name.required' => 'Nama produk wajib diisi',
+    //         'description.required' => 'Deskripsi produk wajib diisi',
+    //         'price.required' => 'Harga produk wajib diisi',
+    //         'price.numeric' => 'Harga produk harus diisi dengan angka',
+    //         'tags.required' => 'Tag produk wajib diisi',
+    //         'url.image' => 'File harus berupa gambar',
+    //         'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+    //         'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
+    //     ]);
+
+    //     $produk = Produk::findOrFail($request->id);
+    //     $produk->categories_id = $request->categories_id;
+    //     $produk->name = $request->name;
+    //     $produk->description = $request->description;
+    //     $produk->price = $request->price;
+    //     $produk->tags = $request->tags;
+
+    //     $produk->save();
+    //     // Menghapus gambar lama jika ada gambar baru yang diupload
+    //     if ($request->hasFile('url')) {
+    //         $oldImage = $produk->galeri->url ?? null;
+
+    //         if ($oldImage != null) {
+    //             Storage::delete('public/gambar/' . $oldImage);
+    //         }
+
+    //         $img = $request->file('url');
+    //         $path = 'gambar/';
+    //         $filename = $img->hashName();
+    //         $img->storeAs($path, $filename, 'public');
+
+    //         // Memasukkan data gambar ke tabel produk_galeri
+    //         $galeri = new Produkgaleri;
+    //         $galeri->products_id = $produk->id;
+    //         $galeri->url = $filename;
+    //         $galeri->save();
+    //         // var_dump($galeri);exit;
+    //         // Update nama gambar di dalam database
+    //         $produk->galeri->url = $filename;
+    //         $produk->galeri->save();
+    //     }
+
+    //     return redirect()->route('produk')->with('sukses','Data berhasil diubah');
+    // }
+
+    // public function update(Request $request)
+    // {
+    //     $request->validate([
+    //         "categories_id" => "required",
+    //         'name' => 'required',
+    //         'description' => 'required',
+    //         'price' => 'required|numeric',
+    //         'tags' => 'required',
+    //         'url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ], [
+    //         'categories_id.required' => 'Kategori produk wajib diisi',
+    //         'name.required' => 'Nama produk wajib diisi',
+    //         'description.required' => 'Deskripsi produk wajib diisi',
+    //         'price.required' => 'Harga produk wajib diisi',
+    //         'price.numeric' => 'Harga produk harus diisi dengan angka',
+    //         'tags.required' => 'Tag produk wajib diisi',
+    //         'url.image' => 'File harus berupa gambar',
+    //         'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+    //         'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
+    //     ]);
+
+    //     $produk = Produk::findOrFail($request->id);
+    //     $produk->categories_id = $request->categories_id;
+    //     $produk->name = $request->name;
+    //     $produk->description = $request->description;
+    //     $produk->price = $request->price;
+    //     $produk->tags = $request->tags;
+    //     $produk->save();
+
+    //     // Menghapus gambar lama jika ada gambar baru yang diupload
+    //     if ($request->hasFile('url')) {
+    //         //$oldImage = $produk->galeri->url ?? null;
+    //         $oldImage = $produk->galeri->url ?? null;
+
+    //         if ($oldImage != null) {
+    //             Storage::delete('public/gambar/' . $oldImage);
+    //         }
+
+    //         $img = $request->file('url');
+    //         $path = 'gambar/';
+    //         $filename = $img->hashName();
+    //         $img->storeAs($path, $filename, 'public');
+
+    //         // Memasukkan data gambar ke tabel produk_galeri
+    //         $galeri = new Produkgaleri;
+    //         $galeri->products_id = $produk->id;
+    //         $galeri->url = $filename;
+    //         $galeri->save();
+
+    //         // // Update nama gambar di dalam database
+    //         // $produk->galeri->url = $filename;
+    //         // $produk->galeri->save();
+    //     }
+
+    //     return redirect()->route('produk')->with('sukses','Data berhasil diubah');
+    // }
+
     public function update(Request $request)
     {
-
-        $message = [
-            //'sku.required' => 'wajib diisi!!',
-
-            'categories_id.required' => 'wajib diisi!!',
-            'name.required' => 'wajib diisi!!',
-            'description.required' => 'wajib diisi!!',
-            //'picture_name.required' => 'wajib diisi!!',
-            'price.required' => 'wajib diisi!!',
-            'price.numeric' => 'harus diisi nomor!!',
-            'tags.required' => 'wajib diisi!!',
-            //'product_unit.required' => 'wajib diisi!!',
-
-            ];
-
-
-        $validateData = $this->validate($request, [
+        $request->validate([
             "categories_id" => "required",
-            // 'sku' => 'required',
             'name' => 'required',
             'description' => 'required',
-            //'picture_name' => 'required',
-            //'product_unit' => 'required',
             'price' => 'required|numeric',
             'tags' => 'required',
+            'url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'categories_id.required' => 'Kategori produk wajib diisi',
+            'name.required' => 'Nama produk wajib diisi',
+            'description.required' => 'Deskripsi produk wajib diisi',
+            'price.required' => 'Harga produk wajib diisi',
+            'price.numeric' => 'Harga produk harus diisi dengan angka',
+            'tags.required' => 'Tag produk wajib diisi',
+            'url.image' => 'File harus berupa gambar',
+            'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
         ]);
 
-        // product::where("id", $request->id)->update([
-        //     'category_id' => $request->category_id,
-        //     "sku" => $request->sku,
-        //     "name" => $request->name,
-        //     "description" => $request->description,
-        //     "product_unit" => $request->product_unit,
-        //     'price'=> $request->price,
-        //     'stock'=> $request->stock,
-        // ]);
-        // if ($request->file("picture_name")) {
+        $produk = Produk::findOrFail($request->id);
+        $produk->categories_id = $request->categories_id;
+        $produk->name = $request->name;
+        $produk->description = $request->description;
+        $produk->price = $request->price;
+        $produk->tags = $request->tags;
+        $produk->save();
 
-        //     if ($request->oldImage) {
-        //         Storage::delete($request->oldImage);
-        //     }
+        // Menghapus gambar lama jika ada gambar baru yang diupload
+        if ($request->hasFile('url')) {
+            $oldImage = $produk->produkgaleri->url ?? null;
 
-        //     $validateData['picture_name'] = $request->file("picture_name")->store("image");
-        // }
-        Produk::where("id", $request->id)->update($validateData);
-       // dd($validateData);
+            if ($oldImage != null) {
+                Storage::delete('public/gambar/' . $oldImage);
+            }
 
-       return redirect()->route('produk')->with('sukses','data berhasil diubah');
+            $img = $request->file('url');
+            $path = 'gambar/';
+            $filename = $img->hashName();
+            $img->storeAs($path, $filename, 'public');
+
+            // Memasukkan data gambar ke tabel produk_galeri
+            $produk->produkgaleri()->updateOrCreate(
+                ['products_id' => $produk->id],
+                ['url' => $filename]
+            );
+        }
+
+        return redirect()->route('produk')->with('sukses','Data berhasil diubah');
     }
+
 
     public function hapus(Request $request)
     {
-        Produk::where("id", $request->id)->delete();
+        $produk = Produk::findOrFail($request->id);
+        $oldImage = $produk->produkgaleri->url ?? null;
 
-        return redirect()->route('produk')->with('sukses','data berhasil dihapus');
+        if ($oldImage != null) {
+            Storage::delete('public/gambar/' . $oldImage);
+        }
+
+        $produk->delete();
+
+        return redirect()->route('produk')->with('sukses', 'Data berhasil dihapus');
     }
+
+    
 }

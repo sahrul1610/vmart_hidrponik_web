@@ -70,7 +70,7 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Gambar</label>
 
-                                    <input type="file" class="form-control" name="url" id='url' placeholder="" value="">
+                                    <input type="file" class="form-control" name="url" id='url' placeholder="" value="{{ old('url') }}">
 
                             </div>
                             <div class="text-danger">

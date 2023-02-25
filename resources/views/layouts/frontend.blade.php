@@ -83,25 +83,8 @@
                 </div>
             @endguest
         </div>
-        <nav class="humberger__menu__nav mobile-menu">
-            <ul>
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="">Shop</a></li>
-                <li>
-                    <a href="#">Categories</a>
-                    <ul class="header__menu__dropdown">
-                        {{-- @foreach ($menu_categories as $menu_category)
-                            <li><a
-                                    href="{{ route('shop.index', $menu_category->slug) }}">{{ $menu_category->name }}
-                                    xxxxx
-                                </a>
-                            </li>
-                        @endforeach --}}
-                    </ul>
-                </li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
+        @include('layouts.mobile_menu')
+
         <div id="mobile-menu-wrap"></div>
         <div class="header__top__right__social">
             <a href="#"><i class="fa fa-facebook"></i></a>
@@ -145,8 +128,8 @@
                             <div class="header__top__right">
                                 <div class="header__top__right__language header__top__right__auth">
                                     <a class="d-inline" href="#"><i class="fa fa-user"></i>
-                                        {{-- {{ auth()->user()->username }} --}}
-                                        sahrul
+                                        {{ auth()->user()->name }}
+
                                     </a>
                                     <span class="arrow_carrot-down"></span>
                                     <ul>

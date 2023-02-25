@@ -27,5 +27,4 @@ class Produk extends Model
         return $this->hasOne(ProdukGaleri::class, 'products_id');
     }
 
-
 }

@@ -1,17 +1,17 @@
-<nav class="header__menu">
+<nav class="humberger__menu__nav mobile-menu">
     <ul>
         <li class="active"><a href="/">Home</a></li>
-        <li><a href=" ">Shop</a></li>
+        <li><a href="">Shop</a></li>
         <li>
             <a href="#">Categories</a>
             <ul class="header__menu__dropdown">
                 @foreach ($menu_categories as $menu_category)
                     <li><a
-                            href="">{{ $menu_category->name }}</a>
-                            {{-- href="{{ route('shop.index', $menu_category->slug) }}">{{ $menu_category->name }}</a> --}}
+                            href="">{{ $menu_category->name }}
+
+                        </a>
                     </li>
                 @endforeach
-
             </ul>
         </li>
         <li><a href="#">Contact</a></li>
