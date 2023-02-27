@@ -27,8 +27,29 @@
           <div class="col-lg-3 col-md-5">
             @include('frontend.shop.sidebar')
           </div>
-          <div class="col-lg-9 col-md-7" id="product-shop">
-           
+          {{-- <div class="col-lg-9 col-md-7" id="product-shop"> --}}
+            @foreach ($produks as $produk)
+            <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+                <div class="featured__item">
+                    <div class="featured__item__pic set-bg"
+                        data-setbg="{{ asset('storage/gambar/' . $produk->produkgaleri->url) }}">
+                        <ul class="featured__item__pic__hover">
+                            <li>
+                                <a href="#"><i class="fa fa-heart"></i></a>
+                            </li>
+                            <li>
+                                {{-- <a href="#"><i class="fa fa-shopping-cart"></i></a> --}}
+                                <a href="{{ route('cart.add', ['id' => $produk->id]) }}"><i class="fa fa-shopping-cart"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="featured__item__text">
+                        <h6><a href="#">{{ $produk->name }}</a></h6>
+                        <h5>{{ $produk->price }}</h5>
+                    </div>
+                </div>
+            </div>
+        @endforeach
           </div>
         </div>
       </div>

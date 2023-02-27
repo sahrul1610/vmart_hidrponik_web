@@ -1,7 +1,7 @@
 <nav class="header__menu">
     <ul>
-        <li class="active"><a href="/">Home</a></li>
-        <li><a href=" ">Shop</a></li>
+        <li class="{{request()->is('home')? 'active' : ''}}"><a href="{{route('home')}}">Home</a></li>
+        <li class="{{request()->is('shop')? 'active' : ''}}"><a href="{{route('shop')}}">Shop</a></li>
         <li>
             <a href="#">Categories</a>
             <ul class="header__menu__dropdown">

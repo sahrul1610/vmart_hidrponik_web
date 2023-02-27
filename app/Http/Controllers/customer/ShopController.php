@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\customer;
+
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Produk;
 use App\Models\Kategori;
 use App\Models\Produkgaleri;
 use Illuminate\Support\Facades\Session;
 
-use Illuminate\Http\Request;
-
-class HomeController extends Controller
+class ShopController extends Controller
 {
     public function index(){
 
@@ -20,7 +20,7 @@ class HomeController extends Controller
         $menu_categories = Kategori::all();
         $cart = Session::get('cart', []);
         // Mengirim data produk ke view untuk ditampilkan
-        return view('frontend.homepage', compact('produks','menu_categories', 'cart'));
+        return view('frontend.shop.index', compact('produks','menu_categories', 'cart'));
         // return view('frontend.homepage');
     }
 }

@@ -10,8 +10,7 @@
     <title>Ogani | Template</title>
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" />
@@ -43,15 +42,15 @@
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-shopping-bag"></i> <span>
-                        {{-- {{ $cartCount }} --}}
-                    cobs
-                    </span></a>
+                            {{-- {{ $cartCount }} --}}
+                            cobs
+                        </span></a>
                 </li>
             </ul>
             <div class="header__cart__price">item: <span>$
-                {{-- {{ $cartTotal }} --}}
-                coba
-            </span></div>
+                    {{-- {{ $cartTotal }} --}}
+                    coba
+                </span></div>
         </div>
         <div class="humberger__menu__widget">
             @guest
@@ -170,12 +169,18 @@
                             <li>
                                 {{-- <a href="{{ route('cart.index') }}"><i class="fa fa-shopping-bag"></i>
                                     <span>{{ $cartCount }}</span></a> --}}
-                                    <a href="">aaaaa</a>
+                                    <a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i>
+                                        @if (session()->has('cart'))
+                                        <span>{{ count(session()->get('cart')) }}</span>
+                                        @else
+                                        <span>0</span>
+                                        @endif
+                                    </a>
                             </li>
                         </ul>
                         <div class="header__cart__price">item: <span>
-                            {{-- ${{ $cartTotal }} --}}
-                        </span></div>
+                                {{-- ${{ $cartTotal }} --}}
+                            </span></div>
                     </div>
                 </div>
             </div>

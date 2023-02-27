@@ -59,7 +59,14 @@
                                         <a href="#"><i class="fa fa-heart"></i></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                        {{-- <a href="{{ route('cart.add') }}"><i class="fa fa-shopping-cart"></i></a> --}}
+                                        {{-- <form action="{{ route('cart.add') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $produk->id }}">
+                                            <button type="submit"><i class="fa fa-shopping-cart"></i></button>
+                                        </form> --}}
+                                        {{-- <a href="{{ route('cart.add'/{{ $produk->id }}) }}"><i class="fa fa-shopping-cart"></i></a> --}}
+                                        <a href="{{ route('cart.add', ['id' => $produk->id]) }}"><i class="fa fa-shopping-cart"></i></a>
                                     </li>
                                 </ul>
                             </div>
