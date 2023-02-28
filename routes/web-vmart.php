@@ -66,6 +66,9 @@ Route::middleware(['user', 'auth'])->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/checkout', [CartController::class, 'checkoutIndex'])->name('cart.checkout');
+    Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
+
 
     // Route::patch('/cart/update', 'CartController@update')->name('cart.update');
 });

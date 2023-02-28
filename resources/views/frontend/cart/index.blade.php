@@ -135,7 +135,7 @@
                                 <li>Tax <span>${{ Cart::tax() }}</span></li>
                                 <li>Total <span>${{ Cart::total() }}</span></li> --}}
                             </ul>
-                            <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                            <a href="{{ route('cart.checkout') }}" class="primary-btn">PROCEED TO CHECKOUT</a>
                         </div>
                     </div>
                 </div>
