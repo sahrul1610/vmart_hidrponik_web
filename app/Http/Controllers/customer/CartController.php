@@ -53,6 +53,13 @@ class CartController extends Controller
         return view('frontend.order.checkout', compact('cart'));
     }
 
+    public function payment()
+    {
+        $cart = Session::get('cart', []);
+        ($cart);
+        return view('frontend.order.payment');
+    }
+
 
     public function remove(Request $request)
     {
@@ -67,90 +74,73 @@ class CartController extends Controller
         }
     }
 
-
-    // public function checkout(Request $request)
-    // {
-
-    //     $request->validate([
-    //         'address' => 'required',
-    //         'total_price' => 'required|numeric',
-    //         'shipping' => 'required|numeric'
-    //     ]);
-
-    //     $cart = Session::get('cart', []);
-    //     var_dump($cart); exit;
-    //     if (empty($cart)) {
-    //         return redirect()->back()->with('error', 'Keranjang belanja kosong.');
-    //     }
-
-    //     $user_id = auth()->user()->id;
-
-    //     $transaction = auth()->user()->transactions()->create([
-    //         'user_id' => $user_id,
-    //         'address' => $request->address,
-    //         'total_price' => $request->total_price,
-    //         'shipping' => $request->shipping_price,
-    //         'status' => 'pending',
-    //         'payment' => 'not paid'
-    //     ]);
-
-    //     $transaction_id = $transaction->id;
-
-    //     foreach ($cart as $item) {
-    //         $transaction->transactionItems()->create([
-    //             'transactions_id' => $transaction_id,
-    //             'products_id' => $item['id'],
-    //             'quantity' => $item['quantity']
-    //         ]);
-    //     }
-    //     dd($transaction);
-    //     Session::forget('cart');
-
-    //     return redirect()->route('shop')->with('success', 'Transaksi berhasil.');
-    // }
-
     public function checkout(Request $request)
     {
 
-            $request->validate([
+        $request->validate([
             'address' => 'required',
             'total_price' => 'required|numeric',
             'shipping_price' => 'required|numeric'
-            ]);
-            //dd($request);
+        ]);
+        //dd($request);
 
-            $cart = Session::get('cart', []);
+        $cart = Session::get('cart', []);
 
-            if (empty($cart)) {
-                return redirect()->back()->with('error', 'Keranjang belanja kosong.');
-            }
+        if (empty($cart)) {
+            return redirect()->back()->with('error', 'Keranjang belanja kosong.');
+        }
 
-            $user_id = auth()->user()->id;
+        $user_id = auth()->user()->id;
 
-            $transaction = new Transaksi;
-            $transaction->user_id = $user_id;
-            $transaction->address = $request->address;
-            $transaction->total_price = $request->total_price;
-            $transaction->shipping_price = $request->shipping_price;
-            $transaction->status = 'pending';
-            $transaction->payment = 'not paid';
-            $transaction->save();
+        $transaction = new Transaksi;
+        $transaction->user_id = $user_id;
+        $transaction->address = $request->address;
+        $transaction->total_price = $request->total_price;
+        $transaction->shipping_price = $request->shipping_price;
+        $transaction->status = 'pending';
+        $transaction->payment = 'not paid';
+        $transaction->save();
 
-            $transaction_id = $transaction->id;
+        $transaction_id = $transaction->id;
 
-            foreach ($cart as $item) {
-                $transactionItem = new TransaksiItem;
-                $transactionItem->user_id = $user_id;
-                $transactionItem->products_id = $item['id'];
-                $transactionItem->transactions_id = $transaction_id;
-                $transactionItem->quantity = $item['quantity'];
-                $transactionItem->save();
-            }
+        foreach ($cart as $item) {
+            $transactionItem = new TransaksiItem;
+            $transactionItem->user_id = $user_id;
+            $transactionItem->products_id = $item['id'];
+            $transactionItem->transactions_id = $transaction_id;
+            $transactionItem->quantity = $item['quantity'];
+            $transactionItem->save();
+        }
 
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = env("MIDTRANS_SERVER_KEY");
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
 
-            Session::forget('cart');
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => $transaction_id,
+                'gross_amount' => 5000,
+            ),
+            'customer_details' => array(
+                'first_name' => auth()->user()->name,
+                'email' => auth()->user()->email,
+                // 'phone' => auth()->user()->phone,
+            ),
+        );
 
-            return redirect()->route('shop')->with('success', 'Transaksi berhasil.');
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        //dd($snapToken);
+        Session::forget('cart');
+
+        //return view('frontend.order.checkout', compact('cart'),['snap_token'=>$snapToken]);
+        //return redirect()->to(\Midtrans\Snap::createTransactionUrl($snapToken))->with('success', 'Transaksi berhasil.');
+        // return redirect()->route('shop')->with('success', 'Transaksi berhasil.');
+        return view("frontend.order.payment", ['snap_token'=>$snapToken, 'transaction' => $transaction]);
     }
 
 }
