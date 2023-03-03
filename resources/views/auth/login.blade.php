@@ -11,11 +11,11 @@
         crossorigin="anonymous" />
 
 
-    <link rel="stylesheet" href="{{ url('/template') }}/plugins/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('template') }}/plugins/bootstrap/dist/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="{{ url('/template') }}//assets/css/style.css">
-    <!-- <link rel="stylesheet" href="{{ url('/template') }}/plugins/themify-icons/themify-icons.css"> -->
-    <link rel="stylesheet" href="{{ url('/template') }}//assets/css/bootstrap-override.css">
+    <link rel="stylesheet" href="{{ asset('template') }}/assets/css/style.css">
+    <!-- <link rel="stylesheet" href="{{ asset('template') }}/plugins/themify-icons/themify-icons.css"> -->
+    <link rel="stylesheet" href="{{ asset('template') }}/assets/css/bootstrap-override.css">
 
 
 </head>
@@ -94,6 +94,6 @@
         </div>
     </div>
 </section>
-<script src="{{ url('/template') }}//assets/js/login.js"></script>
+<script src="https://d0aa-2001-448a-3010-adf6-146e-85e4-7314-32a0.ap.ngrok.io/login/assets/js/login.js"></script>
 </body>
 </html>

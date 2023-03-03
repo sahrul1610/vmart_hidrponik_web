@@ -7,7 +7,9 @@ use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\TransaksiItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Models\User;
 
 class CartController extends Controller
 {
@@ -101,6 +103,7 @@ class CartController extends Controller
         $transaction->payment = 'not paid';
         $transaction->save();
 
+
         $transaction_id = $transaction->id;
 
         foreach ($cart as $item) {
@@ -112,7 +115,28 @@ class CartController extends Controller
             $transactionItem->save();
         }
 
+        $user_id = session()->put("user_id", Auth::user()->id);
+        $session = session()->put("transaksi_id", $transaction->id);
+
         // Set your Merchant Server Key
+
+        //dd($snapToken);
+        Session::forget('cart');
+
+        //return view('frontend.order.checkout', compact('cart'),['snap_token'=>$snapToken]);
+        //return redirect()->to(\Midtrans\Snap::createTransactionUrl($snapToken))->with('success', 'Transaksi berhasil.');
+        // return redirect()->route('shop')->with('success', 'Transaksi berhasil.');
+        return redirect("/checkout/". $transaction->id)->with($session, $user_id);
+    }
+
+    public function checkout_by_id($id)
+    {
+        $data["transaksi_id"] = session()->get("transaksi_id");
+        $data["user_id"] = session()->get("user_id");
+
+        $ambil_data = Transaksi::where("id", $data["transaksi_id"])->first();
+        $ambil_user = User::where("id", $data["user_id"])->first();
+
         \Midtrans\Config::$serverKey = env("MIDTRANS_SERVER_KEY");
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
         \Midtrans\Config::$isProduction = false;
@@ -123,45 +147,43 @@ class CartController extends Controller
 
         $params = array(
             'transaction_details' => array(
-                'order_id' => $transaction_id,
-                'gross_amount' => $request->total_price,
+                'order_id' => $data["transaksi_id"],
+                'gross_amount' => $ambil_data["total_price"],
             ),
             'customer_details' => array(
-                'first_name' => auth()->user()->name,
-                'email' => auth()->user()->email,
+                'first_name' => $ambil_user->name,
+                'email' => $ambil_user->email,
                 // 'phone' => auth()->user()->phone,
             ),
         );
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
-        //dd($snapToken);
-        Session::forget('cart');
 
-        //return view('frontend.order.checkout', compact('cart'),['snap_token'=>$snapToken]);
-        //return redirect()->to(\Midtrans\Snap::createTransactionUrl($snapToken))->with('success', 'Transaksi berhasil.');
-        // return redirect()->route('shop')->with('success', 'Transaksi berhasil.');
-        return view("frontend.order.payment", ['snap_token'=>$snapToken, 'transaction' => $transaction]);
+        return view("frontend.order.payment", ['snap_token'=>$snapToken, 'transaction' => $ambil_data]);
     }
 
-    // public function callback(Request $request){
-    //     $serverKey = env("MIDTRANS_SERVER_KEY");
-    //     $hashed = hash('sha512', $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
-    //     if($hashed == $request->signature_key);
-    // }
+    public function post_checkout(Request $request)
+    {
+        $json = json_decode($request->payment);
+
+        $signature_hashed = hash("sha512", $json->order_id . $json->status_code . $json->gross_amount . env("MIDTRANS_SERVER_KEY"));
+        // die();
+        $order = Transaksi::where("id", $json->order_id)->first();
+
+        return $order->update(["status" => $json->transaction_status]);
+        // Rumus : Order - ID , Status Code, Gross Amount, ServerKey
+        // echo $request->payment;
+    }
 
     public function callback(Request $request){
-        $serverKey = env("MIDTRANS_SERVER_KEY");
-        $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
-        if($hashed == $request->signature_key){
-            if($request->transaction_status == 'capture'){
-                $transaksi = Transaksi::find($request->id);
-                $transaksi->update(['status' => 'Paid']);
-            }
-        }
-    }
-    public function invoice($id){
-        $order = Order::find($id);
-        return view('invoice', compact('order'));
+        $Transaksi = Transaction::findOrFail($request->id);
+
+        $Transaksi = new Transaksi;
+        $Transaksi->payment = $request->payment;
+        $Transaksi->update();
+        // $serverKey = env("MIDTRANS_SERVER_KEY");
+        $hashed = hash('sha512', $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
+        // if($hashed == $request->signature_key);
     }
 
 }
