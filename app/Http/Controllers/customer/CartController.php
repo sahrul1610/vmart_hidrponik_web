@@ -162,43 +162,43 @@ class CartController extends Controller
         return view("frontend.order.payment", ['snap_token'=>$snapToken, 'transaction' => $ambil_data]);
     }
 
-    // public function post_checkout(Request $request)
-    // {
-    //     $json = json_decode($request->payment);
-
-    //     $signature_hashed = hash("sha512", $json->order_id . $json->status_code . $json->gross_amount . env("MIDTRANS_SERVER_KEY"));
-    //     // die();
-    //     $order = Transaksi::where("id", $json->order_id)->first();
-
-    //     return $order->update(["status" => $json->transaction_status]);
-    //     // Rumus : Order - ID , Status Code, Gross Amount, ServerKey
-    //     // echo $request->payment;
-
-    // }
     public function post_checkout(Request $request)
     {
-        try {
-            $json = json_decode($request->payment);
+        $json = json_decode($request->payment);
 
-            $signature_hashed = hash("sha512", $json->order_id . $json->status_code . $json->gross_amount . env("MIDTRANS_SERVER_KEY"));
+        $signature_hashed = hash("sha512", $json->order_id . $json->status_code . $json->gross_amount . env("MIDTRANS_SERVER_KEY"));
+        // die();
+        $order = Transaksi::where("id", $json->order_id)->first();
 
-            $order = Transaksi::where("id", $json->order_id)->first();
-            if (!$order) {
-                throw new Exception("Order not found");
-            }
+        return $order->update(["status" => $json->transaction_status]);
+        // Rumus : Order - ID , Status Code, Gross Amount, ServerKey
+        // echo $request->payment;
 
-            $order->update(["status" => $json->transaction_status]);
-
-            return response()->json([
-                'status' => 'success'
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 400);
-        }
     }
+    // public function post_checkout(Request $request)
+    // {
+    //     try {
+    //         $json = json_decode($request->payment);
+
+    //         $signature_hashed = hash("sha512", $json->order_id . $json->status_code . $json->gross_amount . env("MIDTRANS_SERVER_KEY"));
+
+    //         $order = Transaksi::where("id", $json->order_id)->first();
+    //         if (!$order) {
+    //             throw new Exception("Order not found");
+    //         }
+
+    //         $order->update(["status" => $json->transaction_status]);
+
+    //         return response()->json([
+    //             'status' => 'success'
+    //         ]);
+    //     } catch (Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => $e->getMessage()
+    //         ], 400);
+    //     }
+    // }
 
 
     public function callback(Request $request){
