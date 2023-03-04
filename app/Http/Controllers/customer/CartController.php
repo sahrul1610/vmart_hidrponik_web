@@ -228,9 +228,9 @@ class CartController extends Controller
     //         }
     //     }
     // }
-    // public function invoice($id){
-    //     $order = Order::find($id);
-    //     return view('invoice', compact('order'));
-    // }
+    public function invoice($id){
+        $transaction = Transaksi::find($id);
+        return view('frontend.order.invoice', compact('transaction'));
+    }
 
 }

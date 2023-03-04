@@ -73,6 +73,7 @@ Route::middleware(['user', 'auth'])->group(function () {
     Route::get("/checkout/{id}", [CartController::class, "checkout_by_id"]);
     Route::get('/payment', [CartController::class, 'payment'])->name('payment');
     Route::post('/checkout/{id}', [CartController::class, 'post_checkout']);
+    Route::get('/invoice/{id}', [CartController::class, 'invoice'])->name('invoice');
 
 
     // Route::patch('/cart/update', 'CartController@update')->name('cart.update');

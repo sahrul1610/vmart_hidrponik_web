@@ -151,8 +151,9 @@
             window.snap.pay('{{ $snap_token }}', {
                 onSuccess: function(result) {
                     /* You may add your own implementation here */
+                    window.location.href = '/invoice/{{$transaction->id}}'
                     console.log(result);
-                    send_response_to_form(result);
+                    //send_response_to_form(result);
                 },
                 onPending: function(result) {
                     /* You may add your own implementation here */
