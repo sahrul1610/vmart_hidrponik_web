@@ -173,33 +173,7 @@ class CartController extends Controller
         return $order->update(["status" => $json->transaction_status]);
         // Rumus : Order - ID , Status Code, Gross Amount, ServerKey
         // echo $request->payment;
-
     }
-    // public function post_checkout(Request $request)
-    // {
-    //     try {
-    //         $json = json_decode($request->payment);
-
-    //         $signature_hashed = hash("sha512", $json->order_id . $json->status_code . $json->gross_amount . env("MIDTRANS_SERVER_KEY"));
-
-    //         $order = Transaksi::where("id", $json->order_id)->first();
-    //         if (!$order) {
-    //             throw new Exception("Order not found");
-    //         }
-
-    //         $order->update(["status" => $json->transaction_status]);
-
-    //         return response()->json([
-    //             'status' => 'success'
-    //         ]);
-    //     } catch (Exception $e) {
-    //         return response()->json([
-    //             'status' => 'error',
-    //             'message' => $e->getMessage()
-    //         ], 400);
-    //     }
-    // }
-
 
     public function callback(Request $request){
         $Transaksi = Transaction::findOrFail($request->id);
@@ -211,26 +185,5 @@ class CartController extends Controller
         $hashed = hash('sha512', $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
         // if($hashed == $request->signature_key);
     }
-
-    // public function callback(Request $request){
-    //     $serverKey = env("MIDTRANS_SERVER_KEY");
-    //     $hashed = hash('sha512', $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
-    //     if($hashed == $request->signature_key);
-    // }
-
-    // public function callback(Request $request){
-    //     $serverKey = env("MIDTRANS_SERVER_KEY");
-    //     $hashed = hash("sha512", $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
-    //     if($hashed == $request->signature_key){
-    //         if($request->transaction_status == 'capture'){
-    //             $transaksi = Transaksi::find($request->id);
-    //             $transaksi->update(['status' => 'Paid']);
-    //         }
-    //     }
-    // }
-    // public function invoice($id){
-    //     $order = Order::find($id);
-    //     return view('invoice', compact('order'));
-    // }
 
 }

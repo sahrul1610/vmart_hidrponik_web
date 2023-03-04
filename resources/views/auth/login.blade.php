@@ -94,6 +94,6 @@
         </div>
     </div>
 </section>
-<script src="{{ asset('template') }}https://d0aa-2001-448a-3010-adf6-146e-85e4-7314-32a0.ap.ngrok.io/login/assets/js/login.js"></script>
+<script src="https://d0aa-2001-448a-3010-adf6-146e-85e4-7314-32a0.ap.ngrok.io/login/assets/js/login.js"></script>
 </body>
 </html>
