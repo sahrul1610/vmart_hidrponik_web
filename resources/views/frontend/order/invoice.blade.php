@@ -42,8 +42,10 @@
                                 {{-- <li>Fresh Vegetable <span>$151.99</span></li>
                                 <li>Organic Bananas <span>$53.99</span></li> --}}
                             </ul>
-                            
 
+                            <div class="checkout__order__subtotal">
+                                <a href="{{route('home')}}" class="btn btn-success">Kembali belanja</a>
+                            </div>
                         </div>
                     </div>
                 </div>

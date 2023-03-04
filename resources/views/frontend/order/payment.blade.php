@@ -99,9 +99,11 @@
                             Products <span>Total</span>
                         </div>
                         <ul>
-                            <li>{{ $transaction->total_price}}<span>$75.99</span></li>
-                            <li>{{ $transaction->total_price}}<span>$75.99</span></li>
-                            <li>{{ $transaction->total_price}}<span>$75.99</span></li>
+                            <li>nama<span>{{ $transaction->user->name }}</span></li>
+                            <li>Alamat<span>{{ $transaction->address }}</span></li>
+                            <li>total<span>{{ $transaction->total_price }}</span></li>
+                            <li>pembayaran<span>{{ $transaction->payment }}</span></li>
+                            <li>status<span>{{ $transaction->status }}</span></li>
                             {{-- <li>Fresh Vegetable <span>$151.99</span></li>
                                 <li>Organic Bananas <span>$53.99</span></li> --}}
                             </ul>
@@ -151,9 +153,9 @@
             window.snap.pay('{{ $snap_token }}', {
                 onSuccess: function(result) {
                     /* You may add your own implementation here */
-                    window.location.href = '/invoice/{{$transaction->id}}'
                     console.log(result);
-                    //send_response_to_form(result);
+                    send_response_to_form(result);
+                    //window.location.href = '/invoice/{{ $transaction->id }}';
                 },
                 onPending: function(result) {
                     /* You may add your own implementation here */

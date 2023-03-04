@@ -170,10 +170,11 @@ class CartController extends Controller
         // die();
         $order = Transaksi::where("id", $json->order_id)->first();
 
-        return $order->update(["status" => $json->transaction_status]);
+        $order->update(["status" => 'paid', 'payment' => $json->transaction_status]);
         // Rumus : Order - ID , Status Code, Gross Amount, ServerKey
         // echo $request->payment;
-
+        //return redirect('/invoice/' . $order->id);
+        return redirect('/invoice/' . encrypt($order->id));
     }
     // public function post_checkout(Request $request)
     // {
@@ -199,6 +200,13 @@ class CartController extends Controller
     //         ], 400);
     //     }
     // }
+    public function invoice($id){
+        $decryptedId = decrypt($id);
+        $transaction = Transaksi::find($decryptedId);
+        return view('frontend.order.invoice', compact('transaction'));
+        // $transaction = Transaksi::find($id);
+        // return view('frontend.order.invoice', compact('transaction'));
+    }
 
 
     public function callback(Request $request){
@@ -228,9 +236,6 @@ class CartController extends Controller
     //         }
     //     }
     // }
-    public function invoice($id){
-        $transaction = Transaksi::find($id);
-        return view('frontend.order.invoice', compact('transaction'));
-    }
+
 
 }
