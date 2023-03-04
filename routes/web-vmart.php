@@ -68,7 +68,11 @@ Route::middleware(['user', 'auth'])->group(function () {
     Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/checkout', [CartController::class, 'checkoutIndex'])->name('cart.checkout');
     Route::post('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    //Route::post('/mitrans-callback', [CartController::class, 'callback'])->name('callback');
+
+    Route::get("/checkout/{id}", [CartController::class, "checkout_by_id"]);
     Route::get('/payment', [CartController::class, 'payment'])->name('payment');
+    Route::post('/checkout/{id}', [CartController::class, 'post_checkout']);
 
 
     // Route::patch('/cart/update', 'CartController@update')->name('cart.update');

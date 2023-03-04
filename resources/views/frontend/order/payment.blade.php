@@ -126,9 +126,9 @@
                                 </label>
                             </div> -->
                             {{-- <button type="submit" class="site-btn" id="pay_button">PLACE ORDER</button> --}}
-                            <form action="" id="submit_form" method="POST">
+                            <form id="submit_form" method="POST">
                                 @csrf
-                                <input type="hidden" name="json" id="json_callback">
+                                <input type="hidden" name="payment" value="{{$transaction->id}}" id="json_callback">
                             </form>
                             <button style="display: inline; border-radius: 5px;" class="btn btn-warning btn-sm center px-3" id="pay-button"><i class="fa fa-shopping-cart"></i> Checkout!</button>
                         </div>
@@ -170,6 +170,10 @@
                 }
             })
         });
+        function send_response_to_form(result) {
+            document.getElementById('json_callback').value = JSON.stringify(result);
+            $('#submit_form').submit();
+        }
     </script>
     {{-- <script type="text/javascript">
         var payButton = document.getElementById('pay-button');
