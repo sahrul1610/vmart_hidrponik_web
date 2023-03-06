@@ -76,6 +76,8 @@ class CartController extends Controller
         }
     }
 
+    //semua kode program di bawah ini sudah di pindahkan ke OrderController
+
     public function checkout(Request $request)
     {
 
@@ -92,10 +94,10 @@ class CartController extends Controller
             return redirect()->back()->with('error', 'Keranjang belanja kosong.');
         }
 
-        $user_id = auth()->user()->id;
+        $users_id = auth()->user()->id;
 
         $transaction = new Transaksi;
-        $transaction->user_id = $user_id;
+        $transaction->users_id = $users_id;
         $transaction->address = $request->address;
         $transaction->total_price = $request->total_price;
         $transaction->shipping_price = $request->shipping_price;
@@ -108,14 +110,14 @@ class CartController extends Controller
 
         foreach ($cart as $item) {
             $transactionItem = new TransaksiItem;
-            $transactionItem->user_id = $user_id;
+            $transactionItem->users_id = $users_id;
             $transactionItem->products_id = $item['id'];
             $transactionItem->transactions_id = $transaction_id;
             $transactionItem->quantity = $item['quantity'];
             $transactionItem->save();
         }
 
-        $user_id = session()->put("user_id", Auth::user()->id);
+        $users_id = session()->put("users_id", Auth::user()->id);
         $session = session()->put("transaksi_id", $transaction->id);
 
         // Set your Merchant Server Key
@@ -126,16 +128,16 @@ class CartController extends Controller
         //return view('frontend.order.checkout', compact('cart'),['snap_token'=>$snapToken]);
         //return redirect()->to(\Midtrans\Snap::createTransactionUrl($snapToken))->with('success', 'Transaksi berhasil.');
         // return redirect()->route('shop')->with('success', 'Transaksi berhasil.');
-        return redirect("/checkout/". $transaction->id)->with($session, $user_id);
+        return redirect("/checkout/". $transaction->id)->with($session, $users_id);
     }
 
     public function checkout_by_id($id)
     {
         $data["transaksi_id"] = session()->get("transaksi_id");
-        $data["user_id"] = session()->get("user_id");
+        $data["users_id"] = session()->get("users_id");
 
         $ambil_data = Transaksi::where("id", $data["transaksi_id"])->first();
-        $ambil_user = User::where("id", $data["user_id"])->first();
+        $ambil_user = User::where("id", $data["users_id"])->first();
 
         \Midtrans\Config::$serverKey = env("MIDTRANS_SERVER_KEY");
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
@@ -208,6 +210,15 @@ class CartController extends Controller
         // return view('frontend.order.invoice', compact('transaction'));
     }
 
+    public function showMyOrders()
+    {
+        $users_id = auth()->user()->id;
+        //$transactions = Transaksi::where('users_id', $users_id)->with('transactionItems.product')->get();
+        //$transaction_items = $transactions->transactionItems()->with('product')->get();
+        $transactions = Transaksi::with('transactionItems.product')->where('users_id', $users_id)->get();
+
+        return view('frontend.order.myorders', compact('transactions'));
+    }
 
     public function callback(Request $request){
         $Transaksi = Transaction::findOrFail($request->id);

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
+            $table->bigInteger('users_id');
             $table->text('address');
             $table->double('total_price');
             $table->double('shipping_price');

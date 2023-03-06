@@ -44,6 +44,9 @@
                             </ul>
 
                             <div class="checkout__order__subtotal">
+                                <a href="{{ route('invoice.export', $transaction->id) }}" target="_blank" class="btn btn-primary">Export to PDF</a>
+                            </div>
+                            <div class="checkout__order__subtotal">
                                 <a href="{{route('home')}}" class="btn btn-success">Kembali belanja</a>
                             </div>
                         </div>

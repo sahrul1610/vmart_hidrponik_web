@@ -16,6 +16,12 @@ class Transaksi extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        // return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'users_id');
+    }
+
+    public function transactionItems()
+    {
+        return $this->hasMany(TransaksiItem::class, 'transactions_id');
     }
 }
