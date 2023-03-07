@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kategori;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -80,11 +81,31 @@ class KategoriProdukController extends Controller
        return redirect()->route('kategori')->with('sukses','data berhasil di ubah');
     }
 
+    // public function hapus1(Request $request)
+    // {
+    //     kategori::where("id", $request->id)->delete();
+    //     //return response()->json('Program deleted successfully');
+    //     return redirect()->route('kategori')->with('sukses','data berhasil di hapus');
+    // }
+
     public function hapus(Request $request)
     {
-        kategori::where("id", $request->id)->delete();
+        $id = $request->id;
+        $kategori = kategori::find($id);
 
-        //return response()->json('Program deleted successfully');
-        return redirect()->route('kategori')->with('sukses','data berhasil di hapus');
+        if (!$kategori) {
+            return redirect()->route('kategori')->with('gagal', 'Kategori tidak ditemukan');
+        }
+
+        // cek apakah kategori terkait sudah ada di tabel produk
+        $productCount = Produk::where('categories_id', $id)->count();
+
+        if ($productCount > 0) {
+            return redirect()->route('kategori')->with('gagal', 'Kategori terkait masih digunakan di produk');
+        }
+
+        $kategori->delete();
+
+        return redirect()->route('kategori')->with('sukses', 'Kategori berhasil dihapus');
     }
 }

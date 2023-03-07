@@ -145,6 +145,7 @@
                                                     <th>No</th>
                                                     <th>Name</th>
                                                     <th>Harga</th>
+                                                    <th>Kategori</th>
                                                     <th>Deskripsi</th>
                                                     <th>Tag</th>
                                                     <th>Gambar</th>
@@ -158,6 +159,7 @@
                                                         <td>{{ $no++ }}</td>
                                                         <td>{{ $dt->name }}</td>
                                                         <td>{{ $dt->price }}</td>
+                                                        <td>{{ $dt->getKategori->name }}</td>
                                                         <td>{{ $dt->description }}</td>
                                                         <td>{{ $dt->tags }}</td>
                                                         <td>

@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('tags');
             $table->bigInteger('categories_id');
             $table->timestamps();
+
+            // $table->foreign('categories_id')->references('id')->on('product_categories')->onDelete('restrict');
         });
     }
 

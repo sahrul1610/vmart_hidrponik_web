@@ -55,7 +55,7 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
                                     type="button" role="tab" aria-controls="profile"
-                                    aria-selected="true">Transaksi Item</button>
+                                    aria-selected="true">Transaksi</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
@@ -82,8 +82,6 @@
                                                     <th>shipping</th>
                                                     <th>status</th>
                                                     <th>pembayaran</th>
-
-
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -96,7 +94,6 @@
                                                         <td>{{ number_format($transaction->shipping_price) }}</td>
                                                         <td>{{ $transaction->status }}</td>
                                                         <td>{{ $transaction->payment }}</td>
-
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -115,22 +112,25 @@
                                         <table id="example" class="display nowrap" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Pemesan</th>
-                                                    <th>Product Name</th>
-                                                    <th>Price</th>
-                                                    <th>Quantity</th>
-                                                    <th>Total</th>
+                                                    <th>No</th>
+                                                    <th>Name</th>
+                                                    <th>total</th>
+                                                    <th>shipping</th>
+                                                    <th>status</th>
+                                                    <th>pembayaran</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                @foreach($transaction->transactionItems as $item)
+                                                @foreach($transactions as $transaction)
                                                     <tr>
-                                                        <td>{{ $item->product->name }}</td>
-                                                        <td>{{ $item->user->name }}</td>
-                                                        <td>{{ number_format($item->product->price) }}</td>
-                                                        <td>{{ $item->quantity }}</td>
-                                                        <td>{{ number_format($item->product->price * $item->quantity) }}</td>
+                                                        <td>{{ $no++ }}</td>
+                                                        <td>{{ $transaction->user->name }}</td>
+                                                        <td>{{ number_format($transaction->total_price) }}</td>
+                                                        <td>{{ number_format($transaction->shipping_price) }}</td>
+                                                        <td>{{ $transaction->status }}</td>
+                                                        <td>{{ $transaction->payment }}</td>
+
                                                     </tr>
                                                 @endforeach
                                             </tbody>
