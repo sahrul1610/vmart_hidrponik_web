@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::middleware(['admin','auth'])->group(function () {
 
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
     Route::get('/produk/add', [ProdukController::class, 'add']);
     Route::get('/produk/edit/{id}', [ProdukController::class, 'edit']);
@@ -49,7 +49,7 @@ Route::get('/login', [LoginController::class, 'login'])->name('login')->middlewa
 Route::post('/auth', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/logout', [LoginController::class, 'logout']);
-
+Route::get('/', [HomeController::class, 'index'])->middleware('guest');
 Route::get('/login/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/login/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 // Route::get('/login/google', 'LoginController@redirectToGoogle');
@@ -63,6 +63,7 @@ Route::middleware(['user', 'auth'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+    Route::get('/shop/detail/{id}', [ShopController::class, 'detail'])->name('shop.detail');
     Route::get('/cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');

@@ -71,7 +71,7 @@
                                 </ul>
                             </div>
                             <div class="featured__item__text">
-                                <h6><a href="#">{{ $produk->name }}</a></h6>
+                                <h6><a href="{{ route('shop.detail', ['id' => $produk->id]) }}">{{ $produk->name }}</a></h6>
                                 <h5>{{ $produk->price }}</h5>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 <ul>
     <li class="{{request()->is('dashboard')? 'active' : ''}}">
-        <a href="{{url('/')}}" class="link">
+        <a href="{{url('/dashboard')}}" class="link">
             <i class="ti-home"></i>
             <span>Dashboard</span>
         </a>

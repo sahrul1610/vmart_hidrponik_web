@@ -23,4 +23,13 @@ class ShopController extends Controller
         return view('frontend.shop.index', compact('produks','menu_categories', 'cart'));
         // return view('frontend.homepage');
     }
+
+    public function detail($id){
+        $produks = Produk::with('produkgaleri')->find($id);
+        $menu_categories = Kategori::all();
+        $cart = Session::get('cart', []);
+        // Mengirim data produk ke view untuk ditampilkan
+        return view('frontend.shop.shop_detail', compact('produks','menu_categories', 'cart'));
+        //return view('frontend.shop.shop_detail');
+    }
 }
