@@ -11,7 +11,7 @@ class PenggunaController extends Controller
 {
     public function index(){
         $data = [
-            "data" => User::orderBy("id", "DESC")->get()
+            "data" => User::orderBy("id", "DESC")->where('roles', 'USER')->get()
         ];
         return view('admin.user.pengguna', $data);
     }
