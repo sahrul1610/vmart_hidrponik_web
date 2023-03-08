@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Produk;
 use App\Models\Produkgaleri;
 use App\Models\Kategori;
+use App\Models\TransaksiItem;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProdukRequest;
 use Illuminate\Support\Facades\Storage; // tambahkan ini
@@ -258,11 +259,18 @@ class ProdukController extends Controller
 
     public function hapus(Request $request)
     {
-        $produk = Produk::findOrFail($request->id);
+        $id = $request->id;
+        $produk = Produk::findOrFail($id);
         $oldImage = $produk->produkgaleri->url ?? null;
 
         if ($oldImage != null) {
             Storage::delete('public/gambar/' . $oldImage);
+        }
+
+        $transaksiCount = TransaksiItem::where('products_id', $id)->count();
+
+        if ($transaksiCount > 0) {
+            return redirect()->route('produk')->with('gagal', 'Produk terkait masih digunakan di transaksi');
         }
 
         $produk->delete();

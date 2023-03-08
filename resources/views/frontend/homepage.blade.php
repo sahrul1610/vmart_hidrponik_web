@@ -26,7 +26,7 @@
 
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="{{ asset('storage/gambar/' . $produk->produkgaleri->url) }}">
-                            <h5><a href="#">{{$produk->name}}</a></h5>
+                            <h5><a href="{{ route('shop.detail', ['id' => $produk->id]) }}">{{$produk->name}}</a></h5>
                         </div>
                     </div>
 

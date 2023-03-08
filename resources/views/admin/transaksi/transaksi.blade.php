@@ -57,21 +57,17 @@
                                     type="button" role="tab" aria-controls="profile"
                                     aria-selected="true">Transaksi</button>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
-                                    type="button" role="tab" aria-controls="contact"
-                                    aria-selected="false">Contact</button>
-                            </li>
+
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="Produk" role="tabpanel"
                                 aria-labelledby="Produk-tab">
                                 <div class="card-body">
-                                    <p>
+                                    {{-- <p>
                                         <a href="{{ url('produk/add') }}" class="btn btn-primary">
                                             <i class="ti-plus"></i>
                                             Tambah</a>
-                                    </p>
+                                    </p> --}}
                                     <div class="table-responsive">
                                         <table id="example2" class="display nowrap" style="width:100%">
                                             <thead>
@@ -103,11 +99,11 @@
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="card-body">
-                                    <p>
+                                    {{-- <p>
                                         <a href="{{ url('produk/add') }}" class="btn btn-primary">
                                             <i class="ti-plus"></i>
                                             Tambah</a>
-                                    </p>
+                                    </p> --}}
                                     <div class="table-responsive">
                                         <table id="example" class="display nowrap" style="width:100%">
                                             <thead>
@@ -138,9 +134,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                Lorem ipsum dolor sit amet.
-                            </div>
+
                         </div>
                     </div>
                 </div>

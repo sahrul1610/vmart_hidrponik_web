@@ -208,7 +208,7 @@
                 </a>
             </div>
             <div class="sidebar-header">
-                <div class="text">AR</div>
+                <div class="text">VMART</div>
                 <div class="close-sidebar action-toggle">
                     <i class="ti-close"></i>
                 </div>

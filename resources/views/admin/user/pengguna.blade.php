@@ -7,10 +7,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Responsive</h4>
+                    <h4>Customer</h4>
                 </div>
                 <div class="card-body">
-                    <p class="form-text mb-2">Datatables also provide responsive table</p>
+                    {{-- <p class="form-text mb-2">Datatables also provide responsive table</p> --}}
                     <table id="example" class="table display">
                         <thead>
                             <tr>

@@ -40,9 +40,9 @@
                         <h4>@yield('title')</h4>
                     </div>
                     <div class="card-body">
-                        <p class="form-text mb-2">Basic datatables, support filter, sorting, and search data. add
+                        {{-- <p class="form-text mb-2">Basic datatables, support filter, sorting, and search data. add
                             <code>.nowrap</code> for no wrapping text
-                        </p>
+                        </p> --}}
                         <div class="table-responsive">
                             <table id="example" class="display nowrap" style="width:100%">
                                 <thead>
@@ -88,7 +88,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="basicInput" class="form-label">Default Input</label>
+                                        <label for="basicInput" class="form-label">Kategori</label>
 
                                         <input class="form-control" type="text" name="name"
                                             value="{{ old('name') }}" placeholder="Masukan Kategori">
