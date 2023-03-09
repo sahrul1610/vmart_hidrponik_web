@@ -6,9 +6,9 @@
             <a href="#">Categories</a>
             <ul class="header__menu__dropdown">
                 @foreach ($menu_categories as $menu_category)
-                    <li><a
-                            href="">{{ $menu_category->name }}</a>
-                            {{-- href="{{ route('shop.index', $menu_category->slug) }}">{{ $menu_category->name }}</a> --}}
+                    <li>
+                        {{-- <a   href="">{{ $menu_category->name }}</a> --}}
+                        <a href="{{ route('produk.by.category', $menu_category->id) }}">{{ $menu_category->name }}</a>
                     </li>
                 @endforeach
 
