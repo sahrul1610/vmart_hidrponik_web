@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
+
 use App\Http\Controllers\Controller;
-use App\Models\Produk;
+use App\Models\Mobile\Product;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 
@@ -22,7 +23,7 @@ class ProductController extends Controller
         $price_to = $request->input('price_to');
 
         if ($id) {
-            $product = Produk::with(['category', 'galleries'])->find($id);
+            $product = Product::with(['category', 'galleries'])->find($id);
 
             if ($product)  {
                 return ResponseFormatter::success(
@@ -38,7 +39,7 @@ class ProductController extends Controller
             }
         }
 
-        $product = Produk::with(['category', 'galleries']);
+        $product = Product::with(['category', 'galleries']);
 
         if ($name) {
             $product->where('name', 'like', '%' . $name . '%');

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Transaksi;
-use Illuminate\Http\Request;
-use App\Models\TransaksiItem;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
+use App\Models\Mobile\Transaction;
+use App\Models\TransactionItem;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
@@ -19,7 +19,7 @@ class TransactionController extends Controller
 
         if($id)
         {
-            $transaction = Transaksi::with(['items.product'])->find($id);
+            $transaction = Transaction::with(['items.product'])->find($id);
 
             if($transaction)
                 return ResponseFormatter::success(
@@ -34,7 +34,7 @@ class TransactionController extends Controller
                 );
         }
 
-        $transaction = Transaksi::with(['items.product'])->where('users_id', Auth::user()->id);
+        $transaction = Transaction::with(['items.product'])->where('users_id', Auth::user()->id);
 
         if($status)
             $transaction->where('status', $status);
@@ -59,7 +59,7 @@ class TransactionController extends Controller
             'status' => 'required|in:PENDING,SUCCESS,CANCELLED,FAILED,SHIPPING,SHIPPED',
         ]);
 
-        $transaction = Transaksi::create([
+        $transaction = Transaction::create([
             'users_id' => Auth::user()->id,
             'address' => $request->address,
             'total_price' => $request->total_price,
@@ -68,7 +68,7 @@ class TransactionController extends Controller
         ]);
         
         foreach ($request->items as $product) {
-            TransaksiItem::create([
+            TransactionItem::create([
                 'users_id' => Auth::user()->id,
                 'products_id' => $product['id'],
                 'transactions_id' => $transaction->id,
@@ -79,4 +79,3 @@ class TransactionController extends Controller
         return ResponseFormatter::success($transaction->load('items.product'), 'Transaksi berhasil');
     }
 }
-

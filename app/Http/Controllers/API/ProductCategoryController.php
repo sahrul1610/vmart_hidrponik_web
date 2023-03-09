@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Models\Kategori;
 use Illuminate\Http\Request;
+use App\Models\Mobile\ProductCategory;
 use App\Helpers\ResponseFormatter;
-
+use App\Http\Controllers\Controller;
 
 class ProductCategoryController extends Controller
 {
@@ -18,7 +17,7 @@ class ProductCategoryController extends Controller
         $show_product = $request->input('show_product');
 
         if ($id) {
-            $category = Kategori::with(['products'])->find($id);
+            $category = ProductCategory::with(['products'])->find($id);
 
             if ($category)  {
                 return ResponseFormatter::success(
@@ -34,7 +33,7 @@ class ProductCategoryController extends Controller
             }
         }
 
-        $category = Kategori::query();
+        $category = ProductCategory::query();
 
         if ($name) {
             $category->where('name', 'like', '%' . $name . '%');
@@ -51,4 +50,3 @@ class ProductCategoryController extends Controller
 
     }
 }
-

@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
-use App\Helpers\ResponseFormatter;
+// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-// use Laravel\Fortify\Rules\Password;
-use Illuminate\Support\Facades\Password;
+use Laravel\Fortify\Rules\Password;
+
 class UserController extends Controller
 {
     public function register(Request $request)
@@ -106,4 +107,3 @@ class UserController extends Controller
         return ResponseFormatter::success($token, 'Token Revoked');
     }
 }
-
