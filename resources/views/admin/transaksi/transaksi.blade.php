@@ -74,23 +74,32 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Name</th>
+                                                    <th>Produk</th>
                                                     <th>total</th>
                                                     <th>shipping</th>
+                                                    <th>grand total</th>
                                                     <th>status</th>
                                                     <th>pembayaran</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                @foreach($transactions as $transaction)
-                                                    <tr>
-                                                        <td>{{ $no++ }}</td>
-                                                        <td>{{ $transaction->user->name }}</td>
-                                                        <td>{{ number_format($transaction->total_price) }}</td>
-                                                        <td>{{ number_format($transaction->shipping_price) }}</td>
-                                                        <td>{{ $transaction->status }}</td>
-                                                        <td>{{ $transaction->payment }}</td>
-                                                    </tr>
+                                                @foreach ($transactions as $transaction)
+                                                    @if ($transaction->status == 'paid')
+                                                        <tr>
+                                                            <td>{{ $no++ }}</td>
+                                                            <td>{{ $transaction->user->name }}</td>
+                                                            @foreach ($transaction->transactionItems as $item)
+                                                                <td>{{ $item->product->name }}</td>
+                                                            @endforeach
+                                                            <td>{{ number_format($transaction->total_price) }}</td>
+                                                            <td>{{ number_format($transaction->shipping_price) }}</td>
+                                                            <td>{{ number_format($transaction->total_price + $transaction->shipping_price) }}
+                                                            </td>
+                                                            <td>{{ $transaction->status }}</td>
+                                                            <td>{{ $transaction->payment }}</td>
+                                                        </tr>
+                                                    @endif
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -110,24 +119,34 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Name</th>
+                                                    <th>Produk</th>
                                                     <th>total</th>
                                                     <th>shipping</th>
+                                                    <th>grand total</th>
                                                     <th>status</th>
                                                     <th>pembayaran</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                @foreach($transactions as $transaction)
-                                                    <tr>
-                                                        <td>{{ $no++ }}</td>
-                                                        <td>{{ $transaction->user->name }}</td>
-                                                        <td>{{ number_format($transaction->total_price) }}</td>
-                                                        <td>{{ number_format($transaction->shipping_price) }}</td>
-                                                        <td>{{ $transaction->status }}</td>
-                                                        <td>{{ $transaction->payment }}</td>
-
-                                                    </tr>
+                                                @foreach ($transactions as $transaction)
+                                                    @if ($transaction->status == 'pending')
+                                                        <tr>
+                                                            <td>{{ $no++ }}</td>
+                                                            <td>{{ $transaction->user->name }}</td>
+                                                            <td>
+                                                                @foreach ($transaction->transactionItems as $item)
+                                                                    {{ $item->product->name }}
+                                                                @endforeach
+                                                            </td>
+                                                            <td>{{ number_format($transaction->total_price) }}</td>
+                                                            <td>{{ number_format($transaction->shipping_price) }}</td>
+                                                            <td>{{ number_format($transaction->total_price + $transaction->shipping_price) }}
+                                                            </td>
+                                                            <td>{{ $transaction->status }}</td>
+                                                            <td>{{ $transaction->payment }}</td>
+                                                        </tr>
+                                                    @endif
                                                 @endforeach
                                             </tbody>
                                         </table>

@@ -47,6 +47,7 @@ class OrderController extends Controller
         $users_id = auth()->user()->id;
 
         $transaction = new Transaksi;
+        $transaction->id = time();
         $transaction->users_id = $users_id;
         $transaction->address = $request->address;
         $transaction->total_price = $request->total_price;
@@ -100,6 +101,7 @@ class OrderController extends Controller
         $params = array(
             'transaction_details' => array(
                 'order_id' => $data["transaksi_id"],
+                //'order_id' => 'ORDER-' . time(),
                 'gross_amount' => $ambil_data["total_price"]+$ambil_data["shipping_price"],
             ),
             'customer_details' => array(
