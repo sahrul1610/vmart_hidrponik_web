@@ -65,13 +65,14 @@ Route::middleware(['user', 'auth'])->group(function () {
     Route::get('/kategori/{id}', [HomeController::class, 'indexKategori'])->name('produk.by.category');
 
     Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+    Route::get('/produk/search', [ShopController::class, 'search'])->name('produk.search');
     Route::get('/shop/detail/{id}', [ShopController::class, 'detail'])->name('shop.detail');
 
     Route::get('/cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-    
+
     Route::get('/checkout', [OrderController::class, 'Index'])->name('cart.checkout');
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
     //Route::post('/mitrans-callback', [CartController::class, 'callback'])->name('callback');

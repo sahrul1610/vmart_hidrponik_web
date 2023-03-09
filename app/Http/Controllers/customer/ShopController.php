@@ -35,7 +35,7 @@ class ShopController extends Controller
 
     public function search(Request $request){
         $keyword = $request->input('keyword');
-        $produks = Produk::with('produkgaleri')->where('nama_produk', 'like', "%$keyword%")->get();
+        $produks = Produk::with('produkgaleri')->where('name', 'like', "%$keyword%")->get();
         $menu_categories = Kategori::all();
         $cart = Session::get('cart', []);
         // Mengirim data produk ke view untuk ditampilkan
