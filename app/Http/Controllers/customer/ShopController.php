@@ -32,4 +32,13 @@ class ShopController extends Controller
         return view('frontend.shop.shop_detail', compact('produks','menu_categories', 'cart'));
         //return view('frontend.shop.shop_detail');
     }
+
+    public function search(Request $request){
+        $keyword = $request->input('keyword');
+        $produks = Produk::with('produkgaleri')->where('nama_produk', 'like', "%$keyword%")->get();
+        $menu_categories = Kategori::all();
+        $cart = Session::get('cart', []);
+        // Mengirim data produk ke view untuk ditampilkan
+        return view('frontend.shop.index', compact('produks','menu_categories', 'cart'));
+        }
 }

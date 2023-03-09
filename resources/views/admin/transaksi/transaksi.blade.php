@@ -43,19 +43,19 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Default tabs</h4>
+                        <h4>Transaksi</h4>
                     </div>
                     <div class="card-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="Produk-tab" data-bs-toggle="tab"
                                     data-bs-target="#Produk" type="button" role="tab" aria-controls="Produk"
-                                    aria-selected="true">Transaksi</button>
+                                    aria-selected="true">Selesai</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
                                     type="button" role="tab" aria-controls="profile"
-                                    aria-selected="true">Transaksi</button>
+                                    aria-selected="true">Pending</button>
                             </li>
 
                         </ul>
