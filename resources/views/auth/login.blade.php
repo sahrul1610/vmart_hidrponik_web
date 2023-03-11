@@ -1,99 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-guest-layout>
+    <x-authentication-card>
+        <x-slot name="logo">
+            <x-authentication-card-logo />
+        </x-slot>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication Login &mdash; Arfa</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
-        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
-        crossorigin="anonymous" />
+        <x-validation-errors class="mb-4" />
 
-
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/bootstrap/dist/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="{{ asset('template') }}/assets/css/style.css">
-    <!-- <link rel="stylesheet" href="{{ asset('template') }}/plugins/themify-icons/themify-icons.css"> -->
-    <link rel="stylesheet" href="{{ asset('template') }}/assets/css/bootstrap-override.css">
-
-
-</head>
-
-<body>
-<section class="container h-100">
-    <div class="row justify-content-sm-center h-100 align-items-center">
-        <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-7 col-sm-8">
-            <div class="card shadow-lg">
-                <div class="card-body p-4">
-                    <h1 class="fs-4 text-center fw-bold mb-4">Login</h1>
-                    {{-- <h1 class="fs-6 mb-3">Please enter your email and password to log in.</h1> --}}
-                    @if (session()->has('LoginError'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('LoginError')}}
-                    </div>
-                    @endif
-
-                    <form method="POST" action="{{ url('/auth') }}">
-                        @csrf
-                        <div class="mb-3">
-                            <label class="mb-2 text-muted" for="email">Email</label>
-                            <div class="input-group input-group-join mb-3">
-                                <input id="email" type="email" placeholder="email" class="form-control"
-                                    name="email" value="" required autofocus>
-                                    <span class="input-group-text rounded-end">&nbsp<i class="fa fa-envelope"></i>&nbsp</span>
-                                <div class="invalid-feedback">
-                                    Email is invalid
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <div class="mb-2 w-100">
-                                <label class="text-muted" for="password">Password</label>
-                                <a href="forgot.html" class="float-end">
-                                    Forgot Password?
-                                </a>
-                            </div>
-                            <div class="input-group input-group-join mb-3">
-                                <input type="password" class="form-control" name="password" placeholder="Your password" required>
-                                <span class="input-group-text rounded-end password cursor-pointer">&nbsp<i class="fa fa-eye"></i>&nbsp</span>
-                                {{-- <div class="invalid-feedback">
-                                    Password required
-                                </div> --}}
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center">
-                            <div class="form-check">
-                                <input type="checkbox" name="remember" id="remember" class="form-check-input">
-                                <label for="remember" class="form-check-label">Remember Me</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary ms-auto">
-                                Login
-                            </button>
-                        </div>
-                    </form>
-                    <div class="text-center mb-2 mt-3">&mdash; OR &mdash;</div>
-                    <div class="d-grid gap-2">
-
-
-                        <a href="{{url('login/google')}}" class="btn btn-danger icon-left"><i class="fab fa-google"></i> coba
-                            with Google</a>
-                    </div>
-                </div>
-                <div class="card-footer py-3 border-0">
-                    <div class="text-center">
-                        Don't have an account yet? <a href="{{route('register')}}" class="text-dark">Create an account</a>
-                    </div>
-                </div>
+        @if (session('status'))
+            <div class="mb-4 font-medium text-sm text-green-600">
+                {{ session('status') }}
             </div>
-            <div class="text-center mt-5 text-muted">
-                Copyright &copy; 2022 &mdash; Mulai Dari Null
+        @endif
+
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+
+            <div>
+                <x-label for="email" value="{{ __('Email') }}" />
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             </div>
-        </div>
-    </div>
-</section>
-<script src="https://d0aa-2001-448a-3010-adf6-146e-85e4-7314-32a0.ap.ngrok.io/login/assets/js/login.js"></script>
-</body>
-</html>
+
+            <div class="mt-4">
+                <x-label for="password" value="{{ __('Password') }}" />
+                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+            </div>
+
+            <div class="block mt-4">
+                <label for="remember_me" class="flex items-center">
+                    <x-checkbox id="remember_me" name="remember" />
+                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-end mt-4">
+                @if (Route::has('password.request'))
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                        {{ __('Forgot your password?') }}
+                    </a>
+                @endif
+
+                <x-button class="ml-4">
+                    {{ __('Log in') }}
+                </x-button>
+            </div>
+        </form>
+    </x-authentication-card>
+</x-guest-layout>
