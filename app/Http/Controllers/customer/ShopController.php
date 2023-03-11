@@ -34,6 +34,7 @@ class ShopController extends Controller
     }
 
     public function search(Request $request){
+        // untuk mencari keyword nama produk
         $keyword = $request->input('keyword');
         $produks = Produk::with('produkgaleri')->where('name', 'like', "%$keyword%")->get();
         $menu_categories = Kategori::all();
