@@ -54,6 +54,8 @@ class OrderController extends Controller
         $transaction->shipping_price = $request->shipping_price;
         $transaction->status = 'pending';
         $transaction->payment = 'not paid';
+        $transaction->created_at = now(); // mengisi field created_at dengan waktu sekarang
+        $transaction->updated_at = now(); // mengisi field updated_at dengan waktu sekarang
         $transaction->save();
 
 

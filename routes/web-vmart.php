@@ -44,6 +44,11 @@ Route::middleware(['admin','auth'])->group(function () {
     Route::post('/kategori/insert', [KategoriProdukController::class, 'insert']);
     Route::post('/kategori/update', [KategoriProdukController::class, 'update']);
     Route::delete('/kategori/hapus/{id}', [KategoriProdukController::class, 'hapus']);
+
+    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
+    Route::get('/transaksi/cetak-pdf', [TransaksiController::class, 'cetakPDF'])->name('transaksi.cetak-pdf');
+
+    Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna');
 });
 Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/auth', [LoginController::class, 'authenticate']);
@@ -56,9 +61,7 @@ Route::get('/login/{provider}/callback', [SocialiteController::class, 'handlePro
 // Route::get('/login/google/callback', 'LoginController@handleGoogleCallback');
 
 
-Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
 
-Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna');
 Route::middleware(['user', 'auth'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');

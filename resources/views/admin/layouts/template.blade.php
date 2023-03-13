@@ -203,12 +203,13 @@
                 </a>
             </div>
             <div class="sidebar-opener action-toggle">
+
                 <a href="#">
                     <i class="ti-angle-right"></i>
                 </a>
             </div>
             <div class="sidebar-header">
-                <div class="text">VMART</div>
+                <div class="text">Vmart</div>
                 <div class="close-sidebar action-toggle">
                     <i class="ti-close"></i>
                 </div>

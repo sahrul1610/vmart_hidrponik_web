@@ -75,11 +75,12 @@
                                                     <th>No</th>
                                                     <th>Name</th>
                                                     <th>Produk</th>
-                                                    <th>total</th>
-                                                    <th>shipping</th>
-                                                    <th>grand total</th>
-                                                    <th>status</th>
-                                                    <th>pembayaran</th>
+                                                    <th>Total</th>
+                                                    <th>Shipping</th>
+                                                    <th>Grand total</th>
+                                                    <th>Status</th>
+                                                    <th>Tanggal Pesan</th>
+                                                    <th>Pembayaran</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -97,6 +98,12 @@
                                                             <td>{{ number_format($transaction->total_price + $transaction->shipping_price) }}
                                                             </td>
                                                             <td>{{ $transaction->status }}</td>
+                                                            @if ($transaction->created_at_formatted)
+                                                                <td>{{ $transaction->created_at_formatted }}
+                                                                </td>
+                                                            @else
+                                                                <td>{{$transaction->created_at_formatted ?: 'null' }}</td>
+                                                            @endif
                                                             <td>{{ $transaction->payment }}</td>
                                                         </tr>
                                                     @endif
@@ -120,11 +127,12 @@
                                                     <th>No</th>
                                                     <th>Name</th>
                                                     <th>Produk</th>
-                                                    <th>total</th>
-                                                    <th>shipping</th>
-                                                    <th>grand total</th>
-                                                    <th>status</th>
-                                                    <th>pembayaran</th>
+                                                    <th>Total</th>
+                                                    <th>Shipping</th>
+                                                    <th>Grand total</th>
+                                                    <th>Status</th>
+                                                    <th>Tanggal Pesan</th>
+                                                    <th>Pembayaran</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -144,6 +152,12 @@
                                                             <td>{{ number_format($transaction->total_price + $transaction->shipping_price) }}
                                                             </td>
                                                             <td>{{ $transaction->status }}</td>
+                                                            @if ($transaction->created_at_formatted)
+                                                                <td>{{ $transaction->created_at_formatted }}
+                                                                </td>
+                                                            @else
+                                                                <td>{{$transaction->created_at_formatted ?: 'null' }}</td>
+                                                            @endif
                                                             <td>{{ $transaction->payment }}</td>
                                                         </tr>
                                                     @endif

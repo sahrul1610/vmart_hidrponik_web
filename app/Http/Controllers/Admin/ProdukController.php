@@ -72,6 +72,8 @@ class ProdukController extends Controller
         $produk->description = $request->description;
         $produk->price = $request->price;
         $produk->tags = $request->tags;
+        $produk->created_at = now(); // mengisi field created_at dengan waktu sekarang
+        $produk->updated_at = now(); // mengisi field updated_at dengan waktu sekarang
         $produk->save();
 
         // Memasukkan data gambar ke tabel produk_galeri
