@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PenggunaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\TransaksiController;
+use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Admin\KategoriProdukController;
 //customer
@@ -47,7 +48,7 @@ Route::middleware(['admin','auth'])->group(function () {
 
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
     Route::get('/transaksi/cetak-pdf', [TransaksiController::class, 'cetakPDF'])->name('transaksi.cetak-pdf');
-
+    
     Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna');
 });
 Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');

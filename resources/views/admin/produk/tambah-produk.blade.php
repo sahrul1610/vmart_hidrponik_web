@@ -1,4 +1,15 @@
 @extends('admin.layouts.template')
+<style>
+    textarea {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        line-height: 1.5;
+        resize: vertical;
+        /* Memungkinkan textarea untuk diubah ukurannya secara vertikal */
+    }
+</style>
 @section('title', 'Tambah Produk')
 @section('content')
     <div class="content-wrapper">
@@ -70,7 +81,8 @@
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Gambar</label>
 
-                                    <input type="file" class="form-control" name="url" id='url' placeholder="" value="{{ old('url') }}">
+                                <input type="file" class="form-control" name="url" id='url' placeholder=""
+                                    value="{{ old('url') }}">
 
                             </div>
                             <div class="text-danger">
@@ -79,10 +91,10 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"
+                                <textarea class="form-control"  name="description"  rows="3"
                                     value="{{ old('description') }}"></textarea>
                             </div>
                             <div class="text-danger">
@@ -91,6 +103,18 @@
                                 @enderror
                             </div>
                         </div>
+                        {{-- <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
+                                <textarea class="form-control ckeditor" class="ckeditor" name="description" id="ckeditor" rows="3"
+                                    value="{{ old('description') }}"></textarea>
+                            </div>
+                            <div class="text-danger">
+                                @error('description')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                        </div> --}}
 
                     </div>
                     <div class="card-footer">

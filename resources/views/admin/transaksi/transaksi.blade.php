@@ -62,12 +62,14 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="Produk" role="tabpanel"
                                 aria-labelledby="Produk-tab">
+
                                 <div class="card-body">
-                                    {{-- <p>
-                                        <a href="{{ url('produk/add') }}" class="btn btn-primary">
-                                            <i class="ti-plus"></i>
-                                            Tambah</a>
-                                    </p> --}}
+                                    <p>
+                                        <a href="{{ route('transaksi.cetak-pdf') }}" class="btn btn-success">
+                                            <i class="ti-pdf"></i>
+                                            Export PDF</a>
+                                        
+                                    </p>
                                     <div class="table-responsive">
                                         <table id="example2" class="display nowrap" style="width:100%">
                                             <thead>

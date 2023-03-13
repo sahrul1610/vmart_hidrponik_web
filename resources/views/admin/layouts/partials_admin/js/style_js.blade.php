@@ -13,6 +13,7 @@
     DataTable.init()
 </script>
 <script src="{{ url('/template') }}/plugins/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="{{ url('/template') }}/plugins/ckeditor/ckeditor.js"></script>
     <script src="{{ url('/template') }}/plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
 
     <!-- js for this page only -->
@@ -26,7 +27,7 @@
 <script src="{{ url('/template') }}/plugins/jquery/dist/jquery.min.js"></script>
 <script src="{{ url('/template') }}/plugins/select2/dist/js/select2.min.js"></script>
     <!-- ======= --> --}}
-    
+
     {{-- <script>
         $(function () {
             $('.select2').select2(),

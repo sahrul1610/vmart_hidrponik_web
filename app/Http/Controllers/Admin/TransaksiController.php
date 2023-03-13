@@ -6,6 +6,8 @@ use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use PDF;
+
+
 class TransaksiController extends Controller
 {
     // public function index(){
@@ -40,4 +42,6 @@ class TransaksiController extends Controller
 
         return $pdf->download('transaksi-paid.pdf');
     }
+
+
 }
