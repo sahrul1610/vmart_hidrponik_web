@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\TransaksiController;
 use App\Http\Controllers\Admin\ExportController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Admin\KategoriProdukController;
+use App\Http\Controllers\Admin\PostCategoriesController;
 //customer
 use App\Http\Controllers\customer\HomeController;
 use App\Http\Controllers\customer\ShopController;
@@ -48,8 +49,14 @@ Route::middleware(['admin','auth'])->group(function () {
 
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
     Route::get('/transaksi/cetak-pdf', [TransaksiController::class, 'cetakPDF'])->name('transaksi.cetak-pdf');
-    
+
     Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna');
+
+    Route::get('/posts/kategori', [PostCategoriesController::class, 'index'])->name('posts.kategori');
+    Route::get('/posts/edit/{id}', [PostCategoriesController::class, 'edit']);
+    Route::post('/posts/kategori/insert', [PostCategoriesController::class, 'store']);
+    Route::post('/posts/kategori/update', [PostCategoriesController::class, 'update']);
+    Route::delete('/posts/kategori/hapus/{id}', [PostCategoriesController::class, 'hapus']);
 });
 Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/auth', [LoginController::class, 'authenticate']);

@@ -10,7 +10,7 @@ class PostCategoriesController extends Controller
     public function index()
     {
         $categories = PostCategories::all();
-        return view('categories.index', compact('categories'));
+        return view('admin.blog-categories.index', compact('categories'));
     }
 
     public function create()
@@ -30,7 +30,7 @@ class PostCategoriesController extends Controller
 
         $category->save();
 
-        return redirect('/categories')->with('success', 'Category created successfully!');
+        return redirect()->route('posts.kategori')->with('sukses', 'Category created successfully!');
     }
 
     public function show($id)
@@ -43,5 +43,27 @@ class PostCategoriesController extends Controller
     {
         $category = PostCategories::find($id);
         return view('categories.edit', compact('category'));
+
+    }
+
+    public function hapus(Request $request)
+    {
+        $id = $request->id;
+        $kategori = PostCategories::find($id);
+
+        if (!$kategori) {
+            return redirect()->route('posts.kategori')->with('gagal', 'Kategori tidak ditemukan');
+        }
+
+        // cek apakah kategori terkait sudah ada di tabel produk
+        // $productCount = Produk::where('categories_id', $id)->count();
+
+        // if ($productCount > 0) {
+        //     return redirect()->route('posts.kategori')->with('gagal', 'Kategori terkait masih digunakan di ....');
+        // }
+
+        $kategori->delete();
+
+        return redirect()->route('posts.kategori')->with('sukses', 'Kategori berhasil dihapus');
     }
 }
