@@ -1,34 +1,30 @@
 @extends('admin.layouts.template')
-@section('title', 'Edit Blog Kategori')
-@section('page_scripts')
+@section('title','Blog Kategori')
+@section("page_scripts")
 
-    {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+{{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
-    @if (session('gagal'))
-        <script>
-            Swal.fire(
-                'Gagal!',
-                '{{ session('gagal') }}',
-                'error'
-            )
-        </script>
-    @elseif(session('sukses'))
-        <script>
-            Swal.fire(
-                'Berhasil!',
-                '{{ session('sukses') }}',
-                'success'
-            )
-        </script>
-    @elseif(session('konfirmasi'))
-        <script>
-            Swal.fire(
-                'Berhasil!',
-                '{{ session('konfirmasi') }}',
-                'confirmation'
-            )
-        </script>
-    @endif
+@if(session("gagal"))
+
+<script>
+    Swal.fire(
+    'Gagal!',
+    '{{ session("gagal") }}',
+    'error'
+    )
+</script>
+
+@elseif(session("sukses"))
+
+<script>
+    Swal.fire(
+    'Berhasil!',
+    '{{ session("sukses") }}',
+    'success'
+    )
+</script>
+
+@endif
 
 @endsection
 @section('content')
@@ -57,17 +53,21 @@
                                     <?php $no = 1; ?>
                                     @foreach ($data as $dt)
                                         <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td>{{ $dt->name }}</td>
+                                            <td>{{$no++}}</td>
+                                            <td>{{$dt->name}}</td>
                                             <td>
                                                 {{-- <a href="/buku/detail/{{ $data->id_kategori }}" class="btn btn-sm btn-success"><i class="fa fa-search"></i></a> --}}
-                                                <a href="{{ url('/kategori/edit') }}/{{ $dt->id }}"
-                                                    class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-
+                                                <a href="{{url('/kategori/edit')}}/{{ $dt->id }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                                {{-- <form action="{{url('/kategori/hapus')}}" method="POST" style="display: inline;">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="id" value="{{ $dt->id }}">
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form> --}}
                                                 <a href="#" class="btn btn-danger btn-sm"
                                                     onclick="DeleteData({{ $dt->id }})"><i
                                                         class="fa fa-trash"></i></a>
-
                                             </td>
                                         </tr>
                                     @endforeach
@@ -80,31 +80,31 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Tambah @yield('title')</h4>
+                        <h4>Edit @yield('title')</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ url('/kategori/insert') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{url('/posts/kategori/update')}}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label for="basicInput" class="form-label">Kategori</label>
-
-                                        <input class="form-control" type="text" name="name"
-                                            value="{{ old('name') }}" placeholder="Masukan Kategori">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" name="id" value="{{ $edit->id }}">
+                                <div class="mb-3">
+                                    <label for="basicInput" class="form-label">Kategori</label>
+                                    <input class="form-control" type="text" name="name"value="{{ $edit->name }}" placeholder="Masukan Kategori"
+                                       >
                                         <div class="text-danger">
                                             @error('name')
-                                                {{ $message }}
+                                            {{ $message }}
                                             @enderror
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 </div>
             </div>
 
@@ -124,18 +124,20 @@
             confirmButtonText: "Hapus"
         }).then(result => {
             if (result.isConfirmed) {
-                form_string =
-                    "<form method=\"POST\" action=\"{{ url('/kategori/hapus/') }}/" +
-                    id +
-                    "\" accept-charset=\"UTF-8\"><input name=\"_method\" type=\"hidden\" value=\"DELETE\"><input name=\"_token\" type=\"hidden\" value=\"{{ csrf_token() }}\"></form>"
-                form = $(form_string)
-                form.appendTo('body');
-                form.submit();
-            } else {
-                Swal.fire('Selamat!', 'Data anda tidak jadi dihapus', 'error');
-            }
+                    form_string =
+                        "<form method=\"POST\" action=\"{{ url('/posts/kategori/hapus/') }}/" +
+                        id +
+                        "\" accept-charset=\"UTF-8\"><input name=\"_method\" type=\"hidden\" value=\"DELETE\"><input name=\"_token\" type=\"hidden\" value=\"{{ csrf_token() }}\"></form>"
+                    form = $(form_string)
+                    form.appendTo('body');
+                    form.submit();
+                } else {
+                    Swal.fire('Selamat!', 'Data anda tidak jadi dihapus', 'error');
+                }
         });
 
 
     }
+
+
 </script>

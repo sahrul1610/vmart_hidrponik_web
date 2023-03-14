@@ -23,6 +23,18 @@
             <span>Pengguna</span>
         </a>
     </li>
+    <li class="{{ request()->is('posts/kategori','posts')? 'active open' : '' }}">
+        <a href="#" class="main-menu has-dropdown">
+            <i class="ti-desktop"></i>
+            <span>Blog</span>
+        </a>
+        {{-- <ul class="{{ request()->is('kategori')? 'sub-menu expand' : '' }}" > --}}
+        <ul class="sub-menu {{ request()->is('posts/kategori','posts')? 'expand' : '' }}">
+            <li class="{{ request()->is('posts/kategori')? 'active' : '' }}"><a href="{{url('/posts/kategori')}}"><span>Blog Kategori</span></a></li>
+            <li class="{{ request()->is('posts')? 'active' : '' }}"><a href="{{url('/posts')}}"><span>Blog</span></a></li>
+
+        </ul>
+    </li>
     <li class="{{ request()->is('transaksi')? 'active' : '' }}">
         <a href="{{url('/transaksi')}}" class="link">
             <i class="ti-user"></i>

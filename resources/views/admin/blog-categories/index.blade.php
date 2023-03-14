@@ -61,7 +61,7 @@
                                             <td>{{ $dt->name }}</td>
                                             <td>
                                                 {{-- <a href="/buku/detail/{{ $data->id_kategori }}" class="btn btn-sm btn-success"><i class="fa fa-search"></i></a> --}}
-                                                <a href="{{ url('/kategori/edit') }}/{{ $dt->id }}"
+                                                <a href="{{ url('/posts/kategori/edit') }}/{{ $dt->id }}"
                                                     class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
 
                                                 <a href="#" class="btn btn-danger btn-sm"

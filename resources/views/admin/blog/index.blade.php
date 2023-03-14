@@ -1,5 +1,5 @@
 @extends('admin.layouts.template')
-@section('title', 'Produk')
+@section('title', 'Blog')
 {{-- @section('page_scripts')
 
 
@@ -114,23 +114,23 @@
                     <div class="card-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="Produk-tab" data-bs-toggle="tab"
-                                    data-bs-target="#Produk" type="button" role="tab" aria-controls="Produk"
-                                    aria-selected="true">Produk</button>
+                                <button class="nav-link active" id="blog-tab" data-bs-toggle="tab"
+                                    data-bs-target="#blog" type="button" role="tab" aria-controls="blog"
+                                    aria-selected="true">blog</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
                                     type="button" role="tab" aria-controls="profile"
-                                    aria-selected="true">Produk</button>
+                                    aria-selected="true">blog</button>
                             </li>
 
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="Produk" role="tabpanel"
-                                aria-labelledby="Produk-tab">
+                            <div class="tab-pane fade show active" id="blog" role="tabpanel"
+                                aria-labelledby="blog-tab">
                                 <div class="card-body">
                                     <p>
-                                        <a href="{{ url('produk/add') }}" class="btn btn-primary">
+                                        <a href="{{ url('posts/add') }}" class="btn btn-primary">
                                             <i class="ti-plus"></i>
                                             Tambah</a>
                                     </p>
@@ -140,33 +140,29 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Name</th>
-                                                    <th>Harga</th>
-                                                    <th>Kategori</th>
-                                                    <th>Deskripsi</th>
-                                                    <th>Tag</th>
-                                                    <th>Gambar</th>
+                                                    <th>Slug</th>
+                                                    <th>Summary</th>
+                                                    <th>Description</th>
+                                                    <th>Qoute</th>
+                                                    <th>Photo</th>
+                                                    <th>Catogory</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                @foreach ($data as $dt)
+                                                @foreach ($posts as $dt)
                                                     <tr>
                                                         <td>{{ $no++ }}</td>
-                                                        <td>{{ $dt->name }}</td>
-                                                        <td>{{ $dt->price }}</td>
-                                                        <td>{{ $dt->getKategori->name }}</td>
+                                                        <td>{{ $dt->title }}</td>
+                                                        <td>{{ $dt->slug }}</td>
+                                                        <td>{{ $dt->summary }}</td>
                                                         <td>{{ $dt->description }}</td>
-                                                        <td>{{ $dt->tags }}</td>
+                                                        <td>{{ $dt->quote }}</td>
+                                                        <td>{{ $dt->photo }}</td>
+                                                        <td>{{ $dt->category_id }}</td>
                                                         <td>
-                                                            @if ($dt->produkgaleri)
-                                                            <img src="{{ asset('storage/gambar/'.$dt->produkgaleri->url) }}"  width="45px" height="45px">
-                                                        @else
-                                                            Tidak ada gambar
-                                                        @endif
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{ url('/produk/edit') }}/{{ $dt->id }}"
+                                                            <a href="{{ url('/posts/edit') }}/{{ $dt->id }}"
                                                                 class="btn btn-sm btn-warning"><i
                                                                     class="fa fa-edit"></i></a>
                                                             <a href="#" class="btn btn-danger btn-sm"
@@ -183,7 +179,7 @@
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="card-body">
                                     <p>
-                                        <a href="{{ url('produk/add') }}" class="btn btn-primary">
+                                        <a href="{{ url('posts/add') }}" class="btn btn-primary">
                                             <i class="ti-plus"></i>
                                             Tambah</a>
                                     </p>
@@ -193,31 +189,27 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Name</th>
-                                                    <th>Harga</th>
-                                                    <th>Kategori</th>
-                                                    <th>Deskripsi</th>
-                                                    <th>Tag</th>
-                                                    <th>Gambar</th>
+                                                    <th>Slug</th>
+                                                    <th>Summary</th>
+                                                    <th>Description</th>
+                                                    <th>Qoute</th>
+                                                    <th>Photo</th>
+                                                    <th>Catogory</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                @foreach ($data as $dt)
+                                                @foreach ($posts as $dt)
                                                     <tr>
                                                         <td>{{ $no++ }}</td>
-                                                        <td>{{ $dt->name }}</td>
-                                                        <td>{{ $dt->price }}</td>
-                                                        <td>{{ $dt->getKategori->name }}</td>
+                                                        <td>{{ $dt->title }}</td>
+                                                        <td>{{ $dt->slug }}</td>
+                                                        <td>{{ $dt->summary }}</td>
                                                         <td>{{ $dt->description }}</td>
-                                                        <td>{{ $dt->tags }}</td>
-                                                        <td>
-                                                            @if ($dt->produkgaleri)
-                                                            <img src="{{ asset('storage/gambar/'.$dt->produkgaleri->url) }}"  width="45px" height="45px">
-                                                        @else
-                                                            Tidak ada gambar
-                                                        @endif
-                                                        </td>
+                                                        <td>{{ $dt->quote }}</td>
+                                                        <td>{{ $dt->photo }}</td>
+                                                        <td>{{ $dt->category_id }}</td>
                                                         <td>
                                                             <a href="{{ url('/produk/edit') }}/{{ $dt->id }}"
                                                                 class="btn btn-sm btn-warning"><i

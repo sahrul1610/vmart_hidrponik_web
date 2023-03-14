@@ -68,5 +68,6 @@
      <script src="{{ url('/template') }}/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
      <script src="{{ url('/template') }}/assets/js/page/datatables.js"></script> --}}
          <!-- ======= -->
+    <script src="{{ url('/template') }}/plugins/ckeditor/ckeditor.js"></script>
 
 
