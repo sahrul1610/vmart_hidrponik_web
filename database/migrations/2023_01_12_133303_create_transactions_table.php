@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,13 +15,18 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+
             $table->bigInteger('users_id');
-            $table->text('address');
-            $table->double('total_price');
-            $table->double('shipping_price');
-            $table->string('status');
-            $table->string('payment');
-            $table->timestamp('deleted_at')->nullable();
+
+            $table->text('address')->nullable();
+
+            $table->float('total_price')->default(0);
+            $table->float('shipping_price')->default(0);
+            $table->string('status')->default('PENDING');
+
+            $table->string('payment')->default('MANUAL');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -35,4 +40,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('transactions');
     }
-};
+}

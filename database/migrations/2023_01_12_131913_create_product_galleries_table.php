@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateProductGalleriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('product_galleries', function (Blueprint $table) {
             $table->id();
+
             $table->bigInteger('products_id');
             $table->string('url');
+
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,4 +33,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('product_galleries');
     }
-};
+}

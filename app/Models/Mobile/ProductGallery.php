@@ -23,10 +23,18 @@ class ProductGallery extends Model
 
     public function getUrlAttribute($url)
     {
-        $storageUrl = Storage::url($url);
-        // $baseUrl = rtrim(config('app.url'), '/');
+        //$storageUrl = Storage::url($url);
+        // // $baseUrl = rtrim(config('app.url'), '/');
 
-        return "{$storageUrl}";
-        //return config('app.url') . Storage::url($url);
+        // return "{$storageUrl}";
+        //$storageUrl = Storage::url("gambar/$url");
+        // //$baseUrl = rtrim(config('app.url'), '/');
+
+        //return "{$storageUrl}";
+
+        //    $test = "https://disk.mediaindonesia.com/files/news/2022/12/30/WhatsApp%20Image%202022-12-22%20at%2017.07.10%20(1).jpg";
+        // return ( $test);
+        //return config('app.url') . Storage::url("$url");
+        return("$url");
     }
 }
