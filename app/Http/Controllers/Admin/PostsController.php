@@ -45,7 +45,20 @@ class PostsController extends Controller
             'title' => 'required',
             'summary' => 'required',
             'description' => 'required',
+            'quote' => 'required',
+            'category_id' => 'required',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ],[
+                        'category_id.required' => 'Kategori  wajib diisi',
+                        'title.required' => 'title wajib diisi',
+                        'description.required' => 'Deskripsi  wajib diisi',
+                        'quote.required' => 'qoute  wajib diisi',
+                        'summary.required' => 'summary wajib diisi',
+                        'photo.required' => 'photo wajib  diisi',
+                        'photo.image' => 'File harus berupa gambar',
+                        'photo.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+                        'photo.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
+
         ]);
 
         if ($request->hasFile('photo')) {
@@ -80,7 +93,7 @@ class PostsController extends Controller
     {
         $post = Posts::find($id);
         $categories = PostCategories::all();
-        return view('posts.edit', compact('post', 'categories'));
+        return view('Admin.blog.edit_blog', compact('post', 'categories'));
     }
 
     public function update(Request $request, $id)

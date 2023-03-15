@@ -41,16 +41,26 @@
                     <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-shopping-bag"></i> <span>
-                            {{-- {{ $cartCount }} --}}
+                    {{-- <a href="#"><i class="fa fa-shopping-bag"></i> <span>
+                            {{ $cartCount }}
                             cobs
-                        </span></a>
+                        </span></a> --}}
+                    <a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i>
+                        @if (session()->has('cart'))
+                            <span>{{ count(session()->get('cart')) }}</span>
+                        @else
+                            <span>0</span>
+                        @endif
+                    </a>
                 </li>
             </ul>
-            <div class="header__cart__price">item: <span>$
-                    {{-- {{ $cartTotal }} --}}
-                    coba
-                </span></div>
+            <div class="header__cart__price">item:
+                @if (session()->has('cart'))
+                    <span>{{ count(session()->get('cart')) }}</span>
+                @else
+                    <span>0</span>
+                @endif
+            </div>
         </div>
         <div class="humberger__menu__widget">
             @guest
@@ -169,18 +179,22 @@
                             <li>
                                 {{-- <a href="{{ route('cart.index') }}"><i class="fa fa-shopping-bag"></i>
                                     <span>{{ $cartCount }}</span></a> --}}
-                                    <a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i>
-                                        @if (session()->has('cart'))
+                                <a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i>
+                                    @if (session()->has('cart'))
                                         <span>{{ count(session()->get('cart')) }}</span>
-                                        @else
+                                    @else
                                         <span>0</span>
-                                        @endif
-                                    </a>
+                                    @endif
+                                </a>
                             </li>
                         </ul>
-                        <div class="header__cart__price">item: <span>
-                                {{-- ${{ $cartTotal }} --}}
-                            </span></div>
+                        <div class="header__cart__price">item:
+                            @if (session()->has('cart'))
+                                <span>{{ count(session()->get('cart')) }}</span>
+                            @else
+                                <span>0</span>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

@@ -71,7 +71,7 @@ class PostCategoriesController extends Controller
         $postsCount = Posts::where('category_id', $id)->count();
 
         if ($postsCount > 0) {
-            return redirect()->route('posts.kategori')->with('gagal', 'Kategori terkait masih digunakan di ....');
+            return redirect()->route('posts.kategori')->with('gagal', 'Kategori terkait masih digunakan di blog');
         }
 
         $kategori->delete();

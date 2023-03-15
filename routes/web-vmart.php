@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('admin.layouts.template');
 // });
-Route::middleware(['admin','auth'])->group(function () {
+Route::middleware(['admin'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
@@ -80,7 +80,7 @@ Route::get('/login/{provider}/callback', [SocialiteController::class, 'handlePro
 
 
 
-Route::middleware(['user', 'auth'])->group(function () {
+Route::middleware(['user'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/kategori/{id}', [HomeController::class, 'indexKategori'])->name('produk.by.category');
