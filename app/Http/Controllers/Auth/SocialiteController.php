@@ -34,6 +34,7 @@ class SocialiteController extends Controller
 
         // setelah login redirect ke dashboard
         // return redirect()->route('dashboard');
+        
         if(Auth::user()->roles == "USER"){
             return redirect()->intended(RouteServiceProvider::HOME);
         } elseif (Auth::user()->roles == "ADMIN") {

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="ngeIE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Authentication Login &mdash; Arfa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
@@ -57,7 +57,7 @@
                             </div>
                             <div class="input-group input-group-join mb-3">
                                 <input type="password" class="form-control" name="password" placeholder="Your password" required>
-                                <span class="input-group-text rounded-end password cursor-pointer">&nbsp<i class="fa fa-eye"></i>&nbsp</span>
+                                <span class="input-group-text rounded-end password cursor-pointer">&nbsp<i class="fa fa-eye-splash"></i>&nbsp</span>
                                 {{-- <div class="invalid-feedback">
                                     Password required
                                 </div> --}}
@@ -94,6 +94,7 @@
         </div>
     </div>
 </section>
-<script src="https://d0aa-2001-448a-3010-adf6-146e-85e4-7314-32a0.ap.ngrok.io/login/assets/js/login.js"></script>
+<script src="{{ asset('template') }}/assets/js/login.js"></script>
+{{-- <script src="https://d0aa-2001-448a-3010-adf6-146e-85e4-7314-32a0.ap.ngrok.io/login/assets/js/login.js"></script> --}}
 </body>
 </html>

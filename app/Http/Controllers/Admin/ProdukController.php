@@ -22,16 +22,18 @@ class ProdukController extends Controller
 
     //     return view('admin.produk.produk', $data);
     // }
-    public function index(){
+    public function index()
+    {
         $data = [
             "data" => produk::orderBy("id", "DESC")->get()
         ];
 
         return view('admin.produk.produk', $data);
     }
-    public function add(){
+    public function add()
+    {
 
-        $data= [
+        $data = [
 
             "kategori" => Kategori::orderBy("name", "DESC")->get()
         ];
@@ -42,7 +44,8 @@ class ProdukController extends Controller
 
     //     return view('admin.produk.edit-produk');
     // }
-    public function edit($id){
+    public function edit($id)
+    {
         $data = [
             "edit" => Produk::where("id", $id)->first(),
             "kategori" => Kategori::orderBy("name", "DESC")->get()
@@ -79,16 +82,16 @@ class ProdukController extends Controller
         // Memasukkan data gambar ke tabel produk_galeri
         if ($request->hasFile('url')) {
             $img = $request->file('url');
-            $path = 'gambar/';
+            $path = 'gallery/';
             $filename = $img->hashName();
             $img->storeAs($path, $filename, 'public');
 
             $galeri = new Produkgaleri;
             $galeri->products_id = $produk->id;
-            $galeri->url = $filename;
+            $galeri->url = $path . $filename;
             $galeri->save();
         }
-        return redirect()->route('produk')->with('sukses','data berhasil ditambahkan');
+        return redirect()->route('produk')->with('sukses', 'data berhasil ditambahkan');
     }
 
 
@@ -255,7 +258,7 @@ class ProdukController extends Controller
             );
         }
 
-        return redirect()->route('produk')->with('sukses','Data berhasil diubah');
+        return redirect()->route('produk')->with('sukses', 'Data berhasil diubah');
     }
 
 
@@ -279,6 +282,4 @@ class ProdukController extends Controller
 
         return redirect()->route('produk')->with('sukses', 'Data berhasil dihapus');
     }
-
-
 }
