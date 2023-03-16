@@ -75,7 +75,10 @@ class PostsController extends Controller
             'description' => $request->get('description'),
             'quote' => $request->get('quote'),
             'photo' => $filename,
-            'category_id' => $request->get('category_id')
+            'category_id' => $request->get('category_id'),
+            'created_at' => now(), // mengisi field created_at dengan waktu sekarang
+            'updated_at' => now(), // mengisi field updated_at dengan waktu sekarang
+
         ]);
 
         $post->save();

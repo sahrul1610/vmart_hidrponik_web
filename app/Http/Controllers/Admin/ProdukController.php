@@ -82,13 +82,15 @@ class ProdukController extends Controller
         // Memasukkan data gambar ke tabel produk_galeri
         if ($request->hasFile('url')) {
             $img = $request->file('url');
-            $path = 'gallery/';
+            $path = 'gambar/';
             $filename = $img->hashName();
             $img->storeAs($path, $filename, 'public');
 
             $galeri = new Produkgaleri;
             $galeri->products_id = $produk->id;
-            $galeri->url = $path . $filename;
+            $galeri->url = $filename;
+            $galeri->created_at = now(); // mengisi field created_at dengan waktu sekarang
+            $galeri->updated_at = now(); // mengisi field updated_at dengan waktu sekarang
             $galeri->save();
         }
         return redirect()->route('produk')->with('sukses', 'data berhasil ditambahkan');

@@ -27,6 +27,8 @@ class PostCategoriesController extends Controller
 
         $category = new PostCategories([
             'name' => $request->get('name'),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         $category->save();

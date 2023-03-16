@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('admin.layouts.template');
 // });
-Route::middleware(['admin'])->group(function () {
+Route::middleware(['auth','admin'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/produk', [ProdukController::class, 'index'])->name('produk');
@@ -72,7 +72,7 @@ Route::get('/login', [LoginController::class, 'login'])->name('login')->middlewa
 Route::post('/auth', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/logout', [LoginController::class, 'logout']);
-Route::get('/', [HomeController::class, 'index'])->middleware('guest');
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/login/{provider}', [SocialiteController::class, 'redirectToProvider']);
 Route::get('/login/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 // Route::get('/login/google', 'LoginController@redirectToGoogle');
@@ -80,7 +80,7 @@ Route::get('/login/{provider}/callback', [SocialiteController::class, 'handlePro
 
 
 
-Route::middleware(['user'])->group(function () {
+Route::middleware(['auth','user'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/kategori/{id}', [HomeController::class, 'indexKategori'])->name('produk.by.category');

@@ -38,7 +38,11 @@ class KategoriProdukController extends Controller
             return redirect()->back()->with("gagal", "Tidak Boleh Duplikasi Data");;
         }
 
-        Kategori::create($request->all());
+        //Kategori::create($request->all());
+        $data = $request->all();
+        $data['created_at'] = now();
+        $data['updated_at'] = now();
+        Kategori::create($data);
 
         return redirect()->route('kategori')->with('sukses','data berhasil di tambahkan');
     }
@@ -74,6 +78,7 @@ class KategoriProdukController extends Controller
 
         Kategori::where("id", $request->id)->update([
             "name" => $request->name
+
         ]);
 
        // return response()->json(['messege' => 'request success'],200);
