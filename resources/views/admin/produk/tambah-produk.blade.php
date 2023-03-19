@@ -48,6 +48,18 @@
                         </div>
                         <div class="col-md-4">
                             <div class="mb-3">
+                                <label for="basicInput" class="form-label">Stok</label>
+                                <input type="text" placeholder="Masukan stock" name="stock" class="form-control"
+                                    id="basicInput" value="{{ old('stock') }}">
+                            </div>
+                            <div class="text-danger">
+                                @error('stock')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
                                 <label for="basicInput" class="form-label">kategori</label>
                                 <select class="js-example-basic-single form-select form-select-sm" name="categories_id"
                                     multiple>

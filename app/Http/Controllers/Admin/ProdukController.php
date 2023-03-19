@@ -64,6 +64,7 @@ class ProdukController extends Controller
             //'picture_name' => 'required',
             //'product_unit' => 'required',
             'price' => 'required',
+            'stock' => 'required',
             'tags' => 'required',
 
         ]);
@@ -74,6 +75,8 @@ class ProdukController extends Controller
         $produk->name = $request->name;
         $produk->description = $request->description;
         $produk->price = $request->price;
+        $produk->stock = $request->stock;
+        $produk->new_stock = $request->stock;
         $produk->tags = $request->tags;
         $produk->created_at = now(); // mengisi field created_at dengan waktu sekarang
         $produk->updated_at = now(); // mengisi field updated_at dengan waktu sekarang
@@ -218,6 +221,7 @@ class ProdukController extends Controller
             'name' => 'required',
             'description' => 'required',
             'price' => 'required|numeric',
+            'stock' => 'required|numeric',
             'tags' => 'required',
             'url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
@@ -237,6 +241,8 @@ class ProdukController extends Controller
         $produk->name = $request->name;
         $produk->description = $request->description;
         $produk->price = $request->price;
+        $produk->stock = $request->stock;
+        $produk->new_stock = $request->stock;
         $produk->tags = $request->tags;
         $produk->save();
 
