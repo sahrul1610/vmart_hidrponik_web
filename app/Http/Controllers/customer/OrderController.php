@@ -68,6 +68,12 @@ class OrderController extends Controller
             $transactionItem->transactions_id = $transaction_id;
             $transactionItem->quantity = $item['quantity'];
             $transactionItem->save();
+
+            $product = Produk::find($item['id']);
+            $stok_awal = $product->new_stock;
+            $stok_baru = $stok_awal - $item['quantity'];
+            $product->new_stock = $stok_baru;
+            $product->save();
         }
 
         $users_id = session()->put("users_id", Auth::user()->id);

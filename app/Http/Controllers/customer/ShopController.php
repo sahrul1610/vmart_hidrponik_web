@@ -16,7 +16,8 @@ class ShopController extends Controller
         // $data=[
         //     "produk"
         // ];
-        $produks = Produk::with('produkgaleri')->get();
+        //$produks = Produk::with('produkgaleri')->get();
+        $produks = Produk::with('produkgaleri')->where('new_stock', '>', 0)->get();
         $menu_categories = Kategori::all();
         $cart = Session::get('cart', []);
         // Mengirim data produk ke view untuk ditampilkan
@@ -36,7 +37,11 @@ class ShopController extends Controller
     public function search(Request $request){
         // untuk mencari keyword nama produk
         $keyword = $request->input('keyword');
-        $produks = Produk::with('produkgaleri')->where('name', 'like', "%$keyword%")->get();
+        //$produks = Produk::with('produkgaleri')->where('name', 'like', "%$keyword%")->get();
+        $produks = Produk::with('produkgaleri')
+                ->where('name', 'like', "%$keyword%")
+                ->where('new_stock', '>', 0)
+                ->get();
         $menu_categories = Kategori::all();
         $cart = Session::get('cart', []);
         // Mengirim data produk ke view untuk ditampilkan

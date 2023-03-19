@@ -16,7 +16,8 @@ class HomeController extends Controller
         // $data=[
         //     "produk"
         // ];
-        $produks = Produk::with('produkgaleri')->get();
+        //$produks = Produk::with('produkgaleri')->get();
+        $produks = Produk::with('produkgaleri')->where('new_stock', '>', 0)->get();
         $menu_categories = Kategori::all();
         $cart = Session::get('cart', []);
         // Mengirim data produk ke view untuk ditampilkan
@@ -34,7 +35,8 @@ class HomeController extends Controller
             $produks->where('categories_id', $id);
         }
 
-        $produks = $produks->with('produkgaleri')->get();
+        //$produks = $produks->with('produkgaleri')->get();
+        $produks = Produk::with('produkgaleri')->where('new_stock', '>', 0)->get();
 
         $cart = Session::get('cart', []);
 
