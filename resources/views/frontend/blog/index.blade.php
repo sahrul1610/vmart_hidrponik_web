@@ -38,14 +38,14 @@
                                 </div>
                                 <div class="blog__item__text">
                                     <ul>
-                                        <li><i class="fa fa-calendar-o"></i>16 maret</li>
+                                        <li><i class="fa fa-calendar-o"></i> {{ \Carbon\Carbon::parse($dt->created_at)->locale('id')->isoFormat('LL') }}</li>
                                         <li><i class="fa fa-comment-o"></i> 5</li>
                                     </ul>
-                                    <h5><a href="#">{{$dt->title}}</a></h5>
+                                    <h5><a href="{{ route('blog.detail', ['id' => $dt->id]) }}">{{$dt->title}}</a></h5>
                                     {{-- <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
                                         quaerat </p> --}}
                                     {!!$dt->summary!!}
-                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                                    <a href="{{ route('blog.detail', ['id' => $dt->id]) }}" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
                                 </div>
                             </div>
                         </div>

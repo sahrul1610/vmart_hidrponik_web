@@ -8,43 +8,27 @@
     <div class="blog__sidebar__item">
         <h4>Categories</h4>
         <ul>
-            <li><a href="#">All</a></li>
-            <li><a href="#">Beauty (20)</a></li>
-            <li><a href="#">Food (5)</a></li>
-            <li><a href="#">Life Style (9)</a></li>
-            <li><a href="#">Travel (10)</a></li>
+            @foreach ( $blog_categories as $kategori )
+            <li><a href="{{ route('blog.by.category', $kategori->id) }}">{{ $kategori->name}}</a></li>
+            @endforeach
         </ul>
     </div>
     <div class="blog__sidebar__item">
         <h4>Recent News</h4>
         <div class="blog__sidebar__recent">
-            <a href="#" class="blog__sidebar__recent__item">
+            @foreach ( $blog as $blog )
+
+
+            <a href="{{ route('blog.detail', ['id' => $blog->id]) }}" class="blog__sidebar__recent__item">
                 <div class="blog__sidebar__recent__item__pic">
-                    <img src="{{asset('frontend/img/blog/sidebar/sr-1.jpg')}}" alt="">
+                    <img src="{{ asset('storage/images/' . $blog->photo) }}" alt="" width="60" height="60">
                 </div>
                 <div class="blog__sidebar__recent__item__text">
-                    <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>
-                    <span>MAR 05, 2019</span>
+                    <h6>{!!$blog->title!!}<br> Protect The Liver</h6>
+                    <span>{{ \Carbon\Carbon::parse($blog->created_at)->locale('id')->isoFormat('LL') }}</span>
                 </div>
             </a>
-            <a href="#" class="blog__sidebar__recent__item">
-                <div class="blog__sidebar__recent__item__pic">
-                    <img src="{{asset('frontend/img/blog/sidebar/sr-2.jpg')}}" alt="">
-                </div>
-                <div class="blog__sidebar__recent__item__text">
-                    <h6>Tips You To Balance<br /> Nutrition Meal Day</h6>
-                    <span>MAR 05, 2019</span>
-                </div>
-            </a>
-            <a href="#" class="blog__sidebar__recent__item">
-                <div class="blog__sidebar__recent__item__pic">
-                    <img src="{{asset('frontend/img/blog/sidebar/sr-3.jpg')}}" alt="">
-                </div>
-                <div class="blog__sidebar__recent__item__text">
-                    <h6>4 Principles Help You Lose <br />Weight With Vegetables</h6>
-                    <span>MAR 05, 2019</span>
-                </div>
-            </a>
+            @endforeach
         </div>
     </div>
     <div class="blog__sidebar__item">

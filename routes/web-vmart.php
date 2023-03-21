@@ -107,8 +107,9 @@ Route::middleware(['auth','user'])->group(function () {
     Route::get('/myorders', [CartController::class, 'showMyOrders'])->name('myorders');
 
 
-    Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('/blog', [BlogController::class, 'index'])->name('blog');
     Route::get('/blog/detail/{id}', [BlogController::class, 'detail'])->name('blog.detail');
+    Route::get('/blog/kategori/{id}', [BlogController::class, 'kategori'])->name('blog.by.category');
 
     // Route::patch('/cart/update', 'CartController@update')->name('cart.update');
 });
