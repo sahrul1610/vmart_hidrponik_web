@@ -13,4 +13,9 @@ class Posts extends Model
     protected $guarded = [''];
 
     public $timestamps = false;
+
+    public function categories()
+    {
+        return $this->belongsTo(PostCategories::class, 'categories_id','id');
+    }
 }

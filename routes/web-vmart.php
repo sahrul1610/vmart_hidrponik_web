@@ -15,6 +15,7 @@ use App\Http\Controllers\customer\HomeController;
 use App\Http\Controllers\customer\ShopController;
 use App\Http\Controllers\customer\CartController;
 use App\Http\Controllers\customer\OrderController;
+use App\Http\Controllers\customer\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -104,6 +105,10 @@ Route::middleware(['auth','user'])->group(function () {
     Route::get('/invoice/{id}', [OrderController::class, 'invoice'])->name('invoice');
     Route::get('/invoice/export/{id}', [OrderController ::class, 'exportInvoice'])->name('invoice.export');
     Route::get('/myorders', [CartController::class, 'showMyOrders'])->name('myorders');
+
+
+    Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('/blog/detail/{id}', [BlogController::class, 'detail'])->name('blog.detail');
 
     // Route::patch('/cart/update', 'CartController@update')->name('cart.update');
 });

@@ -13,4 +13,9 @@ class PostCategories extends Model
     protected $guarded = [''];
 
     public $timestamps = false;
+
+    public function posts()
+    {
+        return $this->belongsToMany(Posts::class);
+    }
 }

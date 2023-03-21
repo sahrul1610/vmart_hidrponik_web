@@ -1,0 +1,70 @@
+@extends('layouts.frontend')
+
+@section('content')
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="{{ asset('frontend/img/breadcrumb.jpg') }}">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <div class="breadcrumb__text">
+              <h2>Vmart Blog</h2>
+              <div class="breadcrumb__option">
+                <a href="./index.html">Home</a>
+                <span>Blog</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Blog Section Begin -->
+    <section class="blog spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-5">
+                    @include('frontend.blog.sidebar')
+                </div>
+                <div class="col-lg-8 col-md-7">
+                    <div class="row">
+                        @foreach ($blogs as $dt)
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="blog__item">
+                                <div class="blog__item__pic">
+                                    <img src="{{ asset('storage/images/' . $dt->photo) }}" alt="">
+
+                                </div>
+                                <div class="blog__item__text">
+                                    <ul>
+                                        <li><i class="fa fa-calendar-o"></i>16 maret</li>
+                                        <li><i class="fa fa-comment-o"></i> 5</li>
+                                    </ul>
+                                    <h5><a href="#">{{$dt->title}}</a></h5>
+                                    {{-- <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam
+                                        quaerat </p> --}}
+                                    {!!$dt->summary!!}
+                                    <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        <div class="col-lg-12">
+                            <div class="product__pagination blog__pagination">
+                                <a href="#">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+
+                                {{-- nanti coba terapkan tanpa menggunakan a href --}}
+                                {{ $blogs->links() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Section End -->
+@endsection
