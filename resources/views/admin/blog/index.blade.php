@@ -1,72 +1,5 @@
 @extends('admin.layouts.template')
 @section('title', 'Blog')
-{{-- @section('page_scripts')
-
-
-    @if (session('gagal'))
-        <script>
-            Swal.fire(
-                'Gagal!',
-                '{{ session('gagal') }}',
-                'error'
-            )
-        </script>
-    @elseif(session('sukses'))
-        <script>
-            Swal.fire(
-                'Berhasil!',
-                '{{ session('sukses') }}',
-                'success',
-                session()->forget('sukses');
-            )
-        </script>
-    @elseif(session('konfirmasi'))
-        <script>
-            Swal.fire(
-                'Berhasil!',
-                '{{ session('konfirmasi') }}',
-                'confirmation'
-            )
-        </script>
-    @endif
-
-@stop --}}
-{{-- @section('page_scripts')
-    @if (session('gagal'))
-        <script>
-            Swal.fire(
-                'Gagal!',
-                '{{ session('gagal') }}',
-                'error'
-            ).then((result) => {
-                // Menghapus session gagal
-                @php session()->forget('gagal'); @endphp
-            })
-        </script>
-    @elseif(session('sukses'))
-        <script>
-            Swal.fire(
-                'Berhasil!',
-                '{{ session('sukses') }}',
-                'success'
-            ).then((result) => {
-                // Menghapus session sukses
-                @php session()->forget('sukses'); @endphp
-            })
-        </script>
-    @elseif(session('konfirmasi'))
-        <script>
-            Swal.fire(
-                'Berhasil!',
-                '{{ sesi('konfirmasi') }}',
-                'konfirmasi'
-            ).then((result) => {
-                // Menghapus session konfirmasi
-                @php session()->forget('konfirmasi'); @endphp
-            })
-        </script>
-    @endif
-@stop --}}
 @section('page_scripts')
     @if (session('gagal'))
         <script>
@@ -156,11 +89,11 @@
                                                         <td>{{ $no++ }}</td>
                                                         <td>{{ $dt->title }}</td>
                                                         <td>{{ $dt->slug }}</td>
-                                                        <td>{{ $dt->summary }}</td>
-                                                        <td>{{ $dt->description }}</td>
-                                                        <td>{{ $dt->quote }}</td>
+                                                        <td>{!! $dt->summary !!}</td>
+                                                        <td>{!! $dt->description !!}</td>
+                                                        <td>{!! $dt->quote !!}</td>
                                                         <td>{{ $dt->photo }}</td>
-                                                        <td>{{ $dt->category_id }}</td>
+                                                        <td>{{ $dt->categories->name}}</td>
                                                         <td>
                                                             <a href="{{ url('/posts/edit') }}/{{ $dt->id }}"
                                                                 class="btn btn-sm btn-warning"><i
@@ -205,11 +138,11 @@
                                                         <td>{{ $no++ }}</td>
                                                         <td>{{ $dt->title }}</td>
                                                         <td>{{ $dt->slug }}</td>
-                                                        <td>{{ $dt->summary }}</td>
-                                                        <td>{{ $dt->description }}</td>
-                                                        <td>{{ $dt->quote }}</td>
+                                                        <td>{!! $dt->summary !!}</td>
+                                                        <td>{!! $dt->description !!}</td>
+                                                        <td>{!! $dt->quote !!}</td>
                                                         <td>{{ $dt->photo }}</td>
-                                                        <td>{{ $dt->category_id }}</td>
+                                                        <td>{{ $dt->categories->name }}</td>
                                                         <td>
                                                             <a href="{{ url('/produk/edit') }}/{{ $dt->id }}"
                                                                 class="btn btn-sm btn-warning"><i
