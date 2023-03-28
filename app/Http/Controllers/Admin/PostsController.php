@@ -153,12 +153,18 @@ class PostsController extends Controller
         return redirect('/posts')->with('sukses', 'Post updated successfully!');
     }
 
-
-    public function destroy($id)
+    public function hapus(Request $request)
     {
-        $post = Posts::find($id);
-        $post->delete();
+        $id = $request->id;
+        $posts = Posts::findOrFail($id);
+        $oldImage = $posts->photo ?? null;
 
-        return redirect('/posts')->with('sukses', 'Post deleted successfully!');
+        if ($oldImage != null) {
+            Storage::delete('public/images/' . $oldImage);
+        }
+
+        $posts->delete();
+
+        return redirect('/posts')->with('sukses', 'Data berhasil dihapus');
     }
 }
