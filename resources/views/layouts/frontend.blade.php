@@ -143,6 +143,7 @@
                                     <span class="arrow_carrot-down"></span>
                                     <ul>
                                         <li><a href="#">Profile</a></li>
+                                        <li><a href="{{route('myorders')}}">MyOrder</a></li>
                                     </ul>
                                 </div>
                                 <div class="header__top__right__auth">

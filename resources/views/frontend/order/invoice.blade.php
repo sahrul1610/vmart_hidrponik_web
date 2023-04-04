@@ -6,10 +6,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Checkout</h2>
+                        <h2>Invoice</h2>
                         <div class="breadcrumb__option">
                             <a href="/">Home</a>
-                            <span>Checkout</span>
+                            <span>Invoice</span>
                         </div>
                     </div>
                 </div>

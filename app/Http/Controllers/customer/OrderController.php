@@ -98,6 +98,11 @@ class OrderController extends Controller
         $ambil_data = Transaksi::where("id", $data["transaksi_id"])->first();
         $ambil_user = User::where("id", $data["users_id"])->first();
 
+        // Pengecekan apakah order_id sudah digunakan
+        if ($ambil_data->status == 'paid') {
+            return redirect('/')->with('error', 'Order ID sudah digunakan!');
+        }
+
         \Midtrans\Config::$serverKey = env("MIDTRANS_SERVER_KEY");
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
         \Midtrans\Config::$isProduction = false;
