@@ -157,8 +157,8 @@
                                                         <td>{{ $no++ }}</td>
                                                         <td>{{ $dt->name }}</td>
                                                         <td>{{ $dt->price }}</td>
-                                                        <td>{{ $dt->stock }}</td>
-                                                        <td>{{ $dt->new_stock }}</td>
+                                                        <td>{{ $dt->stock }} {{$dt->is_available}}</td>
+                                                        <td>{{ $dt->new_stock }} {{$dt->is_available}}</td>
                                                         <td>{{ $dt->getKategori->name }}</td>
                                                         <td>{{ $dt->description }}</td>
                                                         <td>{{ $dt->tags }}</td>
@@ -214,8 +214,8 @@
                                                         <td>{{ $no++ }}</td>
                                                         <td>{{ $dt->name }}</td>
                                                         <td>{{ $dt->price }}</td>
-                                                        <td>{{ $dt->stock }}</td>
-                                                        <td>{{ $dt->new_stock }}</td>
+                                                        <td>{{ $dt->stock }} {{$dt->is_available}}</td>
+                                                        <td>{{ $dt->new_stock }} {{$dt->is_available}}</td>
                                                         <td>{{ $dt->getKategori->name }}</td>
                                                         <td>{{ $dt->description }}</td>
                                                         <td>{{ $dt->tags }}</td>

@@ -61,7 +61,7 @@ class ProdukController extends Controller
             // 'sku' => 'required',
             'name' => 'required',
             'description' => 'required',
-            //'picture_name' => 'required',
+            'is_available' => 'required',
             //'product_unit' => 'required',
             'price' => 'required',
             'stock' => 'required',
@@ -78,6 +78,7 @@ class ProdukController extends Controller
         $produk->stock = $request->stock;
         $produk->new_stock = $request->stock;
         $produk->tags = $request->tags;
+        $produk->is_available = $request->is_available;
         $produk->created_at = now(); // mengisi field created_at dengan waktu sekarang
         $produk->updated_at = now(); // mengisi field updated_at dengan waktu sekarang
         $produk->save();
@@ -223,6 +224,7 @@ class ProdukController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'tags' => 'required',
+            'is_available' => 'required',
             'url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'categories_id.required' => 'Kategori produk wajib diisi',
@@ -231,6 +233,7 @@ class ProdukController extends Controller
             'price.required' => 'Harga produk wajib diisi',
             'price.numeric' => 'Harga produk harus diisi dengan angka',
             'tags.required' => 'Tag produk wajib diisi',
+            'is_available.required' => 'Satuan produk wajib diisi',
             'url.image' => 'File harus berupa gambar',
             'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
             'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
@@ -244,6 +247,7 @@ class ProdukController extends Controller
         $produk->stock = $request->stock;
         $produk->new_stock = $request->stock;
         $produk->tags = $request->tags;
+        $produk->is_available = $request->is_available;
         $produk->save();
 
         // Menghapus gambar lama jika ada gambar baru yang diupload
