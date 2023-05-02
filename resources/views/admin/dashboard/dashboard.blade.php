@@ -72,4 +72,50 @@
             </div>
         </div>
     </div>
+
+    <div class="row same-height">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Monthly Sales</h4>
+                </div>
+                <div class="card-body">
+                    <canvas id="chart-transaksi" height="642" width="1388"></canvas>
+                    {{-- {!! $chart->container() !!} --}}
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('page_scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('chart-transaksi').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {!! json_encode($dataBulan) !!},
+            datasets: [{
+                label: 'Transaksi perbulan',
+                data: {!! json_encode($dataTransaksi) !!},
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+
+
 @endsection

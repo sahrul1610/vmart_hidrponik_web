@@ -1,103 +1,84 @@
 @extends('layouts.frontend')
 
 @section('content')
-
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('frontend/img/breadcrumb.jpg') }}">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <div class="breadcrumb__text">
-              <h2>Detail Shop</h2>
-              <div class="breadcrumb__option">
-                <a href="./index.html">Home</a>
-                <span>Detail Shop</span>
-              </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Detail Shop</h2>
+                        <div class="breadcrumb__option">
+                            <a href="./index.html">Home</a>
+                            <span>Detail Shop</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
     <!-- Breadcrumb Section End -->
 
     <!-- Product Section Begin -->
     <section class="product-details spad">
         <div class="container">
-          <div class="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="product__details__pic">
-                <div class="product__details__pic__item">
-                  <img
-                    class="product__details__pic__item--large"
-                    src="{{ asset('storage/gambar/' . $produks->produkgaleri->url) }}"
-                    alt=""
-                  />
-                </div>
-                <div class="product__details__pic__slider owl-carousel">
-                  <img
-                    data-imgbigurl="img/product/details/product-details-2.jpg"
-                    src="img/product/details/thumb-1.jpg"
-                    alt=""
-                  />
-                  <img
-                    data-imgbigurl="img/product/details/product-details-3.jpg"
-                    src="img/product/details/thumb-2.jpg"
-                    alt=""
-                  />
-                  <img
-                    data-imgbigurl="img/product/details/product-details-5.jpg"
-                    src="img/product/details/thumb-3.jpg"
-                    alt=""
-                  />
-                  <img
-                    data-imgbigurl="img/product/details/product-details-4.jpg"
-                    src="img/product/details/thumb-4.jpg"
-                    alt=""
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="product__details__text">
-                <h3>{{ $produks->name }}</h3>
-                <div class="product__details__rating">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-half-o"></i>
-                  <span>(18 reviews)</span>
-                </div>
-                <div class="product__details__price">Rp.{{ $produks->price }}</div>
-                <p>
-                    {{ $produks->description }}
-                </p>
-                <div class="product__details__quantity">
-                  <div class="quantity">
-                    <div class="pro-qty">
-                      <input type="text" value="1" />
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__pic">
+                        <div class="product__details__pic__item">
+                            <img class="product__details__pic__item--large"
+                                src="{{ asset('storage/gambar/' . $produks->produkgaleri->url) }}" alt="" />
+                        </div>
+                        <div class="product__details__pic__slider owl-carousel">
+                            {{-- <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-2.jpg') }}"
+                                src="{{ asset('frontend/img/product/details/thumb-1.jpg') }}" alt="" /> --}}
+                            @foreach ($produk as $produk)
+                                <a href="{{ route('shop.detail', ['id' => $produk->id]) }}">
+                                    <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-2.jpg') }}"
+                                        src="{{ asset('storage/gambar/' . $produk->produkgaleri->url) }}" alt="" />
+                            @endforeach
+                        </div>
                     </div>
-                  </div>
                 </div>
-                <a href="{{ route('cart.add', ['id' => $produks->id]) }}" class="primary-btn">ADD TO CARD</a>
-                <a href="#" class="heart-icon"
-                  ><span class="icon_heart_alt"></span
-                ></a>
-                <ul>
-                  <li><b>Weight</b> <span>0.5 kg</span></li>
-                  <li>
-                    <b>Share on</b>
-                    <div class="share">
-                      <a href="#"><i class="fa fa-facebook"></i></a>
-                      <a href="#"><i class="fa fa-twitter"></i></a>
-                      <a href="#"><i class="fa fa-instagram"></i></a>
-                      <a href="#"><i class="fa fa-pinterest"></i></a>
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__text">
+                        <h3>{{ $produks->name }}</h3>
+                        <div class="product__details__rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-o"></i>
+                            <span>(18 reviews)</span>
+                        </div>
+                        <div class="product__details__price">Rp.{{ $produks->price }}</div>
+                        <p>
+                            {{ $produks->description }}
+                        </p>
+                        <div class="product__details__quantity">
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="text" value="1" />
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{ route('cart.add', ['id' => $produks->id]) }}" class="primary-btn">ADD TO CARD</a>
+                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <ul>
+                            <li><b>Weight</b> <span>{{$produks->new_stock}} {{$produks->is_available}}</span></li>
+                            <li>
+                                <b>Share on</b>
+                                <div class="share">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            {{-- <div class="col-lg-12">
+                </div>
+                {{-- <div class="col-lg-12">
               <div class="product__details__tab">
                 <ul class="nav nav-tabs" role="tablist">
                   <li class="nav-item">
@@ -180,8 +161,8 @@
                 </div>
               </div>
             </div> --}}
-          </div>
+            </div>
         </div>
-      </section>
+    </section>
     <!-- Product Section End -->
 @endsection

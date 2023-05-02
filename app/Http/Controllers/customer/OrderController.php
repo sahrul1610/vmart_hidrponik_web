@@ -126,6 +126,7 @@ class OrderController extends Controller
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
+
         return view("frontend.order.payment", ['snap_token'=>$snapToken, 'transaction' => $ambil_data]);
     }
 
@@ -138,18 +139,24 @@ class OrderController extends Controller
         $order = Transaksi::where("id", $json->order_id)->first();
 
         $order->update(["status" => 'paid', 'payment' => $json->transaction_status]);
+
+        if ($json->transaction_status == 'settlement') {
+            return redirect('/invoice/' . $order->id);
+        } else {
+            return redirect('/home');
+        }
         // Rumus : Order - ID , Status Code, Gross Amount, ServerKey
         // echo $request->payment;
         //return redirect('/invoice/' . $order->id);
-        return redirect('/invoice/' . encrypt($order->id));
         } catch (\Exception $e) {
             // Jika terjadi error, maka tampilkan pesan error dan redirect ke halaman sebelumnya
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            //return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return redirect('/home')->withErrors(['error' => $e->getMessage()]);
         }
     }
 
     public function invoice($id){
-        $decryptedId = decrypt($id);
+        $decryptedId = $id;
         $transaction = Transaksi::find($decryptedId);
         return view('frontend.order.invoice', compact('transaction'));
         // $transaction = Transaksi::find($id);
