@@ -18,6 +18,8 @@ use App\Http\Controllers\customer\OrderController;
 use App\Http\Controllers\customer\BlogController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\customer\RajaOngkirController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -114,3 +116,12 @@ Route::middleware(['auth','user'])->group(function () {
     // Route::patch('/cart/update', 'CartController@update')->name('cart.update');
 });
 
+//Route::get('/province', [RajaOngkirController::class, 'getProvince']);
+// Route::get('/city', [RajaOngkirController::class, 'getCity']);
+// Route::post('/cost', [RajaOngkirController::class, 'getCost']);
+
+Route::get('/province/{id}/cities', [RajaOngkirController::class, 'getCities']);
+Route::post('/city/{id}/cities', [RajaOngkirController::class, 'getCost']);
+Route::get('/city', [RajaOngkirController::class, 'getCity']);
+//Route::post('/cost', [RajaOngkirController::class, 'getCost']);
+Route::post('/cost', [RajaOngkirController::class, 'getCost']);

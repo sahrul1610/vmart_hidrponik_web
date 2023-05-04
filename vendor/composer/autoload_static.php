@@ -143,6 +143,10 @@ class ComposerStaticInit8c8eb0c4a8cf587f3b2883fa3b9496bf
             'Laravel\\Fortify\\' => 16,
             'Laravel\\Breeze\\' => 15,
         ),
+        'K' => 
+        array (
+            'Kavist\\RajaOngkir\\' => 18,
+        ),
         'J' => 
         array (
             'Jenssegers\\Agent\\' => 17,
@@ -504,6 +508,10 @@ class ComposerStaticInit8c8eb0c4a8cf587f3b2883fa3b9496bf
         'Laravel\\Breeze\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/breeze/src',
+        ),
+        'Kavist\\RajaOngkir\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kavist/rajaongkir/src',
         ),
         'Jenssegers\\Agent\\' => 
         array (
@@ -3076,6 +3084,24 @@ class ComposerStaticInit8c8eb0c4a8cf587f3b2883fa3b9496bf
         'Jenssegers\\Agent\\Agent' => __DIR__ . '/..' . '/jenssegers/agent/src/Agent.php',
         'Jenssegers\\Agent\\AgentServiceProvider' => __DIR__ . '/..' . '/jenssegers/agent/src/AgentServiceProvider.php',
         'Jenssegers\\Agent\\Facades\\Agent' => __DIR__ . '/..' . '/jenssegers/agent/src/Facades/Agent.php',
+        'Kavist\\RajaOngkir\\Contracts\\HttpClientContract' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Contracts/HttpClientContract.php',
+        'Kavist\\RajaOngkir\\Contracts\\LocationResourceContract' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Contracts/LocationResourceContract.php',
+        'Kavist\\RajaOngkir\\Contracts\\SearchDriverContract' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Contracts/SearchDriverContract.php',
+        'Kavist\\RajaOngkir\\Exceptions\\ApiResponseException' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Exceptions/ApiResponseException.php',
+        'Kavist\\RajaOngkir\\Exceptions\\BasicHttpClientException' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Exceptions/BasicHttpClientException.php',
+        'Kavist\\RajaOngkir\\Exceptions\\InvalidConfigurationException' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Exceptions/InvalidConfigurationException.php',
+        'Kavist\\RajaOngkir\\Facades\\RajaOngkir' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Facades/RajaOngkir.php',
+        'Kavist\\RajaOngkir\\HttpClients\\AbstractClient' => __DIR__ . '/..' . '/kavist/rajaongkir/src/HttpClients/AbstractClient.php',
+        'Kavist\\RajaOngkir\\HttpClients\\BasicClient' => __DIR__ . '/..' . '/kavist/rajaongkir/src/HttpClients/BasicClient.php',
+        'Kavist\\RajaOngkir\\Providers\\LaravelServiceProvider' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Providers/LaravelServiceProvider.php',
+        'Kavist\\RajaOngkir\\RajaOngkir' => __DIR__ . '/..' . '/kavist/rajaongkir/src/RajaOngkir.php',
+        'Kavist\\RajaOngkir\\Resources\\AbstractLocation' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Resources/AbstractLocation.php',
+        'Kavist\\RajaOngkir\\Resources\\AbstractResource' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Resources/AbstractResource.php',
+        'Kavist\\RajaOngkir\\Resources\\Kota' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Resources/Kota.php',
+        'Kavist\\RajaOngkir\\Resources\\OngkosKirim' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Resources/OngkosKirim.php',
+        'Kavist\\RajaOngkir\\Resources\\Provinsi' => __DIR__ . '/..' . '/kavist/rajaongkir/src/Resources/Provinsi.php',
+        'Kavist\\RajaOngkir\\SearchDrivers\\AbstractDriver' => __DIR__ . '/..' . '/kavist/rajaongkir/src/SearchDrivers/AbstractDriver.php',
+        'Kavist\\RajaOngkir\\SearchDrivers\\BasicDriver' => __DIR__ . '/..' . '/kavist/rajaongkir/src/SearchDrivers/BasicDriver.php',
         'Laravel\\Breeze\\BreezeServiceProvider' => __DIR__ . '/..' . '/laravel/breeze/src/BreezeServiceProvider.php',
         'Laravel\\Breeze\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallCommand.php',
         'Laravel\\Breeze\\Console\\InstallsApiStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsApiStack.php',
@@ -3174,6 +3200,7 @@ class ComposerStaticInit8c8eb0c4a8cf587f3b2883fa3b9496bf
         'Laravel\\Fortify\\Http\\Responses\\VerifyEmailResponse' => __DIR__ . '/..' . '/laravel/fortify/src/Http/Responses/VerifyEmailResponse.php',
         'Laravel\\Fortify\\LoginRateLimiter' => __DIR__ . '/..' . '/laravel/fortify/src/LoginRateLimiter.php',
         'Laravel\\Fortify\\RecoveryCode' => __DIR__ . '/..' . '/laravel/fortify/src/RecoveryCode.php',
+        'Laravel\\Fortify\\RoutePath' => __DIR__ . '/..' . '/laravel/fortify/src/RoutePath.php',
         'Laravel\\Fortify\\Rules\\Password' => __DIR__ . '/..' . '/laravel/fortify/src/Rules/Password.php',
         'Laravel\\Fortify\\TwoFactorAuthenticatable' => __DIR__ . '/..' . '/laravel/fortify/src/TwoFactorAuthenticatable.php',
         'Laravel\\Fortify\\TwoFactorAuthenticationProvider' => __DIR__ . '/..' . '/laravel/fortify/src/TwoFactorAuthenticationProvider.php',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\customer;
 use PDF;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\customer\RajaOngkirController;
 use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\TransaksiItem;
@@ -11,14 +12,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 
-class OrderController extends Controller
+class OrderController extends RajaOngkirController
 {
 
     public function Index()
     {
         $cart = Session::get('cart', []);
         ($cart);
-        return view('frontend.order.checkout', compact('cart'));
+        // $cities = [];
+        $province = $this->getProvince();
+
+
+        //$city = $this->getCity();
+        // dd($cities);
+        return view('frontend.order.checkout', compact('cart', 'province'));
     }
 
     public function payment()
@@ -30,11 +37,10 @@ class OrderController extends Controller
 
     public function checkout(Request $request)
     {
-
         $request->validate([
             'address' => 'required',
-            'total_price' => 'required|numeric',
-            'shipping_price' => 'required|numeric'
+            // 'total_price' => 'required|numeric',
+            // 'shipping_price' => 'required|numeric'
         ]);
         //dd($request);
 
@@ -51,7 +57,7 @@ class OrderController extends Controller
         $transaction->users_id = $users_id;
         $transaction->address = $request->address;
         $transaction->total_price = $request->total_price;
-        $transaction->shipping_price = $request->shipping_price;
+        $transaction->shipping_price = (int)$request->shipping_cost;
         $transaction->status = 'pending';
         $transaction->payment = 'not paid';
         $transaction->created_at = now(); // mengisi field created_at dengan waktu sekarang
