@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\Courier;
 
 class OrderController extends RajaOngkirController
 {
@@ -21,11 +22,11 @@ class OrderController extends RajaOngkirController
         ($cart);
         // $cities = [];
         $province = $this->getProvince();
-
+        $courier = Courier::all();
 
         //$city = $this->getCity();
         // dd($cities);
-        return view('frontend.order.checkout', compact('cart', 'province'));
+        return view('frontend.order.checkout', compact('cart', 'province', 'courier'));
     }
 
     public function payment()

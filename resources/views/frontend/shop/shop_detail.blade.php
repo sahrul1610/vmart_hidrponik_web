@@ -65,7 +65,7 @@
                         <a href="{{ route('cart.add', ['id' => $produks->id]) }}" class="primary-btn">ADD TO CARD</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
-                            <li><b>Weight</b> <span>{{$produks->new_stock}} {{$produks->is_available}}</span></li>
+                            <li><b>Weight</b> <span>{{$produks->is_available}} kg</span></li>
                             <li>
                                 <b>Share on</b>
                                 <div class="share">

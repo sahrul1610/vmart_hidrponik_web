@@ -718,6 +718,7 @@ class ComposerStaticInit8c8eb0c4a8cf587f3b2883fa3b9496bf
         'App\\Http\\Requests\\ProdukRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProdukRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
         'App\\Models\\Cart' => __DIR__ . '/../..' . '/app/Models/Cart.php',
+        'App\\Models\\Courier' => __DIR__ . '/../..' . '/app/Models/Courier.php',
         'App\\Models\\Kategori' => __DIR__ . '/../..' . '/app/Models/Kategori.php',
         'App\\Models\\Mobile\\Product' => __DIR__ . '/../..' . '/app/Models/Mobile/Product.php',
         'App\\Models\\Mobile\\ProductCategory' => __DIR__ . '/../..' . '/app/Models/Mobile/ProductCategory.php',

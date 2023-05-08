@@ -62,6 +62,7 @@ return array(
     'App\\Http\\Requests\\ProdukRequest' => $baseDir . '/app/Http/Requests/ProdukRequest.php',
     'App\\Http\\Requests\\ProfileUpdateRequest' => $baseDir . '/app/Http/Requests/ProfileUpdateRequest.php',
     'App\\Models\\Cart' => $baseDir . '/app/Models/Cart.php',
+    'App\\Models\\Courier' => $baseDir . '/app/Models/Courier.php',
     'App\\Models\\Kategori' => $baseDir . '/app/Models/Kategori.php',
     'App\\Models\\Mobile\\Product' => $baseDir . '/app/Models/Mobile/Product.php',
     'App\\Models\\Mobile\\ProductCategory' => $baseDir . '/app/Models/Mobile/ProductCategory.php',

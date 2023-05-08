@@ -30,6 +30,10 @@
                 <form method="post" action="{{ route('checkout') }}">
                     @csrf
                     <div class="row">
+                        @foreach ($cart as $item)
+
+                            <input type="hidden" name="weight" value="{{ $item['tersedia'] }}">
+                        @endforeach
                         <div class="col-lg-8 col-md-6">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -51,15 +55,12 @@
                             <div class="checkout__input">
                                 <p>provinsi<span>*</span></p>
                                 {{-- <select type="text" name="address"  class="provinsi"></select> --}}
-
-
                                 <select name="province_origin" class="js-example-basic-single form-select form-select-lg">
                                     <option value="">Pilih Provinsi asal</option>
                                     @foreach ($province as $province => $value)
                                         <option value="{{ $value['province_id'] }}">{{ $value['province'] }}</option>
                                     @endforeach
                                 </select>
-
                                 <div class="text-danger">
                                     @error('address')
                                         {{ $message }}
@@ -69,8 +70,6 @@
                             <div class="checkout__input">
                                 <p>Kota<span>*</span></p>
                                 {{-- <select type="text" name="address"  class="provinsi"></select> --}}
-
-
                                 <select name="city_origin" class="js-example-basic-single form-select form-select-lg">
                                     <option value="">Pilih Kota asal</option>
                                     {{-- @foreach ($city as $city)
@@ -84,12 +83,14 @@
                                     @enderror
                                 </div>
                             </div>
-
-                            <div class="checkout__input" id="hamdan" style="display: none">
+                            <div class="checkout__input" id="courir">
                                 <p>Cost<span>*</span></p>
                                 {{-- <select type="text" name="address"  class="provinsi"></select> --}}
-                                <select name="shipping_cost" class="js-example-basic-single form-select form-select-lg">
-                                    <option value="">Pilih Kota asal</option>
+                                <select name="courier" class="js-example-basic-single form-select form-select-lg">
+                                    <option value="">Pilih a asal</option>
+                                    @foreach ($courier as $kurir)
+                                        <option value="{{ $kurir->code }}">{{ $kurir->title }}</option>
+                                    @endforeach
                                 </select>
 
                                 <div class="text-danger">
@@ -98,6 +99,21 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="checkout__input" id="hamdan" style="display: none">
+                                <p>Cost<span>*</span></p>
+                                {{-- <select type="text" name="address"  class="provinsi"></select> --}}
+                                <select name="shipping_cost" class="js-example-basic-single form-select form-select-lg">
+                                    <option value="">Pilih pembayaran</option>
+                                    <span id="shipping_cost_price"></span>
+                                </select>
+
+                                <div class="text-danger">
+                                    @error('address')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                            </div>
+
 
                             {{-- <div class="checkout__input">
                                 <p>shipping<span>*</span></p>
@@ -205,7 +221,6 @@
             document.getElementById('json_callback').value = JSON.stringify(result);
             $('#submit_form').submit();
         }
-
     </script>
 
     <script>
@@ -233,10 +248,13 @@
                 }
             });
 
-            $('select[name="city_origin"]').on('change', function() {
-                let cityOriginId = $(this).val();
-               // let weight = $('input[name="weight"]').val();
-                //let courier = $('select[name="courier"]').val();
+            $('select[name="courier"]').on('change', function() {
+                //     let cityOriginId = $(this).val();
+                //    // let weight = $('input[name="weight"]').val();
+                //     let courier = $('select[name="courier"]').val();
+                let courier = $(this).val();
+                let cityOriginId = $('select[name="city_origin"]').val();
+                let weight = $('input[name="weight"]').val();
 
                 if (cityOriginId) {
                     $.ajax({
@@ -244,14 +262,24 @@
                         type: "POST",
                         data: {
                             _token: "{{ csrf_token() }}",
-                            cityOriginId: cityOriginId
+                            cityOriginId: cityOriginId,
+                            courier: courier,
+                            weight: weight,
+
                         },
                         success: function(result) {
                             $("#hamdan").show();
                             $.each(result, function(key, value) {
                                 $('select[name="shipping_cost"]').append(
-                                    '<option value=' + value["cost"][0]["value"] + '>' + value["service"] + '</option>');
+                                    '<option value=' + value["cost"][0]["value"] +
+                                    '>' + value["service"] + '-' + value["cost"][0][
+                                        "value"
+                                    ] + '</option>');
                             });
+                            // let price = result[0]["costs"][0]["cost"][0]["value"];
+                            // $("#shipping_cost_price").text(" (Rp " + price + ")");
+                            let price = result[0]["cost"][0]["value"];
+                            $("#shipping_cost_price").text(" (Rp " + price + ")");
                         }
                     })
                     // jQuery.ajax({
@@ -286,10 +314,14 @@
                 $('select[name="city_origin"]').trigger('change');
             });
 
+            // $('select[name="courier"]').on('change', function() {
+            //     $('select[name="city_origin"]').trigger('change');
+            // });
+
             $('select[name="courier"]').on('change', function() {
+                $('select[name="shipping_cost"]').empty();
                 $('select[name="city_origin"]').trigger('change');
             });
-
 
 
         });

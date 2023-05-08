@@ -49,10 +49,11 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div class="mb-3">
-                                <label for="basicInput" class="form-label">Satuan</label>
+                            <label for="basicInput" class="form-label">Satuan</label>
+                            <div class="input-group mb-3">
                                 <input type="text" placeholder="Masukan satuan" name="is_available" class="form-control"
                                     id="basicInput" value="{{ $edit->is_available }}">
+                                    <span class="input-group-text" id="basic-addon2">kg</span>
                             </div>
                             <div class="text-danger">
                                 @error('is_available')
