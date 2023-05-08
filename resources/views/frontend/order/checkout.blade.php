@@ -31,7 +31,6 @@
                     @csrf
                     <div class="row">
                         @foreach ($cart as $item)
-
                             <input type="hidden" name="weight" value="{{ $item['tersedia'] }}">
                         @endforeach
                         <div class="col-lg-8 col-md-6">
@@ -43,72 +42,86 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="checkout__input">
                                 <p>Address<span>*</span></p>
-                                <input type="text" name="address" placeholder="Street Address" />
+                                <input type="text" name="address" placeholder="Street Address"
+                                    value="{{ old('address') }}" />
                                 <div class="text-danger">
                                     @error('address')
                                         {{ $message }}
                                     @enderror
                                 </div>
                             </div>
-                            <div class="checkout__input">
-                                <p>provinsi<span>*</span></p>
-                                {{-- <select type="text" name="address"  class="provinsi"></select> --}}
-                                <select name="province_origin" class="js-example-basic-single form-select form-select-lg">
-                                    <option value="">Pilih Provinsi asal</option>
-                                    @foreach ($province as $province => $value)
-                                        <option value="{{ $value['province_id'] }}">{{ $value['province'] }}</option>
-                                    @endforeach
-                                </select>
-                                <div class="text-danger">
-                                    @error('address')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="checkout__input">
-                                <p>Kota<span>*</span></p>
-                                {{-- <select type="text" name="address"  class="provinsi"></select> --}}
-                                <select name="city_origin" class="js-example-basic-single form-select form-select-lg">
-                                    <option value="">Pilih Kota asal</option>
-                                    {{-- @foreach ($city as $city)
-                                        <option value="">{{ $city['city_name'] }}</option>
-                                    @endforeach --}}
-                                </select>
+                            <div class="row">
+                                <div class="col-lg-6">
 
-                                <div class="text-danger">
-                                    @error('address')
-                                        {{ $message }}
-                                    @enderror
+                                    <div class="checkout__input">
+                                        <p>provinsi<span>*</span></p>
+                                        {{-- <select type="text" name="address"  class="provinsi"></select> --}}
+                                        <select name="province_origin"
+                                            class="js-example-basic-single form-select form-select-lg">
+                                            <option value="">Pilih Provinsi asal</option>
+                                            @foreach ($province as $province => $value)
+                                                <option value="{{ $value['province_id'] }}">{{ $value['province'] }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <div class="text-danger">
+                                            @error('province_origin')
+                                                {{ $message }}
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+
+                                    <div class="checkout__input">
+                                        <p>Kota<span>*</span></p>
+                                        {{-- <select type="text" name="address"  class="provinsi"></select> --}}
+                                        <select name="city_origin"
+                                            class="js-example-basic-single form-select form-select-lg">
+                                            <option value="">Pilih Kota asal</option>
+                                            {{-- @foreach ($city as $city)
+                                                <option value="">{{ $city['city_name'] }}</option>
+                                                @endforeach --}}
+                                        </select>
+
+                                        <div class="text-danger">
+                                            @error('city_origin')
+                                                {{ $message }}
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="checkout__input" id="courir">
-                                <p>Cost<span>*</span></p>
+                                <p>Pengiriman<span>*</span></p>
                                 {{-- <select type="text" name="address"  class="provinsi"></select> --}}
                                 <select name="courier" class="js-example-basic-single form-select form-select-lg">
-                                    <option value="">Pilih a asal</option>
+                                    <option value="">Pilih Pengiriman</option>
                                     @foreach ($courier as $kurir)
                                         <option value="{{ $kurir->code }}">{{ $kurir->title }}</option>
                                     @endforeach
                                 </select>
 
                                 <div class="text-danger">
-                                    @error('address')
+                                    @error('courier')
                                         {{ $message }}
                                     @enderror
                                 </div>
                             </div>
                             <div class="checkout__input" id="hamdan" style="display: none">
-                                <p>Cost<span>*</span></p>
+                                <p>Opsi pengiriman<span>*</span></p>
                                 {{-- <select type="text" name="address"  class="provinsi"></select> --}}
                                 <select name="shipping_cost" class="js-example-basic-single form-select form-select-lg">
-                                    <option value="">Pilih pembayaran</option>
+                                    <option value="">Pilih Opsi Pengiriman</option>
                                     <span id="shipping_cost_price"></span>
                                 </select>
 
                                 <div class="text-danger">
-                                    @error('address')
+                                    @error('shipping_cost')
                                         {{ $message }}
                                     @enderror
                                 </div>

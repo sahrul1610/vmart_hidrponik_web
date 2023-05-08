@@ -40,8 +40,11 @@ class OrderController extends RajaOngkirController
     {
         $request->validate([
             'address' => 'required',
-            // 'total_price' => 'required|numeric',
-            // 'shipping_price' => 'required|numeric'
+            'total_price' => 'required|numeric',
+            'shipping_cost' => 'required|numeric',
+            'province_origin' => 'required',
+            'city_origin' => 'required',
+            'courier' => 'required',
         ]);
         //dd($request);
 
