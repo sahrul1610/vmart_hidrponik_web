@@ -167,7 +167,7 @@
                                 <a class="dropdown-item" href="#">Notifikasi</a>
                             </li> -->
                             <li class="menu-content ps-menu">
-                                <a href="{{url('/profile')}}">
+                                <a href="{{url('/user/profile')}}">
                                     <div class="description">
                                         <i class="ti-user"></i> Profile
                                     </div>
@@ -182,13 +182,13 @@
                                         <i class="ti-power-off"></i> Logout
                                     </div>
                                 </a>
-                                <form action="{{url('/logout')}}" method="post">
+                                {{-- <form action="{{url('/logout')}}" method="post">
                                     @csrf
                                     <div class="description">
 
                                         <button type="submit"> <i class="ti-power-off"></i> Logout</button>
                                     </div>
-                                </form>
+                                </form> --}}
                             </li>
                         </ul>
                     </div>
