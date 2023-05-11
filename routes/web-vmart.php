@@ -16,6 +16,7 @@ use App\Http\Controllers\customer\ShopController;
 use App\Http\Controllers\customer\CartController;
 use App\Http\Controllers\customer\OrderController;
 use App\Http\Controllers\customer\BlogController;
+use App\Http\Controllers\customer\LikeController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\customer\RajaOngkirController;
@@ -100,6 +101,9 @@ Route::middleware(['auth','user'])->group(function () {
     Route::get('/checkout', [OrderController::class, 'Index'])->name('cart.checkout');
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
     //Route::post('/mitrans-callback', [CartController::class, 'callback'])->name('callback');
+
+    Route::get('/like/{id}', [LikeController::class, 'addToLike'])->name('like.add');
+    Route::get('/like', [LikeController::class, 'index'])->name('like.index');
 
     Route::get("/checkout/{id}", [OrderController::class, "checkout_by_id"]);
     Route::get('/payment', [CartController::class, 'payment'])->name('payment');

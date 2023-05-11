@@ -20,8 +20,9 @@ class HomeController extends Controller
         $produks = Produk::with('produkgaleri')->where('new_stock', '>', 0)->get();
         $menu_categories = Kategori::all();
         $cart = Session::get('cart', []);
+        $like = Session::get('like', []);
         // Mengirim data produk ke view untuk ditampilkan
-        return view('frontend.homepage', compact('produks','menu_categories', 'cart'));
+        return view('frontend.homepage', compact('produks','menu_categories', 'cart', 'like'));
         // return view('frontend.homepage');
     }
 

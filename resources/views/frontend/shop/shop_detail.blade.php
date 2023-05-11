@@ -51,7 +51,7 @@
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
                         </div>
-                        <div class="product__details__price">Rp.{{ $produks->price }}</div>
+                        <div class="product__details__price">{{ number_format($produks->price) }}</div>
                         <p>
                             {{ $produks->description }}
                         </p>

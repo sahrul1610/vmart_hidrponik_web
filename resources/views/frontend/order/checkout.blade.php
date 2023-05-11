@@ -20,6 +20,8 @@
     <!-- Breadcrumb Section End -->
 
     <!-- Checkout Section Begin -->
+
+
     <section class="checkout spad">
         {{-- <div class="container" id="checkout">
     </div> --}}
@@ -37,7 +39,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
-                                        <p>Name<span>*</span></p>
+                                        <p>Nama<span>*</span></p>
                                         <input type="text" placeholder="{{ auth()->user()->name }}" readonly />
                                     </div>
                                 </div>
@@ -45,8 +47,8 @@
 
 
                             <div class="checkout__input">
-                                <p>Address<span>*</span></p>
-                                <input type="text" name="address" placeholder="Street Address"
+                                <p>Alamat<span>*</span></p>
+                                <input type="text" name="address" placeholder="Nama Kecamatan, Nama desa, Gedung, No. rumah"
                                     value="{{ old('address') }}" />
                                 <div class="text-danger">
                                     @error('address')
@@ -165,7 +167,7 @@
                                         Total <span>{{ number_format($totalPrice, 2) }}</span>
                                     </div>
                                 @endif
-                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                                <button type="submit" class="site-btn">BUAT PESANAN</button>
                             </div>
                         </div>
                     </div>
@@ -255,6 +257,10 @@
                                     value['city_name'] + '</option>');
                             });
                         },
+                        error: function(data){
+                            alert('Something went wrong');
+                        }
+
                     });
                 } else {
                     $('select[name="city_origin"]').empty();

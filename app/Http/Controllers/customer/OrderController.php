@@ -21,7 +21,12 @@ class OrderController extends RajaOngkirController
         $cart = Session::get('cart', []);
         ($cart);
         // $cities = [];
-        $province = $this->getProvince();
+        try {
+            $province = $this->getProvince();
+        } catch (\Throwable $th) {
+            return redirect('/cart')->with('gagal', 'Mohon periksa jaringan anda!');
+        }
+
         $courier = Courier::all();
 
         //$city = $this->getCity();
