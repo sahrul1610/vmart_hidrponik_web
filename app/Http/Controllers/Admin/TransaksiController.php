@@ -6,6 +6,13 @@ use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use PDF;
+use App\Exports\TransactionsExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Box\Spout\Writer\Common\Creator\WriterFactory;
+use Box\Spout\Reader\ReaderFactory;
+//use Box\Spout\Writer\WriterFactory;
+use Box\Spout\Common\Type;
 
 
 class TransaksiController extends Controller
@@ -42,6 +49,11 @@ class TransaksiController extends Controller
 
         return $pdf->download('transaksi-paid.pdf');
     }
+
+    // public function export()
+    // {
+    //     return Excel::download(new TransactionsExport, 'transaksi.xlsx');
+    // }
 
 
 }

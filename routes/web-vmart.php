@@ -81,6 +81,7 @@ Route::get('/login/{provider}', [SocialiteController::class, 'redirectToProvider
 Route::get('/login/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 // Route::get('/login/google', 'LoginController@redirectToGoogle');
 // Route::get('/login/google/callback', 'LoginController@handleGoogleCallback');
+Route::get('/excel/export', [ExportController::class, 'exportData'])->name('transaksi.export');
 
 
 
