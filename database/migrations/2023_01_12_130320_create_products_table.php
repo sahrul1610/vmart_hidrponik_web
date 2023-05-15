@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->longText('description');
 
             $table->string('tags')->nullable();
+            $table->string('is_available');
 
             $table->bigInteger('categories_id');
 

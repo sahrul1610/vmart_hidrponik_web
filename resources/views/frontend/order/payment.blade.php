@@ -35,19 +35,20 @@
                             Products <span>Total</span>
                         </div>
                         <ul>
-                            <li>nama<span>{{ $transaction->user->name }}</span></li>
+                            <li>Nama<span>{{ $transaction->user->name }}</span></li>
                             <li>Alamat<span>{{ $transaction->address }}</span></li>
-                            <li>total<span>{{ $transaction->total_price }}</span></li>
-                            <li>pembayaran<span>{{ $transaction->payment }}</span></li>
-                            <li>status<span>{{ $transaction->status }}</span></li>
+                            <li>Pengiriman<span>{{ $transaction->shipping_price }}</span></li>
+                            <li>Harga barang<span>{{ number_format($transaction->total_price) }}</span></li>
+                            <li>Pembayaran<span>{{ $transaction->payment }}</span></li>
+                            <li>Status<span>{{ $transaction->status }}</span></li>
                             {{-- <li>Fresh Vegetable <span>$151.99</span></li>
                                 <li>Organic Bananas <span>$53.99</span></li> --}}
                             </ul>
                             <div class="checkout__order__subtotal">
-                                Subtotal <span>$750.99</span>
+                                Subtotal <span>{{ number_format($transaction->total_price + $transaction->shipping_price) }}</span>
                             </div>
                             <div class="checkout__order__total">
-                                Total <span>$750.99</span>
+                                Total <span>Rp.{{ number_format($transaction->total_price + $transaction->shipping_price) }},-</span>
                             </div>
 
                             <form id="submit_form" method="POST">

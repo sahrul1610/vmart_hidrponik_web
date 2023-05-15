@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\customer;
 use PDF;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\customer\RajaOngkirController;
 use App\Models\Produk;
 use App\Models\Transaksi;
 use App\Models\TransaksiItem;
@@ -10,15 +11,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\Courier;
 
-class OrderController extends Controller
+class OrderController extends RajaOngkirController
 {
 
     public function Index()
     {
         $cart = Session::get('cart', []);
         ($cart);
-        return view('frontend.order.checkout', compact('cart'));
+        // $cities = [];
+        try {
+            $province = $this->getProvince();
+        } catch (\Throwable $th) {
+            return redirect('/cart')->with('gagal', 'Mohon periksa jaringan anda!');
+        }
+
+        $courier = Courier::all();
+
+        //$city = $this->getCity();
+        // dd($cities);
+        return view('frontend.order.checkout', compact('cart', 'province', 'courier'));
     }
 
     public function payment()
@@ -30,11 +43,13 @@ class OrderController extends Controller
 
     public function checkout(Request $request)
     {
-
         $request->validate([
             'address' => 'required',
             'total_price' => 'required|numeric',
-            'shipping_price' => 'required|numeric'
+            'shipping_cost' => 'required|numeric',
+            'province_origin' => 'required',
+            'city_origin' => 'required',
+            'courier' => 'required',
         ]);
         //dd($request);
 
@@ -51,7 +66,7 @@ class OrderController extends Controller
         $transaction->users_id = $users_id;
         $transaction->address = $request->address;
         $transaction->total_price = $request->total_price;
-        $transaction->shipping_price = $request->shipping_price;
+        $transaction->shipping_price = (int)$request->shipping_cost;
         $transaction->status = 'pending';
         $transaction->payment = 'not paid';
         $transaction->created_at = now(); // mengisi field created_at dengan waktu sekarang
@@ -98,6 +113,11 @@ class OrderController extends Controller
         $ambil_data = Transaksi::where("id", $data["transaksi_id"])->first();
         $ambil_user = User::where("id", $data["users_id"])->first();
 
+        // Pengecekan apakah order_id sudah digunakan
+        if ($ambil_data->status == 'paid') {
+            return redirect('/')->with('error', 'Order ID sudah digunakan!');
+        }
+
         \Midtrans\Config::$serverKey = env("MIDTRANS_SERVER_KEY");
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
         \Midtrans\Config::$isProduction = false;
@@ -121,6 +141,7 @@ class OrderController extends Controller
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
+
         return view("frontend.order.payment", ['snap_token'=>$snapToken, 'transaction' => $ambil_data]);
     }
 
@@ -133,18 +154,24 @@ class OrderController extends Controller
         $order = Transaksi::where("id", $json->order_id)->first();
 
         $order->update(["status" => 'paid', 'payment' => $json->transaction_status]);
+
+        if ($json->transaction_status == 'settlement') {
+            return redirect('/invoice/' . $order->id);
+        } else {
+            return redirect('/home');
+        }
         // Rumus : Order - ID , Status Code, Gross Amount, ServerKey
         // echo $request->payment;
         //return redirect('/invoice/' . $order->id);
-        return redirect('/invoice/' . encrypt($order->id));
         } catch (\Exception $e) {
             // Jika terjadi error, maka tampilkan pesan error dan redirect ke halaman sebelumnya
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            //return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return redirect('/home')->withErrors(['error' => $e->getMessage()]);
         }
     }
 
     public function invoice($id){
-        $decryptedId = decrypt($id);
+        $decryptedId = $id;
         $transaction = Transaksi::find($decryptedId);
         return view('frontend.order.invoice', compact('transaction'));
         // $transaction = Transaksi::find($id);

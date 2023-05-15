@@ -69,5 +69,5 @@
      <script src="{{ url('/template') }}/assets/js/page/datatables.js"></script> --}}
          <!-- ======= -->
     <script src="{{ url('/template') }}/plugins/ckeditor/ckeditor.js"></script>
-
+@yield('page_scripts')
 

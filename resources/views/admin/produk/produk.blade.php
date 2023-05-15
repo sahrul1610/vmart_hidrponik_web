@@ -143,6 +143,7 @@
                                                     <th>Harga</th>
                                                     <th>Stok</th>
                                                     <th>Stok Baru</th>
+                                                    <th>Satuan</th>
                                                     <th>Kategori</th>
                                                     <th>Deskripsi</th>
                                                     <th>Tag</th>
@@ -158,7 +159,8 @@
                                                         <td>{{ $dt->name }}</td>
                                                         <td>{{ $dt->price }}</td>
                                                         <td>{{ $dt->stock }}</td>
-                                                        <td>{{ $dt->new_stock }}</td>
+                                                        <td>{{ $dt->new_stock }} </td>
+                                                        <td>{{$dt->is_available}} kg </td>
                                                         <td>{{ $dt->getKategori->name }}</td>
                                                         <td>{{ $dt->description }}</td>
                                                         <td>{{ $dt->tags }}</td>
@@ -200,6 +202,7 @@
                                                     <th>Harga</th>
                                                     <th>Stok</th>
                                                     <th>Stok Baru</th>
+                                                    <th>Satuan</th>
                                                     <th>Kategori</th>
                                                     <th>Deskripsi</th>
                                                     <th>Tag</th>
@@ -216,6 +219,7 @@
                                                         <td>{{ $dt->price }}</td>
                                                         <td>{{ $dt->stock }}</td>
                                                         <td>{{ $dt->new_stock }}</td>
+                                                        <td>{{$dt->is_available}} kg</td>
                                                         <td>{{ $dt->getKategori->name }}</td>
                                                         <td>{{ $dt->description }}</td>
                                                         <td>{{ $dt->tags }}</td>

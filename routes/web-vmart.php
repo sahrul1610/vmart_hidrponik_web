@@ -16,7 +16,10 @@ use App\Http\Controllers\customer\ShopController;
 use App\Http\Controllers\customer\CartController;
 use App\Http\Controllers\customer\OrderController;
 use App\Http\Controllers\customer\BlogController;
+use App\Http\Controllers\customer\LikeController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\customer\RajaOngkirController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +102,9 @@ Route::middleware(['auth','user'])->group(function () {
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
     //Route::post('/mitrans-callback', [CartController::class, 'callback'])->name('callback');
 
+    Route::get('/like/{id}', [LikeController::class, 'addToLike'])->name('like.add');
+    Route::get('/like', [LikeController::class, 'index'])->name('like.index');
+
     Route::get("/checkout/{id}", [OrderController::class, "checkout_by_id"]);
     Route::get('/payment', [CartController::class, 'payment'])->name('payment');
     Route::post('/checkout/{id}', [OrderController::class, 'post_checkout']);
@@ -114,3 +120,12 @@ Route::middleware(['auth','user'])->group(function () {
     // Route::patch('/cart/update', 'CartController@update')->name('cart.update');
 });
 
+//Route::get('/province', [RajaOngkirController::class, 'getProvince']);
+// Route::get('/city', [RajaOngkirController::class, 'getCity']);
+// Route::post('/cost', [RajaOngkirController::class, 'getCost']);
+
+Route::get('/province/{id}/cities', [RajaOngkirController::class, 'getCities']);
+Route::post('/city/{id}/cities', [RajaOngkirController::class, 'getCost']);
+Route::get('/city', [RajaOngkirController::class, 'getCity']);
+//Route::post('/cost', [RajaOngkirController::class, 'getCost']);
+Route::post('/cost', [RajaOngkirController::class, 'getCost']);

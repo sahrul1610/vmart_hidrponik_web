@@ -27,10 +27,11 @@ class ShopController extends Controller
 
     public function detail($id){
         $produks = Produk::with('produkgaleri')->find($id);
+        $produk = Produk::with('produkgaleri')->where('new_stock', '>', 0)->get();
         $menu_categories = Kategori::all();
         $cart = Session::get('cart', []);
         // Mengirim data produk ke view untuk ditampilkan
-        return view('frontend.shop.shop_detail', compact('produks','menu_categories', 'cart'));
+        return view('frontend.shop.shop_detail', compact('produks','menu_categories', 'cart', 'produk'));
         //return view('frontend.shop.shop_detail');
     }
 

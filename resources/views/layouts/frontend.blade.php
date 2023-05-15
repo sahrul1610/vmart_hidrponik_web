@@ -38,7 +38,13 @@
         <div class="humberger__menu__cart">
             <ul>
                 <li>
-                    <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
+                    <a href="{{ url('/like') }}"><i class="fa fa-heart"></i>
+                        @if (session()->has('like'))
+                            <span>{{ count(session()->get('like')) }}</span>
+                        @else
+                            <span>0</span>
+                        @endif
+                    </a>
                 </li>
                 <li>
                     {{-- <a href="#"><i class="fa fa-shopping-bag"></i> <span>
@@ -103,7 +109,7 @@
         </div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li><i class="fa fa-envelope"></i> VmartCorporation@gmail.com</li>
                 {{-- <li>Free Shipping for all Order of $99</li> --}}
             </ul>
         </div>
@@ -118,7 +124,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                                <li><i class="fa fa-envelope"></i> VmartCorporation@gmail.com</li>
                                 {{-- <li>Free Shipping for all Order of $99</li> --}}
                             </ul>
                         </div>
@@ -142,7 +148,9 @@
                                     </a>
                                     <span class="arrow_carrot-down"></span>
                                     <ul>
-                                        <li><a href="#">Profile</a></li>
+                                        <li><a href="{{ url('user/profile') }}">Profile</a></li>
+
+                                        <li><a href="{{ route('myorders') }}">MyOrder</a></li>
                                     </ul>
                                 </div>
                                 <div class="header__top__right__auth">
@@ -174,14 +182,28 @@
                     <div class="header__cart">
                         <ul>
                             <li>
-                                <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
+                                <a href="{{ url('/like') }}"><i class="fa fa-heart"></i>
+                                    @if (session()->has('like'))
+                                        <span>{{ count(session()->get('like')) }}</span>
+                                    @else
+                                        <span>0</span>
+                                    @endif
+                                </a>
                             </li>
                             <li>
                                 {{-- <a href="{{ route('cart.index') }}"><i class="fa fa-shopping-bag"></i>
                                     <span>{{ $cartCount }}</span></a> --}}
-                                <a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i>
+                                {{-- <a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i>
                                     @if (session()->has('cart'))
                                         <span>{{ count(session()->get('cart')) }}</span>
+                                    @else
+                                        <span>0</span>
+                                    @endif
+                                </a> --}}
+
+                                <a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i>
+                                    @if (isset($cart) && count($cart) > 0)
+                                        <span>{{ count($cart) }}</span>
                                     @else
                                         <span>0</span>
                                     @endif
@@ -214,7 +236,7 @@
                         <div class="hero__search__form">
                             <div class="hero__search__form">
                                 <form action="{{ route('produk.search') }}" method="GET">
-                                    <input type="text" placeholder="What do you need?" name="keyword" />
+                                    <input type="text" placeholder="Apa yang anda butuhkan?" name="keyword" />
                                     <button type="submit" class="site-btn">SEARCH</button>
                                 </form>
                             </div>
@@ -250,7 +272,7 @@
                         <ul>
                             <li>Address: 60-49 Road 11378 New York</li>
                             <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
+                            <li>Email: VmartCorporation@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -328,6 +350,17 @@
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+
+    <script>
+        // ambil data dari local storage
+        var cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+        // tampilkan jumlah item dalam keranjang
+        var cartCount = Object.keys(cart).length;
+        document.getElementById('cart').innerHTML = '<a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i><span>' + cartCount + '</span></a>';
+    </script>
+
+    @yield('javascript')
 </body>
 
 </html>

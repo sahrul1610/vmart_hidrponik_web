@@ -46,14 +46,27 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="basicInput" class="form-label">Stok</label>
-                                <input type="text" placeholder="Masukan stock" name="stock" class="form-control"
+                                <input type="number" placeholder="Masukan stock" name="stock" class="form-control"
                                     id="basicInput" value="{{ old('stock') }}">
                             </div>
                             <div class="text-danger">
                                 @error('stock')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="basicInput" class="form-label">Satuan</label>
+                            <div class="input-group mb-3">
+                                <input type="number" placeholder="Masukan satuan" name="is_available" class="form-control"
+                                    id="basicInput" value="{{ old('is_available') }}">
+                                <span class="input-group-text" id="basic-addon2">kg</span>
+                            </div>
+                            <div class="text-danger">
+                                @error('is_available')
                                     {{ $message }}
                                 @enderror
                             </div>
@@ -106,8 +119,7 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                                <textarea class="form-control"  name="description"  rows="3"
-                                    value="{{ old('description') }}"></textarea>
+                                <textarea class="form-control" name="description" rows="3" value="{{ old('description') }}"></textarea>
                             </div>
                             <div class="text-danger">
                                 @error('description')

@@ -13,13 +13,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
         rel="stylesheet" />
     {{-- mitrands --}}
-
+    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+    <link href="{{ url('/template') }}/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/elegant-icons.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}" type="text/css" />
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}" type="text/css" /> --}}
     <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css" />
@@ -132,7 +133,7 @@
     @yield('script_midtrans')
     <script src="{{ asset('frontend/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script>
+    {{-- <script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script> --}}
     <script src="{{ asset('frontend/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('frontend/js/mixitup.min.js') }}"></script>
@@ -142,7 +143,8 @@
     <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="SB-Mid-client-m-YgmT0CRs_4ebRE"></script>
     @yield('client')
-
+    <script src="{{ url('/template') }}/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    @yield('page_scripts')
     @stack('js')
 </body>
 

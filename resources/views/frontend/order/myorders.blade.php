@@ -57,6 +57,8 @@
                                     @csrf
                                     <input type="hidden" name="payment" value="{{ $transaction->id }}" id="json_callback">
                                 </form>
+                                <a href="{{ route('invoice.export', $transaction->id) }}" target="_blank" class="btn btn-primary">Export to PDF</a>
+
                                 <a style="display: inline; border-radius: 5px;" class="btn btn-warning btn-sm center px-3" href="{{ url('/checkout', $transaction->id) }}"><i class="fa fa-shopping-cart"></i> Bayar Sekarang</a>
                             </div>
                         </div>
