@@ -92,7 +92,7 @@
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 @foreach ($transactions as $transaction)
-                                                    @if ($transaction->status == 'paid')
+                                                    @if ($transaction->status == 'paid' && $transaction->status = 'settlement' )
                                                         <tr>
                                                             <td>{{ $no++ }}</td>
                                                             <td>{{ $transaction->user->name }}</td>

@@ -280,9 +280,6 @@ class ProdukController extends Controller
         $produk = Produk::findOrFail($id);
         $oldImage = $produk->produkgaleri->url ?? null;
 
-        if ($oldImage != null) {
-            Storage::delete('public/gambar/' . $oldImage);
-        }
 
         $transaksiCount = TransaksiItem::where('products_id', $id)->count();
 
@@ -290,6 +287,9 @@ class ProdukController extends Controller
             return redirect()->route('produk')->with('gagal', 'Produk terkait masih digunakan di transaksi');
         }
 
+        if ($oldImage != null) {
+            Storage::delete('public/gambar/' . $oldImage);
+        }
         $produk->delete();
 
         return redirect()->route('produk')->with('sukses', 'Data berhasil dihapus');

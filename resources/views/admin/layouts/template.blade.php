@@ -1,4 +1,4 @@
-{{--  --}}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard &mdash; Arfa</title>
+    <title>@yield('title') &mdash; Vmart</title>
     @include('admin.layouts.partials_admin.css.css')
     @yield('css_select2')
 </head>
@@ -242,7 +242,6 @@
                                 <input class="form-check-input toggle-settings" name="Header" type="checkbox"
                                     id="settingsFixHeader">
                             </div>
-
                         </div>
                     </li>
                     <li class="fix-footer">
@@ -286,7 +285,7 @@
         </div>
 
         <footer>
-            Copyright © 2023 &nbsp <a href="https://www.youtube.com/c/mulaidarinull" target="_blank" class="ml-1"> Web Vmart Hidroponik </a> <span> . All rights Reserved</span>
+            Copyright © 2023 &nbsp <a href="#" target="_blank" class="ml-1"> Web Vmart Hidroponik </a> <span> . All rights Reserved</span>
         </footer>
         <div class="overlay action-toggle">
         </div>
