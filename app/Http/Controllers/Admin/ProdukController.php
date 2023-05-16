@@ -61,13 +61,30 @@ class ProdukController extends Controller
             // 'sku' => 'required',
             'name' => 'required',
             'description' => 'required',
-            'is_available' => 'required',
+            'is_available' => 'required|numeric',
             //'product_unit' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
             'tags' => 'required',
+            'url' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-        ]);
+        ], [
+                'categories_id.required' => "Kategori wajib diisi!",
+                'name.required' => "Nama produk wajib diisi!",
+                'description.required' => "Deskripsi wajib diisi!",
+                'price.required' => "Harga wajib diisi!",
+                'price.numeric' => "Harga harus berupa angka!",
+                'stock.required' => "Stok wajib diisi!",
+                'stock.numeric' => "Stok harus berupa angka!",
+                'tags.required' => "Harga wajib diisi!",
+                'is_available.required' => "Satuan wajib diisi!",
+                'is_available.numeric' => "Satuan harus berupa angka!",
+                'url.required' => 'Gambar wajib  diisi',
+                'url.image' => 'File harus berupa gambar',
+                'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+                'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
+
+            ]);
 
         // Memasukkan data produk ke tabel produk
         $produk = new Produk;
@@ -227,17 +244,17 @@ class ProdukController extends Controller
             'is_available' => 'required',
             'url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
-            'categories_id.required' => 'Kategori produk wajib diisi',
-            'name.required' => 'Nama produk wajib diisi',
-            'description.required' => 'Deskripsi produk wajib diisi',
-            'price.required' => 'Harga produk wajib diisi',
-            'price.numeric' => 'Harga produk harus diisi dengan angka',
-            'tags.required' => 'Tag produk wajib diisi',
-            'is_available.required' => 'Satuan produk wajib diisi',
-            'url.image' => 'File harus berupa gambar',
-            'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
-            'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
-        ]);
+                'categories_id.required' => 'Kategori produk wajib diisi',
+                'name.required' => 'Nama produk wajib diisi',
+                'description.required' => 'Deskripsi produk wajib diisi',
+                'price.required' => 'Harga produk wajib diisi',
+                'price.numeric' => 'Harga produk harus diisi dengan angka',
+                'tags.required' => 'Tag produk wajib diisi',
+                'is_available.required' => 'Satuan produk wajib diisi',
+                'url.image' => 'File harus berupa gambar',
+                'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+                'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
+            ]);
 
         $produk = Produk::findOrFail($request->id);
         $produk->categories_id = $request->categories_id;

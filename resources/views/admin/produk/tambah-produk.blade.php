@@ -37,7 +37,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="basicInput" class="form-label">Harga</label>
-                                <input type="text" placeholder="Masukan harga" name="price" class="form-control"
+                                <input type="number" placeholder="Masukan harga" name="price" class="form-control"
                                     id="basicInput" value="{{ old('price') }}">
                             </div>
                             <div class="text-danger">
