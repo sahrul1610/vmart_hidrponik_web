@@ -264,7 +264,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer__about">
+                    <div class="footer__about" id="about">
                         <div class="footer__about__logo">
                             <a href="./index.html"><img src="{{ asset('frontend/img/logo.png') }}"
                                     alt="" /></a>
@@ -277,7 +277,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-                    <div class="footer__widget">
+                    {{-- <div class="footer__widget">
                         <h6>Useful Links</h6>
                         <ul>
                             <li><a href="#">About Us</a></li>
@@ -295,7 +295,7 @@
                             <li><a href="#">Innovation</a></li>
                             <li><a href="#">Testimonials</a></li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-lg-4 col-md-12">
                     <div class="footer__widget">

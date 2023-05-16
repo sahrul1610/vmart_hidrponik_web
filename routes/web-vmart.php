@@ -69,7 +69,8 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/transaksi/cetak-pdf', [TransaksiController::class, 'cetakPDF'])->name('transaksi.cetak-pdf');
 
     Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna');
-
+    //export transaksi excel
+    Route::get('/excel/export', [ExportController::class, 'exportData'])->name('transaksi.export');
 
 });
 Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
@@ -81,7 +82,6 @@ Route::get('/login/{provider}', [SocialiteController::class, 'redirectToProvider
 Route::get('/login/{provider}/callback', [SocialiteController::class, 'handleProvideCallback']);
 // Route::get('/login/google', 'LoginController@redirectToGoogle');
 // Route::get('/login/google/callback', 'LoginController@handleGoogleCallback');
-Route::get('/excel/export', [ExportController::class, 'exportData'])->name('transaksi.export');
 
 
 

@@ -15,6 +15,6 @@
             </ul>
         </li>
         <li class="{{request()->is('blog')? 'active' : ''}}"><a href="{{route('blog')}}">Blog</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#about">Contact</a></li>
     </ul>
 </nav>
