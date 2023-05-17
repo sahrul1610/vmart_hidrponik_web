@@ -72,14 +72,14 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="mb-3">
+                            <div class="mb-3 pb-2">
                                 <label for="basicInput" class="form-label">kategori</label>
                                 <select class="js-example-basic-single form-select form-select-sm" name="categories_id"
-                                    multiple>
+                                    >
                                     <option value="">- Pilih -</option>
                                     @foreach ($kategori as $k)
                                         <option value="{{ $k->id }}">
-                                            {{ $k->name }}
+                                           <h2></h2> {{ $k->name }}
                                         </option>
                                     @endforeach
                                 </select>

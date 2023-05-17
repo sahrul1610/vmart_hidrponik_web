@@ -37,7 +37,7 @@
     </li>
     <li class="{{ request()->is('transaksi')? 'active' : '' }}">
         <a href="{{url('/transaksi')}}" class="link">
-            <i class="ti-user"></i>
+            <i class="ti-reload"></i>
             <span>Transaksi</span>
         </a>
     </li>

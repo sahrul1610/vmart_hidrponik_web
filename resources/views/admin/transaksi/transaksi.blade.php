@@ -66,10 +66,10 @@
                                 <div class="card-body">
                                     <p>
                                         <a href="{{ route('transaksi.cetak-pdf') }}" class="btn btn-success">
-                                            <i class="ti-file"></i>
+                                            <i class="fa fa-file-pdf"></i>
                                             Export PDF</a>
                                             <a href="{{ route('transaksi.export') }}" class="btn btn-primary">
-                                                <i class="ti-pdf"></i>
+                                                <i class="fa fa-file-excel"></i>
                                                 Export EXCEL</a>
 
                                     </p>

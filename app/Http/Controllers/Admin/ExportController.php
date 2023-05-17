@@ -113,12 +113,13 @@ class ExportController extends Controller
             ->build();
 
         // write header row
-        $headerRow = WriterEntityFactory::createRowFromArray(['No', 'Customer Name', 'Product Name', 'Total Price', 'Shipping Price', 'Total Price + Shipping', 'Status', 'Transaction Date', 'Payment Method'], $borderStyle);
+        $headerRow = WriterEntityFactory::createRowFromArray(['No', 'Customer Name', 'Product Name', 'Status', 'Transaction Date', 'Payment Method', 'Total Price', 'Shipping Price', 'Total Price + Shipping',], $borderStyle);
         $writer->addRow($headerRow);
 
         $transactions = Transaksi::where('status', 'paid')->get();
 
         $no = 1;
+        $totalKeseluruhan = 0; // Variabel untuk menghitung total keseluruhan
         foreach ($transactions as $transaction) {
             $row = [
                 $no++,
@@ -135,16 +136,29 @@ class ExportController extends Controller
             $productNamesString = join(', ', $productNames);
             $row[] = $productNamesString;
             //$row[] = implode(',', $productNames);
+            $row[] = $transaction->status;
+            $row[] = $transaction->created_at ?: 'null';
+            $row[] = $transaction->payment;
             $row[] = $transaction->total_price;
             $row[] = $transaction->shipping_price;
             $row[] = $transaction->total_price + $transaction->shipping_price;
-            $row[] = $transaction->status;
-            $row[] = $transaction->created_at_formatted ?: 'null';
-            $row[] = $transaction->payment;
 
             $writer->addRow(WriterEntityFactory::createRowFromArray($row, $borderStyle));
+            // Akumulasi total keseluruhan
+            $totalKeseluruhan += $transaction->total_price + $transaction->shipping_price;
         }
-
+        $rowTotalKeseluruhan = [
+            'Total Keseluruhan',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            $totalKeseluruhan,
+        ];
+        $writer->addRow(WriterEntityFactory::createRowFromArray($rowTotalKeseluruhan));
         $writer->close();
 
         return response()->download($filePath, $fileName);

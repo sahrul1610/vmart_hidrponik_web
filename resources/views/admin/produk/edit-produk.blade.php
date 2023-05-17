@@ -9,7 +9,7 @@
             <form role="form" action="/produk/update" method="POST" enctype="multipart/form-data">
                 <div class="card-body">
                     @csrf
-                    <input type="hidden" name="id" value="{{$edit->id }}">
+                    <input type="hidden" name="id" value="{{ $edit->id }}">
                     <div class="row">
 
                         <div class="col-md-4">
@@ -53,7 +53,7 @@
                             <div class="input-group mb-3">
                                 <input type="text" placeholder="Masukan satuan" name="is_available" class="form-control"
                                     id="basicInput" value="{{ $edit->is_available }}">
-                                    <span class="input-group-text" id="basic-addon2">kg</span>
+                                <span class="input-group-text" id="basic-addon2">kg</span>
                             </div>
                             <div class="text-danger">
                                 @error('is_available')
@@ -64,8 +64,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="basicInput" class="form-label">kategori</label>
-                                <select class="js-example-basic-single form-select form-select-sm" name="categories_id"
-                                    multiple>
+                                <select class="js-example-basic-single form-select form-select-sm" name="categories_id">
                                     <option value="">- Pilih -</option>
                                     {{-- @foreach ($kategori as $k)
                                         <option value="{{ $k->id }}">
@@ -108,12 +107,14 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Gambar</label>
-                                <input type="file" class="form-control" name="url" id='url' placeholder="" value="{{ $edit->produkgaleri->url }}">
-                                @if($edit->produkgaleri)
-                                    <p>Gambar saat ini: <img src="{{ asset('storage/gambar/'.$edit->produkgaleri->url) }}" width="100px"></p>
+                                <input type="file" class="form-control" name="url" id='url' placeholder=""
+                                    value="{{ $edit->produkgaleri->url }}">
+                                @if ($edit->produkgaleri)
+                                    <p>Gambar saat ini: <img src="{{ asset('storage/gambar/' . $edit->produkgaleri->url) }}"
+                                            width="100px"></p>
                                     {{-- <input type="hidden" name="url" value="{{ $edit->produkgaleri->url }}"> --}}
                                 @else
-                                tidak ada gambar
+                                    tidak ada gambar
                                 @endif
                             </div>
                             <div class="text-danger">

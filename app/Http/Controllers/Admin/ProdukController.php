@@ -86,6 +86,15 @@ class ProdukController extends Controller
 
             ]);
 
+        $categories_id = $request->categories_id;
+
+        // Cek apakah categories_id ada di tabel kategori
+        $categoryExists = Kategori::where('id', $categories_id)->exists();
+
+        if (!$categoryExists) {
+            return redirect()->back();
+        }
+
         // Memasukkan data produk ke tabel produk
         $produk = new Produk;
         $produk->categories_id = $request->categories_id;
@@ -255,6 +264,14 @@ class ProdukController extends Controller
                 'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
                 'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
             ]);
+        $categories_id = $request->categories_id;
+
+        // Cek apakah categories_id ada di tabel kategori
+        $categoryExists = Kategori::where('id', $categories_id)->exists();
+
+        if (!$categoryExists) {
+            return redirect()->back();
+        }
 
         $produk = Produk::findOrFail($request->id);
         $produk->categories_id = $request->categories_id;
