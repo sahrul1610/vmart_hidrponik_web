@@ -1,5 +1,11 @@
 @extends('layouts.checkout')
-
+@section('css-checkout')
+    <style>
+        .my-swal-content {
+            white-space: pre-line;
+        }
+    </style>
+@endsection
 @section('content')
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('frontend/img/breadcrumb.jpg') }}">
@@ -20,14 +26,9 @@
     <!-- Breadcrumb Section End -->
 
     <!-- Checkout Section Begin -->
-
-
     <section class="checkout spad">
-        {{-- <div class="container" id="checkout">
-    </div> --}}
         <div class="container">
             <div class="checkout__form">
-
                 <h4>Billing Details</h4>
                 <form method="post" action="{{ route('checkout') }}">
                     @csrf
@@ -44,11 +45,10 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="checkout__input">
                                 <p>Alamat<span>*</span></p>
-                                <input type="text" name="address" placeholder="Nama Kecamatan, Nama desa, Gedung, No. rumah"
+                                <input type="text" name="address"
+                                    placeholder="Nama Kecamatan, Nama desa, Gedung, No. rumah"
                                     value="{{ old('address') }}" />
                                 <div class="text-danger">
                                     @error('address')
@@ -58,10 +58,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-
                                     <div class="checkout__input">
                                         <p>provinsi<span>*</span></p>
-                                        {{-- <select type="text" name="address"  class="provinsi"></select> --}}
                                         <select name="province_origin"
                                             class="js-example-basic-single form-select form-select-lg">
                                             <option value="">Pilih Provinsi asal</option>
@@ -78,18 +76,12 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-
                                     <div class="checkout__input">
                                         <p>Kota<span>*</span></p>
-                                        {{-- <select type="text" name="address"  class="provinsi"></select> --}}
                                         <select name="city_origin"
                                             class="js-example-basic-single form-select form-select-lg">
-                                            <option value="">Pilih Kota asal</option>
-                                            {{-- @foreach ($city as $city)
-                                                <option value="">{{ $city['city_name'] }}</option>
-                                                @endforeach --}}
+                                            <option value="">Pilih Kota</option>
                                         </select>
-
                                         <div class="text-danger">
                                             @error('city_origin')
                                                 {{ $message }}
@@ -100,14 +92,12 @@
                             </div>
                             <div class="checkout__input" id="courir">
                                 <p>Pengiriman<span>*</span></p>
-                                {{-- <select type="text" name="address"  class="provinsi"></select> --}}
                                 <select name="courier" class="js-example-basic-single form-select form-select-lg">
                                     <option value="">Pilih Pengiriman</option>
                                     @foreach ($courier as $kurir)
                                         <option value="{{ $kurir->code }}">{{ $kurir->title }}</option>
                                     @endforeach
                                 </select>
-
                                 <div class="text-danger">
                                     @error('courier')
                                         {{ $message }}
@@ -116,29 +106,16 @@
                             </div>
                             <div class="checkout__input" id="hamdan" style="display: none">
                                 <p>Opsi pengiriman<span>*</span></p>
-                                {{-- <select type="text" name="address"  class="provinsi"></select> --}}
                                 <select name="shipping_cost" class="js-example-basic-single form-select form-select-lg">
                                     <option value="">Pilih Opsi Pengiriman</option>
                                     <span id="shipping_cost_price"></span>
                                 </select>
-
                                 <div class="text-danger">
                                     @error('shipping_cost')
                                         {{ $message }}
                                     @enderror
                                 </div>
                             </div>
-
-
-                            {{-- <div class="checkout__input">
-                                <p>shipping<span>*</span></p>
-                                <input type="text" name="shipping_price" value="10000">
-                                <div class="text-danger">
-                                    @error('shipping_price')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                            </div> --}}
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
@@ -159,7 +136,6 @@
                                         }
                                     @endphp
                                     <input type="hidden" hiden name="total_price" value="{{ $totalPrice }}">
-
                                     <div class="checkout__order__subtotal">
                                         Subtotal <span>{{ number_format($totalPrice, 2) }}</span>
                                     </div>
@@ -179,15 +155,6 @@
 @endsection
 
 @push('js')
-    {{-- <script type="text/javascript">
-    // For example trigger on button clicked, or any time you need
-    var payButton = document.getElementById('pay-button');
-    payButton.addEventListener('click', function () {
-        // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
-        window.snap.pay({{'$snapToken'}});
-        // customer will be redirected after completing payment pop-up
-    });
-</script> --}}
     <!-- js for select only -->
     {{-- <script src="{{ url('/template') }}/plugins/jquery/dist/jquery.min.js"></script> --}}
     <script src="{{ url('/template') }}/plugins/select2/dist/js/select2.min.js"></script>
@@ -241,6 +208,31 @@
     <script>
         $(document).ready(function() {
 
+            // $('select[name="province_origin"]').on('change', function() {
+            //     let provinceId = $(this).val();
+            //     if (provinceId) {
+            //         jQuery.ajax({
+            //             url: 'province/' + provinceId + '/cities',
+            //             type: "GET",
+            //             dataType: "json",
+            //             success: function(data) {
+            //                 console.log(data);
+            //                 $('select[name="city_origin"]').empty();
+            //                 $.each(data, function(key, value) {
+            //                     $('select[name="city_origin"]').append(
+            //                         '<option value="' + value['city_id'] + '">' +
+            //                         value['city_name'] + '</option>');
+            //                 });
+            //             },
+            //             error: function(data) {
+            //                 alert('Something went wrong');
+            //             }
+
+            //         });
+            //     } else {
+            //         $('select[name="city_origin"]').empty();
+            //     }
+            // });
             $('select[name="province_origin"]').on('change', function() {
                 let provinceId = $(this).val();
                 if (provinceId) {
@@ -251,13 +243,25 @@
                         success: function(data) {
                             console.log(data);
                             $('select[name="city_origin"]').empty();
+
+                            // Tambahkan opsi pertama sebagai placeholder
+                            $('select[name="city_origin"]').append(
+                                '<option value="">Pilih Kota</option>');
+
                             $.each(data, function(key, value) {
+                                let cityName = value['city_name'];
+                                let cityType = value['type'];
+                                let optionText = cityType + ' - ' + cityName;
                                 $('select[name="city_origin"]').append(
-                                    '<option value="' + value['city_id'] + '">' +
-                                    value['city_name'] + '</option>');
+                                    $('<option>').val(value['city_id']).text(
+                                        optionText)
+                                );
                             });
+
+                            // Jika ingin memunculkan opsi kota secara otomatis, hapus komentar pada baris berikut
+                            //$('select[name="city_origin"]').trigger('click');
                         },
-                        error: function(data){
+                        error: function(data) {
                             alert('Something went wrong');
                         }
 
@@ -267,14 +271,44 @@
                 }
             });
 
+            // Event handler untuk menampilkan opsi kota saat select diklik
+            $('select[name="city_origin"]').on('click', function() {
+                let cityOptions = $(this).find('option');
+                if (cityOptions.length <= 1) {
+                    // Jalankan permintaan AJAX untuk mendapatkan kota jika belum ada opsi yang tersedia
+                    let provinceId = $('select[name="province_origin"]').val();
+                    if (provinceId) {
+                        jQuery.ajax({
+                            url: 'province/' + provinceId + '/cities',
+                            type: "GET",
+                            dataType: "json",
+                            success: function(data) {
+                                console.log(data);
+                                $('select[name="city_origin"]').empty();
+                                $.each(data, function(key, value) {
+                                    let cityName = value['city_name'];
+                                    let cityType = value['type'];
+                                    let optionText = cityType + ' - ' + cityName;
+                                    $('select[name="city_origin"]').append(
+                                        $('<option>').val(value['city_id']).text(
+                                            optionText)
+                                    );
+                                });
+                            },
+                            error: function(data) {
+                                alert('Something went wrong');
+                            }
+
+                        });
+                    }
+                }
+            });
+
+
             $('select[name="courier"]').on('change', function() {
-                //     let cityOriginId = $(this).val();
-                //    // let weight = $('input[name="weight"]').val();
-                //     let courier = $('select[name="courier"]').val();
                 let courier = $(this).val();
                 let cityOriginId = $('select[name="city_origin"]').val();
                 let weight = $('input[name="weight"]').val();
-
                 if (cityOriginId) {
                     $.ajax({
                         url: "{{ url('/city') }}/" + cityOriginId + "/cities",
@@ -284,21 +318,26 @@
                             cityOriginId: cityOriginId,
                             courier: courier,
                             weight: weight,
-
                         },
                         success: function(result) {
                             $("#hamdan").show();
                             $.each(result, function(key, value) {
-                                $('select[name="shipping_cost"]').append(
-                                    '<option value=' + value["cost"][0]["value"] +
-                                    '>' + value["service"] + '-' + value["cost"][0][
-                                        "value"
-                                    ] + '</option>');
+                                var optionValue = value["cost"][0]["value"];
+                                var optionService = value["service"];
+                                var optionDescription = value["description"];
+                                var optionEtd = value["cost"][0]["etd"];
+                                var optionText = optionService + '-' + optionValue +
+                                    '-' + optionEtd;
+                                var optionElement = $('<option>').val(optionValue).text(
+                                    optionText).data('description',
+                                    optionDescription).data('etd', optionEtd);
+                                $('select[name="shipping_cost"]').prepend(
+                                    optionElement);
                             });
                             // let price = result[0]["costs"][0]["cost"][0]["value"];
                             // $("#shipping_cost_price").text(" (Rp " + price + ")");
-                            let price = result[0]["cost"][0]["value"];
-                            $("#shipping_cost_price").text(" (Rp " + price + ")");
+                            // let price = result[0]["cost"][0]["value"];
+                            // $("#shipping_cost_price").text(" (Rp " + price + ")");
                         }
                     })
                     // jQuery.ajax({
@@ -328,7 +367,34 @@
                     $('select[name="shipping_cost"]').empty();
                 }
             });
-
+            $('select[name="shipping_cost"]').on('change', function() {
+                var selectedOption = $(this).val();
+                if (selectedOption !== '') {
+                    var optionService = $(this).find('option:selected').text().split('-')[0];
+                    var optionValue = $(this).find('option:selected').val();
+                    var optionEtd = $(this).find('option:selected').data('etd');
+                    var optionDescription = $(this).find('option:selected').data('description');
+                    
+                    // Mengambil nilai terkecil dan terbesar dari etd
+                    var etdValues = optionEtd.split('-');
+                    var minEtd = etdValues[0];
+                    var maxEtd = etdValues[1];
+                    var optionText = '<p><strong>Opsi Pengiriman:</strong></p>' +
+                        '<div style="margin-top: 10px;">Opsi Service: ' + optionService + '</div>' +
+                        '<div style="margin-top: 5px;">Description: ' + optionDescription + '</div>' +
+                        '<div style="margin-top: 5px;">Estimasi Waktu (Hari): ' + minEtd + '-' + maxEtd +
+                        '</div>';
+                    Swal.fire({
+                        title: 'Pilihan Pengiriman',
+                        html: optionText,
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            content: 'my-swal-content'
+                        }
+                    });
+                }
+            });
             $('select[name="city_destination"]').on('change', function() {
                 $('select[name="city_origin"]').trigger('change');
             });

@@ -99,7 +99,7 @@ class RajaOngkirController extends Controller
         foreach ($response[0]["costs"] as $cost) {
             $costOptions[] = $cost;
         }
-        //return dd($weight);
+        //return dd($costOptions);
 
         return response()->json($costOptions);
     }
