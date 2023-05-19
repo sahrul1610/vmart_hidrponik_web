@@ -153,7 +153,7 @@ class PostsController extends Controller
         return redirect('/posts')->with('sukses', 'Post updated successfully!');
     }
 
-    public function hapus(Request $request)
+    public function delete(Request $request)
     {
         $id = $request->id;
         $posts = Posts::findOrFail($id);

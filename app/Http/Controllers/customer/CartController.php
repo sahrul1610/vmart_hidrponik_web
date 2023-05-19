@@ -221,16 +221,16 @@ class CartController extends Controller
         return view('frontend.order.myorders', compact('transactions'));
     }
 
-    public function callback(Request $request){
-        $Transaksi = Transaction::findOrFail($request->id);
+    // public function callback(Request $request){
+    //     $Transaksi = Transaction::findOrFail($request->id);
 
-        $Transaksi = new Transaksi;
-        $Transaksi->payment = $request->payment;
-        $Transaksi->update();
-        // $serverKey = env("MIDTRANS_SERVER_KEY");
-        $hashed = hash('sha512', $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
-        // if($hashed == $request->signature_key);
-    }
+    //     $Transaksi = new Transaksi;
+    //     $Transaksi->payment = $request->payment;
+    //     $Transaksi->update();
+    //     // $serverKey = env("MIDTRANS_SERVER_KEY");
+    //     $hashed = hash('sha512', $request->order_id.$request->status_code.$request->gross_amount.$serverKey);
+    //     // if($hashed == $request->signature_key);
+    // }
 
     // public function callback(Request $request){
     //     $serverKey = env("MIDTRANS_SERVER_KEY");

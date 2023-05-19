@@ -308,7 +308,7 @@ class ProdukController extends Controller
     }
 
 
-    public function hapus(Request $request)
+    public function delete(Request $request)
     {
         $id = $request->id;
         $produk = Produk::findOrFail($id);

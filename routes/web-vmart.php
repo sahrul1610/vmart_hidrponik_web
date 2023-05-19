@@ -43,27 +43,27 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/produk/edit/{id}', [ProdukController::class, 'edit']);
     Route::post('/produk/insert', [ProdukController::class, 'insert']);
     Route::post('/produk/update', [ProdukController::class, 'update']);
-    Route::delete('/produk/hapus/{id}', [ProdukController::class, 'hapus']);
+    Route::delete('/produk/hapus/{id}', [ProdukController::class, 'delete']);
 
 
     Route::get('/kategori', [KategoriProdukController::class, 'index'])->name('kategori')->middleware('auth');
     Route::get('/kategori/edit/{id}', [KategoriProdukController::class, 'edit']);
     Route::post('/kategori/insert', [KategoriProdukController::class, 'insert']);
     Route::post('/kategori/update', [KategoriProdukController::class, 'update']);
-    Route::delete('/kategori/hapus/{id}', [KategoriProdukController::class, 'hapus']);
+    Route::delete('/kategori/hapus/{id}', [KategoriProdukController::class, 'delete']);
 
     Route::get('/posts/kategori', [PostCategoriesController::class, 'index'])->name('posts.kategori');
     Route::get('/posts/kategori/edit/{id}', [PostCategoriesController::class, 'edit']);
     Route::post('/posts/kategori/insert', [PostCategoriesController::class, 'store']);
     Route::post('/posts/kategori/update', [PostCategoriesController::class, 'update']);
-    Route::delete('/posts/kategori/hapus/{id}', [PostCategoriesController::class, 'hapus']);
+    Route::delete('/posts/kategori/hapus/{id}', [PostCategoriesController::class, 'delete']);
 
     Route::get('/posts', [PostsController::class, 'index'])->name('posts');
     Route::get('/posts/edit/{id}', [PostsController::class, 'edit']);
     Route::post('/posts/insert', [PostsController::class, 'store']);
     Route::get('/posts/add', [PostsController::class, 'create']);
     Route::post('/posts/update', [PostsController::class, 'update']);
-    Route::delete('/posts/hapus/{id}', [PostsController::class, 'hapus']);
+    Route::delete('/posts/hapus/{id}', [PostsController::class, 'delete']);
 
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
     Route::get('/transaksi/cetak-pdf', [TransaksiController::class, 'cetakPDF'])->name('transaksi.cetak-pdf');

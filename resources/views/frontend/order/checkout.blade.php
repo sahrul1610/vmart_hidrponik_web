@@ -61,7 +61,7 @@
                                     <div class="checkout__input">
                                         <p>provinsi<span>*</span></p>
                                         <select name="province_origin"
-                                            class="js-example-basic-single form-select form-select-lg">
+                                            class="js-example-basic-single form-select form-select-sm">
                                             <option value="">Pilih Provinsi asal</option>
                                             @foreach ($province as $province => $value)
                                                 <option value="{{ $value['province_id'] }}">{{ $value['province'] }}
@@ -93,7 +93,7 @@
                             <div class="checkout__input" id="courir">
                                 <p>Pengiriman<span>*</span></p>
                                 <select name="courier" class="js-example-basic-single form-select form-select-lg">
-                                    <option value="">Pilih Pengiriman</option>
+                                    <option value="">Pilih Jasa Pengiriman</option>
                                     @foreach ($courier as $kurir)
                                         <option value="{{ $kurir->code }}">{{ $kurir->title }}</option>
                                     @endforeach
@@ -104,7 +104,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="checkout__input" id="hamdan" style="display: none">
+                            <div class="checkout__input" id="jasa" style="display: none">
                                 <p>Opsi pengiriman<span>*</span></p>
                                 <select name="shipping_cost" class="js-example-basic-single form-select form-select-lg">
                                     <option value="">Pilih Opsi Pengiriman</option>
@@ -320,8 +320,16 @@
                             weight: weight,
                         },
                         success: function(result) {
-                            $("#hamdan").show();
+                            $("#jasa").show();
+                            // Hapus opsi pengiriman yang ada sebelumnya
+                            // $('select[name="shipping_cost"]').empty();
+
+                            // Menambahkan opsi pertama sebagai placeholder
+                            $('select[name="shipping_cost"]').append(
+                                '<option value="">Pilih Opsi Pengiriman</option>'
+                            );
                             $.each(result, function(key, value) {
+
                                 var optionValue = value["cost"][0]["value"];
                                 var optionService = value["service"];
                                 var optionDescription = value["description"];
@@ -340,29 +348,6 @@
                             // $("#shipping_cost_price").text(" (Rp " + price + ")");
                         }
                     })
-                    // jQuery.ajax({
-                    //     url: "{{ url('/city/') }}" + cityOriginId + "/cost",
-                    //     type: "POST",
-                    //     data: {
-                    //         _token: "{{ csrf_token() }}",
-                    //         city_origin: cityOriginId,
-                    //     },
-                    //     success: function(result) {
-                    //         if (result) {
-                    //             let costs = result[0]['costs'];
-                    //             let html = '';
-
-                    //             $.each(costs, function(index, cost) {
-                    //                 html += '<option value="' + cost['cost'][0][
-                    //                     'value'] + '">' + cost['service'] + ' - ' +
-                    //                     cost['cost'][0]['etd'] + ' Hari (' + cost[
-                    //                         'cost'][0]['value'] + ')</option>';
-                    //             });
-
-                    //             $('select[name="shipping_cost"]').empty().append(html);
-                    //         }
-                    //     },
-                    // });
                 } else {
                     $('select[name="shipping_cost"]').empty();
                 }
@@ -374,7 +359,7 @@
                     var optionValue = $(this).find('option:selected').val();
                     var optionEtd = $(this).find('option:selected').data('etd');
                     var optionDescription = $(this).find('option:selected').data('description');
-                    
+
                     // Mengambil nilai terkecil dan terbesar dari etd
                     var etdValues = optionEtd.split('-');
                     var minEtd = etdValues[0];
