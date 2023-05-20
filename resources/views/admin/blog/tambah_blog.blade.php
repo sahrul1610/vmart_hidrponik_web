@@ -68,32 +68,18 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Gambar</label>
-
-                                <input type="file" class="form-control" name="url" id='url' placeholder=""
-                                    value="{{ old('url') }}">
-
+                                <label for="basicInput" class="form-label">Link youtube</label>
+                                <input type="text" placeholder="Masukan URL" name="url" class="form-control"
+                                    id="basicInput" value="{{ old('url') }}">
                             </div>
                             <div class="text-danger">
                                 @error('url')
                                     {{ $message }}
                                 @enderror
                             </div>
-                        </div> --}}
-                        {{-- <div class="col-md-12">
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                                <textarea class="form-control"  name="description"  rows="3"
-                                    value="{{ old('description') }}"></textarea>
-                            </div>
-                            <div class="text-danger">
-                                @error('description')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div> --}}
+                        </div>
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Summary</label>
