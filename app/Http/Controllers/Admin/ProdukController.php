@@ -61,13 +61,39 @@ class ProdukController extends Controller
             // 'sku' => 'required',
             'name' => 'required',
             'description' => 'required',
-            'is_available' => 'required',
+            'is_available' => 'required|numeric',
             //'product_unit' => 'required',
-            'price' => 'required',
-            'stock' => 'required',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
             'tags' => 'required',
+            'url' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-        ]);
+        ], [
+                'categories_id.required' => "Kategori wajib diisi!",
+                'name.required' => "Nama produk wajib diisi!",
+                'description.required' => "Deskripsi wajib diisi!",
+                'price.required' => "Harga wajib diisi!",
+                'price.numeric' => "Harga harus berupa angka!",
+                'stock.required' => "Stok wajib diisi!",
+                'stock.numeric' => "Stok harus berupa angka!",
+                'tags.required' => "Harga wajib diisi!",
+                'is_available.required' => "Satuan wajib diisi!",
+                'is_available.numeric' => "Satuan harus berupa angka!",
+                'url.required' => 'Gambar wajib  diisi',
+                'url.image' => 'File harus berupa gambar',
+                'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+                'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
+
+            ]);
+
+        $categories_id = $request->categories_id;
+
+        // Cek apakah categories_id ada di tabel kategori
+        $categoryExists = Kategori::where('id', $categories_id)->exists();
+
+        if (!$categoryExists) {
+            return redirect()->back();
+        }
 
         // Memasukkan data produk ke tabel produk
         $produk = new Produk;
@@ -227,17 +253,25 @@ class ProdukController extends Controller
             'is_available' => 'required',
             'url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
-            'categories_id.required' => 'Kategori produk wajib diisi',
-            'name.required' => 'Nama produk wajib diisi',
-            'description.required' => 'Deskripsi produk wajib diisi',
-            'price.required' => 'Harga produk wajib diisi',
-            'price.numeric' => 'Harga produk harus diisi dengan angka',
-            'tags.required' => 'Tag produk wajib diisi',
-            'is_available.required' => 'Satuan produk wajib diisi',
-            'url.image' => 'File harus berupa gambar',
-            'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
-            'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
-        ]);
+                'categories_id.required' => 'Kategori produk wajib diisi',
+                'name.required' => 'Nama produk wajib diisi',
+                'description.required' => 'Deskripsi produk wajib diisi',
+                'price.required' => 'Harga produk wajib diisi',
+                'price.numeric' => 'Harga produk harus diisi dengan angka',
+                'tags.required' => 'Tag produk wajib diisi',
+                'is_available.required' => 'Satuan produk wajib diisi',
+                'url.image' => 'File harus berupa gambar',
+                'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+                'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
+            ]);
+        $categories_id = $request->categories_id;
+
+        // Cek apakah categories_id ada di tabel kategori
+        $categoryExists = Kategori::where('id', $categories_id)->exists();
+
+        if (!$categoryExists) {
+            return redirect()->back();
+        }
 
         $produk = Produk::findOrFail($request->id);
         $produk->categories_id = $request->categories_id;
@@ -274,15 +308,12 @@ class ProdukController extends Controller
     }
 
 
-    public function hapus(Request $request)
+    public function delete(Request $request)
     {
         $id = $request->id;
         $produk = Produk::findOrFail($id);
         $oldImage = $produk->produkgaleri->url ?? null;
 
-        if ($oldImage != null) {
-            Storage::delete('public/gambar/' . $oldImage);
-        }
 
         $transaksiCount = TransaksiItem::where('products_id', $id)->count();
 
@@ -290,6 +321,9 @@ class ProdukController extends Controller
             return redirect()->route('produk')->with('gagal', 'Produk terkait masih digunakan di transaksi');
         }
 
+        if ($oldImage != null) {
+            Storage::delete('public/gambar/' . $oldImage);
+        }
         $produk->delete();
 
         return redirect()->route('produk')->with('sukses', 'Data berhasil dihapus');

@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.0.2",
         "barryvdh/laravel-dompdf": "^2.0",
+        "box/spout": "^3",
         "guzzlehttp/guzzle": "^7.2",
         "kavist/rajaongkir": "^1.1",
         "laravel/fortify": "^1.16",
@@ -17,7 +18,9 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
         "livewire/livewire": "^2.11",
-        "midtrans/midtrans-php": "^2.5"
+        "maatwebsite/excel": "^3.1",
+        "midtrans/midtrans-php": "^2.5",
+        "phpoffice/phpspreadsheet": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

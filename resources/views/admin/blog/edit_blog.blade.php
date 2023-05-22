@@ -9,7 +9,7 @@
             <form role="form" action="/posts/update" method="POST" enctype="multipart/form-data">
                 <div class="card-body">
                     @csrf
-                    <input type="hidden" name="id" value="{{$post->id }}">
+                    <input type="hidden" name="id" value="{{ $post->id }}">
                     <div class="row">
 
                         <div class="col-md-6">
@@ -48,16 +48,15 @@
                                         </option>
                                     @endforeach --}}
                                     @foreach ($categories as $k)
-                                    @if ($k->id == $post->category_id)
-
-                                        <option value="{{ $k->id }}" selected>
-                                            {{ $k->name }}
-                                        </option>
-                                    @else
-                                        <option value="{{ $k->id }}">
-                                            {{ $k->name }}
-                                        </option>
-                                    @endif
+                                        @if ($k->id == $post->category_id)
+                                            <option value="{{ $k->id }}" selected>
+                                                {{ $k->name }}
+                                            </option>
+                                        @else
+                                            <option value="{{ $k->id }}">
+                                                {{ $k->name }}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -73,7 +72,8 @@
                                 <label for="basicInput" class="form-label">Photo</label>
                                 {{-- <input type="text" placeholder="Masukan photo" class="form-control" name="photo"
                                     id="basicInput" value="{{ old('photo') }}"> --}}
-                                <input type="file" class="form-control" name="photo" value="{{ $post->photo }}" id="basicInput">
+                                <input type="file" class="form-control" name="photo" value="{{ $post->photo }}"
+                                    id="basicInput">
                             </div>
                             <div class="text-danger">
                                 @error('photo')
@@ -81,37 +81,26 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Gambar</label>
-
-                                <input type="file" class="form-control" name="url" id='url' placeholder=""
-                                    value="{{ old('url') }}">
-
+                                <label for="basicInput" class="form-label">Link youtube</label>
+                                {{-- <input type="text" placeholder="Masukan photo" class="form-control" name="photo"
+                                    id="basicInput" value="{{ old('photo') }}"> --}}
+                                <input type="text" class="form-control" name="url"
+                                    value="{{ old('url', 'https://www.youtube.com/watch?v=' . $post->url) }}"
+                                    id="basicInput">
                             </div>
                             <div class="text-danger">
                                 @error('url')
                                     {{ $message }}
                                 @enderror
                             </div>
-                        </div> --}}
-                        {{-- <div class="col-md-12">
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                                <textarea class="form-control"  name="description"  rows="3"
-                                    value="{{ old('description') }}"></textarea>
-                            </div>
-                            <div class="text-danger">
-                                @error('description')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div> --}}
+                        </div>
+
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Summary</label>
-                                <textarea class="form-control ckeditor" class="ckeditor" name="summary" id="ckeditor" rows="3"
-                                    value="{{ $post->summary }}"></textarea>
+                                <textarea class="form-control ckeditor" class="ckeditor" name="summary" id="ckeditor" rows="3">{{ $post->summary }}</textarea>
                             </div>
                             <div class="text-danger">
                                 @error('summary')
@@ -122,8 +111,7 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                                <textarea class="form-control ckeditor" class="ckeditor" name="description" id="ckeditor" rows="3"
-                                    value="{{ $post->description }}"></textarea>
+                                <textarea class="form-control ckeditor" class="ckeditor" name="description" id="ckeditor" rows="3">{{ $post->description }}</textarea>
                             </div>
                             <div class="text-danger">
                                 @error('description')
@@ -134,8 +122,7 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Quote</label>
-                                <textarea class="form-control ckeditor" class="ckeditor" name="quote" id="ckeditor" rows="3"
-                                    value="{{ $post->quote }}"></textarea>
+                                <textarea class="form-control ckeditor" class="ckeditor" name="quote" id="ckeditor" rows="3">{{ $post->quote }}</textarea>
                             </div>
                             <div class="text-danger">
                                 @error('quote')

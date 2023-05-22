@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->text('description');
             $table->text('quote');
             $table->string('photo');
+            $table->string('url')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->timestamps();
 

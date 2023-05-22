@@ -66,10 +66,14 @@
                                 <div class="card-body">
                                     <p>
                                         <a href="{{ route('transaksi.cetak-pdf') }}" class="btn btn-success">
-                                            <i class="ti-pdf"></i>
+                                            <i class="fa fa-file-pdf"></i>
                                             Export PDF</a>
-                                        
+                                            <a href="{{ route('transaksi.export') }}" class="btn btn-primary">
+                                                <i class="fa fa-file-excel"></i>
+                                                Export EXCEL</a>
+
                                     </p>
+
                                     <div class="table-responsive">
                                         <table id="example2" class="display nowrap" style="width:100%">
                                             <thead>
@@ -88,13 +92,18 @@
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 @foreach ($transactions as $transaction)
-                                                    @if ($transaction->status == 'paid')
+                                                    @if ($transaction->status == 'paid' && $transaction->status = 'settlement' )
                                                         <tr>
                                                             <td>{{ $no++ }}</td>
                                                             <td>{{ $transaction->user->name }}</td>
-                                                            @foreach ($transaction->transactionItems as $item)
+                                                            {{-- @foreach ($transaction->transactionItems as $item)
                                                                 <td>{{ $item->product->name }}</td>
-                                                            @endforeach
+                                                            @endforeach --}}
+                                                            <td>
+                                                                @foreach ($transaction->transactionItems as $item)
+                                                                    {{ $item->product->name }}<br>
+                                                                @endforeach
+                                                            </td>
                                                             <td>{{ number_format($transaction->total_price) }}</td>
                                                             <td>{{ number_format($transaction->shipping_price) }}</td>
                                                             <td>{{ number_format($transaction->total_price + $transaction->shipping_price) }}
@@ -104,7 +113,7 @@
                                                                 <td>{{ $transaction->created_at_formatted }}
                                                                 </td>
                                                             @else
-                                                                <td>{{$transaction->created_at_formatted ?: 'null' }}</td>
+                                                                <td>{{ $transaction->created_at_formatted ?: 'null' }}</td>
                                                             @endif
                                                             <td>{{ $transaction->payment }}</td>
                                                         </tr>
@@ -158,7 +167,7 @@
                                                                 <td>{{ $transaction->created_at_formatted }}
                                                                 </td>
                                                             @else
-                                                                <td>{{$transaction->created_at_formatted ?: 'null' }}</td>
+                                                                <td>{{ $transaction->created_at_formatted ?: 'null' }}</td>
                                                             @endif
                                                             <td>{{ $transaction->payment }}</td>
                                                         </tr>
