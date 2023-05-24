@@ -65,8 +65,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/posts/update', [PostsController::class, 'update']);
     Route::delete('/posts/hapus/{id}', [PostsController::class, 'delete']);
 
-    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
+    Route::get('/transaksi/pesanan', [TransaksiController::class, 'index'])->name('transaksi');
+    Route::get('/transaksi/transaksi', [TransaksiController::class, 'viewDikemas'])->name('viewDikemas');
+    Route::get('/transaksi/selesai', [TransaksiController::class, 'viewTransaksiSukses'])->name('viewTransaksiSukses');
+    Route::get('/transaksi/konfirmasi', [TransaksiController::class, 'viewDikemas']);
     Route::get('/transaksi/cetak-pdf', [TransaksiController::class, 'cetakPDF'])->name('transaksi.cetak-pdf');
+    Route::post('/update-status', [TransaksiController::class, 'updateStatus']);
+    Route::post('/input-delivery-receipt', [TransaksiController::class, 'inputDeliveryReceipt']);
 
     Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna');
     //export transaksi excel

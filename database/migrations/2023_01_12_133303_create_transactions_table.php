@@ -25,7 +25,7 @@ class CreateTransactionsTable extends Migration
             $table->string('status')->default('PENDING');
 
             $table->string('payment')->default('MANUAL');
-
+            $table->string('delivery_receipt')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

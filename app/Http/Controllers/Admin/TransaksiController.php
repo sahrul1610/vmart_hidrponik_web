@@ -26,7 +26,7 @@ class TransaksiController extends Controller
     {
         setlocale(LC_TIME, 'id_ID');
         Carbon::setLocale('id');
-        $transactions = Transaksi::all()->map(function($transaction) {
+        $transactions = Transaksi::all()->map(function ($transaction) {
             // Mengubah format created_at menjadi nama hari, tanggal, bulan, dan tahun dalam bahasa Indonesia
             $transaction->created_at_formatted = Carbon::parse($transaction->created_at)->translatedFormat('l, j F Y');
 
@@ -38,7 +38,7 @@ class TransaksiController extends Controller
 
     public function cetakPDF()
     {
-        $transactions = Transaksi::where('status', 'paid')->get()->map(function($transaction) {
+        $transactions = Transaksi::where('status', 'paid')->get()->map(function ($transaction) {
             // Mengubah format created_at menjadi nama hari, tanggal, bulan, dan tahun dalam bahasa Indonesia
             $transaction->created_at_formatted = Carbon::parse($transaction->created_at)->translatedFormat('l, j F Y');
 
@@ -50,10 +50,65 @@ class TransaksiController extends Controller
         return $pdf->download('transaksi-paid.pdf');
     }
 
-    // public function export()
-    // {
-    //     return Excel::download(new TransactionsExport, 'transaksi.xlsx');
-    // }
+    public function updateStatus(Request $request)
+    {
+        $status = $request->input('status');
+        $transactionId = $request->input('transactionId');
 
+        $transaction = Transaksi::find($transactionId);
+        if ($transaction) {
+            $transaction->status = $status;
+            $transaction->save();
+            return response()->json(['message' => 'Status berhasil diperbarui'], 200);
+        } else {
+            return response()->json(['message' => 'Transaksi tidak ditemukan'], 404);
+        }
+
+    }
+
+
+    public function viewDikemas()
+    {
+        setlocale(LC_TIME, 'id_ID');
+        Carbon::setLocale('id');
+        $transactions = Transaksi::all()->map(function ($transaction) {
+            // Mengubah format created_at menjadi nama hari, tanggal, bulan, dan tahun dalam bahasa Indonesia
+            $transaction->created_at_formatted = Carbon::parse($transaction->created_at)->translatedFormat('l, j F Y');
+
+            return $transaction;
+        });
+
+        return view('admin.transaksi.view-transaksi', compact('transactions'));
+    }
+    public function viewTransaksiSukses()
+    {
+        setlocale(LC_TIME, 'id_ID');
+        Carbon::setLocale('id');
+        $transactions = Transaksi::all()->map(function ($transaction) {
+            // Mengubah format created_at menjadi nama hari, tanggal, bulan, dan tahun dalam bahasa Indonesia
+            $transaction->created_at_formatted = Carbon::parse($transaction->created_at)->translatedFormat('l, j F Y');
+
+            return $transaction;
+        });
+
+        return view('admin.transaksi.view-transaksi-sukses', compact('transactions'));
+    }
+
+    public function inputDeliveryReceipt(Request $request)
+    {
+        $transactionId = $request->input('transactionId');
+        $deliveryReceipt = $request->input('deliveryReceipt');
+
+        // Simpan resi pengiriman dan ubah status transaksi
+        $transaction = Transaksi::find($transactionId);
+        if ($transaction) {
+            $transaction->delivery_receipt = $deliveryReceipt;
+            $transaction->status = 'Dikirim';
+            $transaction->save();
+            return response()->json(['message' => 'Resi pengiriman berhasil disimpan dan status transaksi diubah'], 200);
+        } else {
+            return response()->json(['message' => 'Transaksi tidak ditemukan'], 404);
+        }
+    }
 
 }

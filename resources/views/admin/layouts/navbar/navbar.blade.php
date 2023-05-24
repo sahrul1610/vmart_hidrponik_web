@@ -35,10 +35,23 @@
 
         </ul>
     </li>
-    <li class="{{ request()->is('transaksi')? 'active' : '' }}">
+    <li class="{{ request()->is('transaksi/pesanan','transaksi/transaksi', 'transaksi/selesai')? 'active open' : '' }}">
+        <a href="#" class="main-menu has-dropdown">
+            <i class="ti-desktop"></i>
+            <span>Transaksi</span>
+        </a>
+        {{-- <ul class="{{ request()->is('kategori')? 'sub-menu expand' : '' }}" > --}}
+        <ul class="sub-menu {{ request()->is('transaksi/pesanan','transaksi/transaksi','transaksi/selesai')? 'expand' : '' }}">
+            <li class="{{ request()->is('transaksi/pesanan')? 'active' : '' }}"><a href="{{url('transaksi/pesanan')}}"><span>Pesanan</span></a></li>
+            <li class="{{ request()->is('transaksi/transaksi')? 'active' : '' }}"><a href="{{url('transaksi/transaksi')}}"><span>Konfirmasi</span></a></li>
+            <li class="{{ request()->is('transaksi/selesai')? 'active' : '' }}"><a href="{{url('transaksi/selesai')}}"><span>Transaksi Selesai</span></a></li>
+
+        </ul>
+    </li>
+    {{-- <li class="{{ request()->is('transaksi')? 'active' : '' }}">
         <a href="{{url('/transaksi')}}" class="link">
             <i class="ti-reload"></i>
             <span>Transaksi</span>
         </a>
-    </li>
+    </li> --}}
 </ul>

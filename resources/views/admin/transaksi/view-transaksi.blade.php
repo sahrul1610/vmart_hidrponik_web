@@ -1,5 +1,5 @@
 @extends('admin.layouts.template')
-@section('title', 'Pesanan')
+@section('title', 'Transaksi')
 
 @section('page_scripts')
     @if (session('gagal'))
@@ -43,28 +43,26 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>@yield('title')</h4>
+                        <h4>Transaksi</h4>
                     </div>
                     <div class="card-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="Produk-tab" data-bs-toggle="tab"
                                     data-bs-target="#Produk" type="button" role="tab" aria-controls="Produk"
-                                    aria-selected="true">Sudah Dibayar</button>
+                                    aria-selected="true">Barang Dikemas</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
                                     type="button" role="tab" aria-controls="profile"
-                                    aria-selected="true">Belum dibayar</button>
+                                    aria-selected="true">Barang Dikirim</button>
                             </li>
-
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="Produk" role="tabpanel"
                                 aria-labelledby="Produk-tab">
 
                                 <div class="card-body">
-                                    
                                     <div class="table-responsive">
                                         <table id="example2" class="display nowrap" style="width:100%">
                                             <thead>
@@ -84,7 +82,7 @@
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 @foreach ($transactions as $transaction)
-                                                    @if ($transaction->status == 'paid' && ($transaction->payment = 'settlement'))
+                                                    @if ($transaction->status == 'Barang Dikemas' )
                                                         <tr>
                                                             <td>{{ $no++ }}</td>
                                                             <td>{{ $transaction->user->name }}</td>
@@ -108,20 +106,9 @@
                                                             @endif
                                                             <td>{{ $transaction->payment }}</td>
                                                             <td>{{ $transaction->status }}</td>
-                                                            <td><button onclick="changeStatus({{ $transaction->id }})"
-                                                                    class="btn btn-success">
-                                                                    <i class="fa fa-arrow-up"></i>
-                                                                </button>
+                                                            <td><button onclick="inputDeliveryReceipt({{ $transaction->id }})"
+                                                                    class="btn btn-warning">{{ $transaction->status }}</button>
                                                             </td>
-
-                                                            {{-- <td>
-                                                                <a href="#"
-                                                                    class="btn btn-sm btn-warning"  onclick="changeStatus({{ $transaction->id }})"><i
-                                                                        class="fa fa-edit"></i></a>
-                                                                <a href="#" class="btn btn-danger btn-sm"
-                                                                    onclick="DeleteData({{ $transaction->id }})"><i
-                                                                        class="fa fa-trash"></i></a>
-                                                            </td> --}}
                                                         </tr>
                                                     @endif
                                                 @endforeach
@@ -150,13 +137,14 @@
                                                     <th>Status</th>
                                                     <th>Tanggal Pesan</th>
                                                     <th>Pembayaran</th>
-                                                    <th>Aksi</th>
+                                                    <th>Resi Pengiriman</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 @foreach ($transactions as $transaction)
-                                                    @if ($transaction->status == 'pending')
+                                                    @if ($transaction->status == 'Dikirim')
                                                         <tr>
                                                             <td>{{ $no++ }}</td>
                                                             <td>{{ $transaction->user->name }}</td>
@@ -177,14 +165,7 @@
                                                                 <td>{{ $transaction->created_at_formatted ?: 'null' }}</td>
                                                             @endif
                                                             <td>{{ $transaction->payment }}</td>
-                                                            <td>
-                                                                <a href="#" class="btn btn-sm btn-warning"
-                                                                    onclick="changeStatus({{ $transaction->id }})"><i
-                                                                        class="fa fa-edit"></i></a>
-                                                                <a href="#" class="btn btn-danger btn-sm"
-                                                                    onclick="DeleteData({{ $transaction->id }})"><i
-                                                                        class="fa fa-trash"></i></a>
-                                                            </td>
+                                                            <td>{{ $transaction->delivery_receipt ?: 'null' }}</td>
                                                         </tr>
                                                     @endif
                                                 @endforeach
@@ -193,7 +174,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -204,33 +184,38 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
-    function changeStatus(transactionId) {
-        var status = 'Barang Dikemas';
-        Swal.fire({
-            title: "Apakah Anda ingin mengubah status menjadi '" + status + "'?",
-            text: "Klik Batal untuk membatalkan perubahan",
-            icon: "question",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Ubah"
-        }).then(result => {
-            if (result.isConfirmed) {
-                // Mengirim permintaan ke server untuk mengubah status
-                axios.post('/update-status', {
+  function inputDeliveryReceipt(transactionId) {
+    Swal.fire({
+        title: "Masukkan Resi Pengiriman",
+        input: "text",
+        inputPlaceholder: "Masukkan resi pengiriman...",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Simpan",
+        cancelButtonText: "Batal"
+    }).then(result => {
+        if (result.isConfirmed) {
+            const deliveryReceipt = result.value;
+            if (deliveryReceipt) {
+                // Mengirim permintaan ke server untuk menyimpan resi pengiriman
+                axios.post('/input-delivery-receipt', {
                     transactionId: transactionId,
-                    status: status
+                    deliveryReceipt: deliveryReceipt
                 }).then(response => {
-                    //Swal.fire('Status diubah!', 'Status berhasil diubah menjadi "Dikemas"', 'success');
-                    // Lakukan tindakan lain jika perlu, seperti memperbarui tampilan
-                    location.reload();
+                    Swal.fire('Resi Pengiriman Disimpan!', 'Resi pengiriman berhasil disimpan.', 'success')
+                        .then(() => {
+                            // Lakukan refresh halaman atau tindakan lain jika perlu
+                            location.reload();
+                        });
                 }).catch(error => {
-                    Swal.fire('Error', 'Terjadi kesalahan saat mengubah status', 'error');
+                    Swal.fire('Error', 'Terjadi kesalahan saat menyimpan resi pengiriman', 'error');
                 });
             } else {
-                Swal.fire('Perubahan Dibatalkan', '', 'error');
+                Swal.fire('Error', 'Mohon masukkan resi pengiriman', 'error');
             }
-        });
+        }
+    });
+}
 
-    }
 </script>
