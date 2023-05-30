@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\customer;
+
+use App\Models\Comment;
 use PDF;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\customer\RajaOngkirController;
@@ -12,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Courier;
+
+
 
 class OrderController extends RajaOngkirController
 {
@@ -66,7 +70,7 @@ class OrderController extends RajaOngkirController
         $transaction->users_id = $users_id;
         $transaction->address = $request->address;
         $transaction->total_price = $request->total_price;
-        $transaction->shipping_price = (int)$request->shipping_cost;
+        $transaction->shipping_price = (int) $request->shipping_cost;
         $transaction->status = 'pending';
         $transaction->payment = 'not paid';
         $transaction->created_at = now(); // mengisi field created_at dengan waktu sekarang
@@ -102,7 +106,7 @@ class OrderController extends RajaOngkirController
         //return view('frontend.order.checkout', compact('cart'),['snap_token'=>$snapToken]);
         //return redirect()->to(\Midtrans\Snap::createTransactionUrl($snapToken))->with('success', 'Transaksi berhasil.');
         // return redirect()->route('shop')->with('success', 'Transaksi berhasil.');
-        return redirect("/checkout/". $transaction->id)->with($session, $users_id);
+        return redirect("/checkout/" . $transaction->id)->with($session, $users_id);
     }
 
     public function checkout_by_id($id)
@@ -130,7 +134,7 @@ class OrderController extends RajaOngkirController
             'transaction_details' => array(
                 'order_id' => $data["transaksi_id"],
                 //'order_id' => 'ORDER-' . time(),
-                'gross_amount' => $ambil_data["total_price"]+$ambil_data["shipping_price"],
+                'gross_amount' => $ambil_data["total_price"] + $ambil_data["shipping_price"],
             ),
             'customer_details' => array(
                 'first_name' => $ambil_user->name,
@@ -142,27 +146,28 @@ class OrderController extends RajaOngkirController
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
 
-        return view("frontend.order.payment", ['snap_token'=>$snapToken, 'transaction' => $ambil_data]);
+        return view("frontend.order.payment", ['snap_token' => $snapToken, 'transaction' => $ambil_data]);
     }
 
     public function post_checkout(Request $request)
-    {   try {
-        $json = json_decode($request->payment);
+    {
+        try {
+            $json = json_decode($request->payment);
 
-        $signature_hashed = hash("sha512", $json->order_id . $json->status_code . $json->gross_amount . env("MIDTRANS_SERVER_KEY"));
-        // die();
-        $order = Transaksi::where("id", $json->order_id)->first();
+            $signature_hashed = hash("sha512", $json->order_id . $json->status_code . $json->gross_amount . env("MIDTRANS_SERVER_KEY"));
+            // die();
+            $order = Transaksi::where("id", $json->order_id)->first();
 
-        $order->update(["status" => 'paid', 'payment' => $json->transaction_status]);
+            $order->update(["status" => 'paid', 'payment' => $json->transaction_status]);
 
-        if ($json->transaction_status == 'settlement') {
-            return redirect('/invoice/' . $order->id);
-        } else {
-            return redirect('/home');
-        }
-        // Rumus : Order - ID , Status Code, Gross Amount, ServerKey
-        // echo $request->payment;
-        //return redirect('/invoice/' . $order->id);
+            if ($json->transaction_status == 'settlement') {
+                return redirect('/invoice/' . $order->id);
+            } else {
+                return redirect('/home');
+            }
+            // Rumus : Order - ID , Status Code, Gross Amount, ServerKey
+            // echo $request->payment;
+            //return redirect('/invoice/' . $order->id);
         } catch (\Exception $e) {
             // Jika terjadi error, maka tampilkan pesan error dan redirect ke halaman sebelumnya
             //return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -170,7 +175,8 @@ class OrderController extends RajaOngkirController
         }
     }
 
-    public function invoice($id){
+    public function invoice($id)
+    {
         $decryptedId = $id;
         $transaction = Transaksi::find($decryptedId);
         return view('frontend.order.invoice', compact('transaction'));
@@ -183,5 +189,50 @@ class OrderController extends RajaOngkirController
         $transaction = Transaksi::findOrFail($id);
         $pdf = PDF::loadView('frontend.order.invoice_pdf', compact('transaction'));
         return $pdf->stream('invoice.pdf');
+    }
+
+    public function showMyOrders()
+    {
+        $users_id = auth()->user()->id;
+        // $transactions = Transaksi::with('transactionItems.product')
+        //     ->where('users_id', $users_id)
+        //     ->where('status', '!=', 'paid')
+        //     ->get();
+        $transactions = Transaksi::with('transactionItems.product')
+            ->where('users_id', $users_id)
+            ->where('status', '!=', 'paid')
+            ->orderByRaw("FIELD(status, 'Dikemas', 'Dikirim', 'Selesai')")
+            ->get();
+
+            
+
+        return view('frontend.order.myorders', compact('transactions'));
+    }
+
+    public function markOrderAsCompleted($transactionId)
+    {
+        $transaction = Transaksi::find($transactionId);
+
+        if (!$transaction) {
+            // Handle error: Transaksi tidak ditemukan
+            return redirect()->back()->with('error', 'Transaksi tidak ditemukan.');
+        }
+
+        // Ubah status transaksi menjadi "selesai"
+        $transaction->status = 'Selesai';
+        $transaction->save();
+
+        return redirect()->back()->with('success', 'Transaksi berhasil ditandai sebagai selesai.');
+    }
+
+    public function submitComment(Request $request, $transactionId)
+    {
+        $transaction = Transaksi::findOrFail($transactionId);
+
+        $comment = new Comment();
+        $comment->comment = $request->input('comment');
+        $transaction->comments()->save($comment);
+
+        return redirect()->back()->with('success', 'Komentar berhasil disimpan.');
     }
 }

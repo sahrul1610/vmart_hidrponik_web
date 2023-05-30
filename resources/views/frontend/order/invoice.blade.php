@@ -37,17 +37,24 @@
                                 <li>nama<span>{{ $transaction->user->name }}</span></li>
                                 <li>Alamat<span>{{ $transaction->address }}</span></li>
                                 <li>total<span>{{ $transaction->total_price }}</span></li>
-                                <li>pembayaran<span>{{ $transaction->payment }}</span></li>
+                                <li>pembayaran<span>
+                                        @if ($transaction->payment == 'settlement')
+                                            Sukses
+                                        @else
+                                            {{ $transaction->payment }}
+                                        @endif
+                                    </span></li>
                                 <li>status<span>{{ $transaction->status }}</span></li>
                                 {{-- <li>Fresh Vegetable <span>$151.99</span></li>
                                 <li>Organic Bananas <span>$53.99</span></li> --}}
                             </ul>
 
                             <div class="checkout__order__subtotal">
-                                <a href="{{ route('invoice.export', $transaction->id) }}" target="_blank" class="btn btn-primary">Export to PDF</a>
+                                <a href="{{ route('invoice.export', $transaction->id) }}" target="_blank"
+                                    class="btn btn-primary">Export to PDF</a>
                             </div>
                             <div class="checkout__order__subtotal">
-                                <a href="{{route('home')}}" class="btn btn-success">Kembali belanja</a>
+                                <a href="{{ route('home') }}" class="btn btn-success">Kembali belanja</a>
                             </div>
                         </div>
                     </div>

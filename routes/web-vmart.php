@@ -114,7 +114,14 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::post('/checkout/{id}', [OrderController::class, 'post_checkout']);
     Route::get('/invoice/{id}', [OrderController::class, 'invoice'])->name('invoice');
     Route::get('/invoice/export/{id}', [OrderController::class, 'exportInvoice'])->name('invoice.export');
-    Route::get('/myorders', [CartController::class, 'showMyOrders'])->name('myorders');
+    Route::get('/myorders', [OrderController::class, 'showMyOrders'])->name('myorders');
+    Route::post('/order/complete/{transactionId}', [OrderController::class, 'markOrderAsCompleted'])->name('order.complete');
+    // Route::get('/order/feedback/{transactionId}', [OrderController::class, 'provideFeedback'])->name('order.feedback');
+    // Route::post('/order/feedback/{transactionId}', [OrderController::class, 'submitFeedback'])->name('order.submitFeedback');
+    Route::post('/order/comment/{transactionId}', [OrderController::class, 'submitComment'])->name('order.comment');
+
+
+
 
 
 
