@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transaksi;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use PDF;

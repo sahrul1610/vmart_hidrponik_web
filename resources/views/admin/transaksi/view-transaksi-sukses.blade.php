@@ -110,9 +110,17 @@
                                                             @endif
                                                             <td>{{ $transaction->payment }}</td>
                                                             <td>{{ $transaction->status }}</td>
-                                                            <td><button
+                                                            <td>
+                                                                {{-- <button
                                                                     onclick="inputDeliveryReceipt({{ $transaction->id }})"
-                                                                    class="btn btn-warning">{{ $transaction->status }}</button>
+                                                                    class="btn btn-warning">{{ $transaction->status }}</button> --}}
+
+                                                                @if ($transaction->status == 'Selesai' && $transaction->comments->count() > 0)
+                                                                        <button class="btn mb-2 btn-success" data-bs-toggle="modal" data-bs-target="#commentModal{{ $transaction->id }}"
+                                                                        type="button">Tanggapan<i class="fa fa-envelope"></i></button>
+                                                                @else
+                                                                    -
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     @endif
@@ -128,9 +136,41 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal untuk menampilkan tanggapan --}}
+    @foreach ($transactions as $transaction)
+        @if ($transaction->status == 'Selesai' && $transaction->comments->count() > 0)
+            <div class="modal fade" id="commentModal{{ $transaction->id }}" tabindex="-1"
+                aria-labelledby="largeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="laergeModalLabel">Tanggapan dari {{ $transaction->user->name }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="max-height: 400px; overflow: auto;">
+                            @foreach ($transaction->comments as $comment)
+                                <p class="comment-text">{{ $comment->comment }}</p>
+                            @endforeach
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endforeach
 @endsection
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+<style>
+    .comment-text {
+        word-wrap: break-word;
+        /* atau */
+        /* word-break: break-word; */
+    }
+</style>
 <script>
     // function inputDeliveryReceipt(transactionId) {
     //     Swal.fire({
