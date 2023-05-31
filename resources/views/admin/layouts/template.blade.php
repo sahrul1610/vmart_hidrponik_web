@@ -104,7 +104,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="notification dropdown">
+                    {{-- <div class="notification dropdown">
                         <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="far fa-bell"></i>
                             <span class="badge">12</span>
@@ -149,7 +149,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                     <div class="dropdown dropdown-menu-end">
                         <a href="#" class="user-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="label">

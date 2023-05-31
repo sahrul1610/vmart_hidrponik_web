@@ -44,6 +44,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/produk/insert', [ProdukController::class, 'insert']);
     Route::post('/produk/update', [ProdukController::class, 'update']);
     Route::delete('/produk/hapus/{id}', [ProdukController::class, 'delete']);
+    Route::post('/stok/add/{id}', [ProdukController::class, 'addStock'])->name('addStock');
 
 
     Route::get('/kategori', [KategoriProdukController::class, 'index'])->name('kategori')->middleware('auth');

@@ -28,4 +28,9 @@ class Produk extends Model
         return $this->hasOne(ProdukGaleri::class, 'products_id');
     }
 
+    public function stocks()
+    {
+        return $this->hasMany(stock::class, 'product_id');
+    }
+
 }

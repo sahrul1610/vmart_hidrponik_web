@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\customer;
 
 use App\Models\Comment;
+use App\Models\Stock;
 use PDF;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\customer\RajaOngkirController;
@@ -89,10 +90,22 @@ class OrderController extends RajaOngkirController
             $transactionItem->save();
 
             $product = Produk::find($item['id']);
-            $stok_awal = $product->new_stock;
-            $stok_baru = $stok_awal - $item['quantity'];
-            $product->new_stock = $stok_baru;
-            $product->save();
+            // Mengecek apakah produk memiliki entri stok dalam tabel stok
+            //$stock = Stock::where('product_id', $product->id)->first();
+            $stock = Stock::where('product_id', $product->id)->latest()->first();
+
+            if ($stock) {
+                // Mengecek apakah stok mencukupi untuk transaksi
+                if ($stock->quantity >= $item['quantity']) {
+                    // Mengurangi kuantitas stok
+                    $stock->quantity -= $item['quantity'];
+                    $stock->save();
+                } else {
+                    return redirect()->back()->with('error', 'Stok tidak mencukupi.');
+                }
+            } else {
+                return redirect()->back()->with('error', 'Produk tidak memiliki stok.');
+            }
         }
 
         $users_id = session()->put("users_id", Auth::user()->id);
@@ -108,6 +121,69 @@ class OrderController extends RajaOngkirController
         // return redirect()->route('shop')->with('success', 'Transaksi berhasil.');
         return redirect("/checkout/" . $transaction->id)->with($session, $users_id);
     }
+    // public function checkout1(Request $request)
+    // {
+    //     $request->validate([
+    //         'address' => 'required',
+    //         'total_price' => 'required|numeric',
+    //         'shipping_cost' => 'required|numeric',
+    //         'province_origin' => 'required',
+    //         'city_origin' => 'required',
+    //         'courier' => 'required',
+    //     ]);
+    //     //dd($request);
+
+    //     $cart = Session::get('cart', []);
+
+    //     if (empty($cart)) {
+    //         return redirect()->back()->with('error', 'Keranjang belanja kosong.');
+    //     }
+
+    //     $users_id = auth()->user()->id;
+
+    //     $transaction = new Transaksi;
+    //     $transaction->id = time();
+    //     $transaction->users_id = $users_id;
+    //     $transaction->address = $request->address;
+    //     $transaction->total_price = $request->total_price;
+    //     $transaction->shipping_price = (int) $request->shipping_cost;
+    //     $transaction->status = 'pending';
+    //     $transaction->payment = 'not paid';
+    //     $transaction->created_at = now(); // mengisi field created_at dengan waktu sekarang
+    //     $transaction->updated_at = now(); // mengisi field updated_at dengan waktu sekarang
+    //     $transaction->save();
+
+
+    //     $transaction_id = $transaction->id;
+
+    //     foreach ($cart as $item) {
+    //         $transactionItem = new TransaksiItem;
+    //         $transactionItem->users_id = $users_id;
+    //         $transactionItem->products_id = $item['id'];
+    //         $transactionItem->transactions_id = $transaction_id;
+    //         $transactionItem->quantity = $item['quantity'];
+    //         $transactionItem->save();
+
+    //         $product = Produk::find($item['id']);
+    //         $stok_awal = $product->new_stock;
+    //         $stok_baru = $stok_awal - $item['quantity'];
+    //         $product->new_stock = $stok_baru;
+    //         $product->save();
+    //     }
+
+    //     $users_id = session()->put("users_id", Auth::user()->id);
+    //     $session = session()->put("transaksi_id", $transaction->id);
+
+    //     // Set your Merchant Server Key
+
+    //     //dd($snapToken);
+    //     Session::forget('cart');
+
+    //     //return view('frontend.order.checkout', compact('cart'),['snap_token'=>$snapToken]);
+    //     //return redirect()->to(\Midtrans\Snap::createTransactionUrl($snapToken))->with('success', 'Transaksi berhasil.');
+    //     // return redirect()->route('shop')->with('success', 'Transaksi berhasil.');
+    //     return redirect("/checkout/" . $transaction->id)->with($session, $users_id);
+    // }
 
     public function checkout_by_id($id)
     {
@@ -204,7 +280,7 @@ class OrderController extends RajaOngkirController
             ->orderByRaw("FIELD(status, 'Dikemas', 'Dikirim', 'Selesai')")
             ->get();
 
-            
+
 
         return view('frontend.order.myorders', compact('transactions'));
     }
