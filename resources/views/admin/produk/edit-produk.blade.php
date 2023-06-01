@@ -110,8 +110,9 @@
                                 <input type="file" class="form-control" name="url" id='url' placeholder=""
                                     value="{{ $edit->produkgaleri->url }}">
                                 @if ($edit->produkgaleri)
-                                    <p>Gambar saat ini: <img src="{{ asset('storage/gambar/' . $edit->produkgaleri->url) }}"
-                                            width="100px"></p>
+                                    <p>Gambar saat ini: <img
+                                            src="{{ asset('storage/gambar/' . $edit->produkgaleri->url) }}" width="100px">
+                                    </p>
                                     {{-- <input type="hidden" name="url" value="{{ $edit->produkgaleri->url }}"> --}}
                                 @else
                                     tidak ada gambar
@@ -126,8 +127,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"
-                                    value="{{ $edit->description }}"></textarea>
+                                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3">{{ $edit->description }}</textarea>
                             </div>
                             <div class="text-danger">
                                 @error('description')

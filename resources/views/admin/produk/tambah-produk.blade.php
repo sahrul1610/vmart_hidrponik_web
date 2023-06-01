@@ -74,12 +74,13 @@
                         <div class="col-md-4">
                             <div class="mb-3 pb-2">
                                 <label for="basicInput" class="form-label">kategori</label>
-                                <select class="js-example-basic-single form-select form-select-sm" name="categories_id"
-                                    >
+                                <select class="js-example-basic-single form-select form-select-sm" name="categories_id">
                                     <option value="">- Pilih -</option>
                                     @foreach ($kategori as $k)
-                                        <option value="{{ $k->id }}">
-                                           <h2></h2> {{ $k->name }}
+                                        {{-- <option value="{{ $k->id }}"> --}}
+                                        <option value="{{ $k->id }}"
+                                            {{ old('categories_id') == $k->id ? 'selected' : '' }}>
+                                            <h2></h2> {{ $k->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -119,7 +120,7 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" name="description" rows="3" value="{{ old('description') }}"></textarea>
+                                <textarea class="form-control" name="description" rows="3" value="{{ old('description') }}">{{ old('description') }}</textarea>
                             </div>
                             <div class="text-danger">
                                 @error('description')
@@ -127,19 +128,6 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="col-md-12">
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                                <textarea class="form-control ckeditor" class="ckeditor" name="description" id="ckeditor" rows="3"
-                                    value="{{ old('description') }}"></textarea>
-                            </div>
-                            <div class="text-danger">
-                                @error('description')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div> --}}
-
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>

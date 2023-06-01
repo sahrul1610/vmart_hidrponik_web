@@ -91,8 +91,8 @@ class OrderController extends RajaOngkirController
 
             $product = Produk::find($item['id']);
             // Mengecek apakah produk memiliki entri stok dalam tabel stok
-            //$stock = Stock::where('product_id', $product->id)->first();
-            $stock = Stock::where('product_id', $product->id)->latest()->first();
+            $stock = Stock::where('product_id', $product->id)->first();
+            //$stock = Stock::where('product_id', $product->id)->latest()->first();
 
             if ($stock) {
                 // Mengecek apakah stok mencukupi untuk transaksi

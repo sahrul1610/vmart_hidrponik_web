@@ -24,29 +24,11 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="basicInput" class="form-label">Slug</label>
-                                <input type="text" placeholder="Masukan slug" name="slug" class="form-control"
-                                    id="basicInput" value="{{ old('slug') }}">
-                            </div>
-                            <div class="text-danger">
-                                @error('slug')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div> --}}
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="basicInput" class="form-label">kategori</label>
-                                <select class="js-example-basic-single form-select form-select-sm" name="category_id"
-                                    multiple>
+                                <select class="js-example-basic-single form-select form-select-sm" name="category_id">
                                     <option value="">- Pilih -</option>
-                                    {{-- @foreach ($categories as $k)
-                                        <option value="{{ $k->id }}">
-                                            {{ $k->name }}
-                                        </option>
-                                    @endforeach --}}
                                     @foreach ($categories as $k)
                                         @if ($k->id == $post->category_id)
                                             <option value="{{ $k->id }}" selected>
@@ -70,8 +52,6 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="basicInput" class="form-label">Photo</label>
-                                {{-- <input type="text" placeholder="Masukan photo" class="form-control" name="photo"
-                                    id="basicInput" value="{{ old('photo') }}"> --}}
                                 <input type="file" class="form-control" name="photo" value="{{ $post->photo }}"
                                     id="basicInput">
                             </div>
@@ -84,8 +64,6 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="basicInput" class="form-label">Link youtube</label>
-                                {{-- <input type="text" placeholder="Masukan photo" class="form-control" name="photo"
-                                    id="basicInput" value="{{ old('photo') }}"> --}}
                                 <input type="text" class="form-control" name="url"
                                     value="{{ old('url', 'https://www.youtube.com/watch?v=' . $post->url) }}"
                                     id="basicInput">
