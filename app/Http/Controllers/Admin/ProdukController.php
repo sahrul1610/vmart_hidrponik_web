@@ -72,6 +72,7 @@ class ProdukController extends Controller
             'name' => 'required',
             'description' => 'required',
             'is_available' => 'required|numeric',
+            'unit' => 'required|in:kg,g',
             //'product_unit' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
@@ -92,7 +93,10 @@ class ProdukController extends Controller
                 'url.required' => 'Gambar wajib  diisi',
                 'url.image' => 'File harus berupa gambar',
                 'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
-                'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
+                'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB',
+                'unit.required' => "Satuan wajib diisi!",
+                'unit.in' => "Satuan berat tidak valid!",
+
 
             ]);
 
@@ -114,9 +118,15 @@ class ProdukController extends Controller
         // $produk->stock = $request->stock;
         // $produk->new_stock = $request->stock;
         $produk->tags = $request->tags;
-        $produk->is_available = $request->is_available;
+        //$produk->is_available = $request->is_available;
         $produk->created_at = now(); // mengisi field created_at dengan waktu sekarang
         $produk->updated_at = now(); // mengisi field updated_at dengan waktu sekarang
+        // Menyimpan data berat dalam satu tabel
+        $berat = $request->is_available;
+        $satuan = $request->unit;
+        $beratGram = $satuan === 'kg' ? $berat * 1000 : $berat;
+
+        $produk->is_available = $beratGram;
         $produk->save();
 
         // Memasukkan data gambar ke tabel produk_galeri
@@ -153,6 +163,7 @@ class ProdukController extends Controller
             //'stock' => 'required|numeric',
             'tags' => 'required',
             'is_available' => 'required',
+            'unit' => 'required|in:kg,g',
             'url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
                 'categories_id.required' => 'Kategori produk wajib diisi',
@@ -164,7 +175,9 @@ class ProdukController extends Controller
                 'is_available.required' => 'Satuan produk wajib diisi',
                 'url.image' => 'File harus berupa gambar',
                 'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
-                'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
+                'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB',
+                'unit.required' => "Satuan wajib diisi!",
+                'unit.in' => "Satuan berat tidak valid!",
             ]);
         $categories_id = $request->categories_id;
 
@@ -183,7 +196,16 @@ class ProdukController extends Controller
         // $produk->stock = $request->stock;
         // $produk->new_stock = $request->stock;
         $produk->tags = $request->tags;
-        $produk->is_available = $request->is_available;
+        //$produk->is_available = $request->is_available;
+
+        // Perbarui berat produk
+        $berat = $request->is_available;
+        $satuan = $request->unit;
+        // Konversi berat ke gram jika satuan kilogram
+        if ($satuan == 'kg') {
+            $berat *= 1000;
+        }
+        $produk->is_available = $berat;
         $produk->save();
 
         // Menghapus gambar lama jika ada gambar baru yang diupload

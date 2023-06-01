@@ -91,20 +91,24 @@ class OrderController extends RajaOngkirController
 
             $product = Produk::find($item['id']);
             // Mengecek apakah produk memiliki entri stok dalam tabel stok
-            $stock = Stock::where('product_id', $product->id)->first();
-            //$stock = Stock::where('product_id', $product->id)->latest()->first();
+            //$stock = Stock::where('product_id', $product->id)->first();
+            $quantityToReduce = $item['quantity']; // Jumlah yang akan dikurangi dari stok
 
-            if ($stock) {
-                // Mengecek apakah stok mencukupi untuk transaksi
-                if ($stock->quantity >= $item['quantity']) {
-                    // Mengurangi kuantitas stok
-                    $stock->quantity -= $item['quantity'];
+            // Mengambil stok terkait dengan produk
+            $stocks = $product->stocks()->orderBy('created_at')->get();
+
+            // Memeriksa stok yang tersedia dan mengurangi stok
+            foreach ($stocks as $stock) {
+                if ($stock->quantity >= $quantityToReduce) {
+                    $stock->quantity -= $quantityToReduce;
                     $stock->save();
+                    break; // Keluar dari perulangan setelah mengurangi stok yang cukup
                 } else {
-                    return redirect()->back()->with('error', 'Stok tidak mencukupi.');
+                    // Mengurangi stok yang tersedia dan mengupdate jumlah yang perlu dikurangi
+                    $quantityToReduce -= $stock->quantity;
+                    $stock->quantity = 0;
+                    $stock->save();
                 }
-            } else {
-                return redirect()->back()->with('error', 'Produk tidak memiliki stok.');
             }
         }
 

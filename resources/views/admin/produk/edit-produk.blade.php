@@ -53,7 +53,10 @@
                             <div class="input-group mb-3">
                                 <input type="text" placeholder="Masukan satuan" name="is_available" class="form-control"
                                     id="basicInput" value="{{ $edit->is_available }}">
-                                <span class="input-group-text" id="basic-addon2">kg</span>
+                                <select class="input-group-text form-select" name="unit">
+                                    <option value="g">gram</option>
+                                    <option value="kg">kg</option>
+                                </select>
                             </div>
                             <div class="text-danger">
                                 @error('is_available')

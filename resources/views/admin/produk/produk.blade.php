@@ -167,7 +167,14 @@
                                                             </button>
                                                         </td>
                                                         {{-- <td>{{ $dt->new_stock }} </td> --}}
-                                                        <td>{{ $dt->is_available }} kg </td>
+                                                        <td>
+
+                                                            @if ($dt->is_available >= 1000)
+                                                                {{ floor($dt->is_available / 1000) }} kg
+                                                            @else
+                                                                {{ $dt->is_available }} g
+                                                            @endif
+                                                        </td>
                                                         <td>{{ $dt->getKategori->name }}</td>
                                                         <td>{{ $dt->description }}</td>
                                                         <td>{{ $dt->tags }}</td>

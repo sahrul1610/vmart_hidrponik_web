@@ -61,9 +61,15 @@
                         <div class="col-md-2">
                             <label for="basicInput" class="form-label">Satuan</label>
                             <div class="input-group mb-3">
-                                <input type="number" placeholder="Masukan satuan" name="is_available" class="form-control"
+                                {{-- <input type="number" placeholder="Masukan satuan" name="is_available" class="form-control"
                                     id="basicInput" value="{{ old('is_available') }}">
-                                <span class="input-group-text" id="basic-addon2">kg</span>
+                                <span class="input-group-text" id="basic-addon2">kg</span> --}}
+                                <input type="number" placeholder="Masukkan berat" name="is_available" class="form-control"
+                                    id="basicInput" value="{{ old('is_available') }}">
+                                <select class="input-group-text form-select" name="unit">
+                                    <option value="g">gram</option>
+                                    <option value="kg">kg</option>
+                                </select>
                             </div>
                             <div class="text-danger">
                                 @error('is_available')

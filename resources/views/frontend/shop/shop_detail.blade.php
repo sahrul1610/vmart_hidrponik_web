@@ -65,7 +65,13 @@
                         <a href="{{ route('cart.add', ['id' => $produks->id]) }}" class="primary-btn">ADD TO CARD</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
-                            <li><b>Weight</b> <span>{{$produks->is_available}} kg</span></li>
+                            <li><b>Berat</b> <span>
+                                    @if ($produks->is_available >= 1000)
+                                        {{ floor($produks->is_available / 1000) }} kg
+                                    @else
+                                        {{ $produks->is_available }} gram
+                                    @endif
+                                </span></li>
                             <li>
                                 <b>Share on</b>
                                 <div class="share">
