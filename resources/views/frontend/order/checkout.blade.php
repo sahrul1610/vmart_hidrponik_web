@@ -6,6 +6,9 @@
         }
     </style>
 @endsection
+
+
+
 @section('content')
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('frontend/img/breadcrumb.jpg') }}">
@@ -169,6 +172,21 @@
             });
         });
     </script>
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '{{ session('error') }}',
+            }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('home') }}";
+                sessionStorage.removeItem('cart');
+            }
+        });
+        </script>
+    @endif
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
     <script type="text/javascript">

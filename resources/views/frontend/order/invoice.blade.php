@@ -20,8 +20,6 @@
 
     <!-- Checkout Section Begin -->
     <section class="checkout spad">
-        {{-- <div class="container" id="checkout">
-    </div> --}}
         <div class="container">
             <div class="checkout__form">
                 <h4>Invoice</h4>
@@ -45,8 +43,6 @@
                                         @endif
                                     </span></li>
                                 <li>status<span>{{ $transaction->status }}</span></li>
-                                {{-- <li>Fresh Vegetable <span>$151.99</span></li>
-                                <li>Organic Bananas <span>$53.99</span></li> --}}
                             </ul>
 
                             <div class="checkout__order__subtotal">
@@ -63,6 +59,4 @@
             </div>
         </div>
     </section>
-    {{-- {!! $snap !!} --}}
-    <!-- Checkout Section End -->
 @endsection

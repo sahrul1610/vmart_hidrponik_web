@@ -142,7 +142,6 @@
                                                     <th>Name</th>
                                                     <th>Harga</th>
                                                     <th>Stok</th>
-                                                    {{-- <th>Stok Baru</th> --}}
                                                     <th>Satuan</th>
                                                     <th>Kategori</th>
                                                     <th>Deskripsi</th>
@@ -166,9 +165,7 @@
                                                                 {{ $dt->totalStock }} <i class="ti-eye"></i>
                                                             </button>
                                                         </td>
-                                                        {{-- <td>{{ $dt->new_stock }} </td> --}}
                                                         <td>
-
                                                             @if ($dt->is_available >= 1000)
                                                                 {{ floor($dt->is_available / 1000) }} kg
                                                             @else
@@ -220,7 +217,6 @@
                                                     <th>Name</th>
                                                     <th>Harga</th>
                                                     <th>Stok</th>
-                                                    {{-- <th>Stok Baru</th> --}}
                                                     <th>Satuan</th>
                                                     <th>Kategori</th>
                                                     <th>Deskripsi</th>
@@ -244,7 +240,6 @@
                                                                 {{ $dt->totalStock }} <i class="ti-eye"></i>
                                                             </button>
                                                         </td>
-                                                        {{-- <td>{{ $dt->new_stock }}</td> --}}
                                                         <td>{{ $dt->is_available }} kg</td>
                                                         <td>{{ $dt->getKategori->name }}</td>
                                                         <td>{{ $dt->description }}</td>
@@ -283,14 +278,13 @@
             </div>
         </div>
     </div>
-    {{-- Modal untuk menampilkan tanggapan --}}
+
     @foreach ($data as $dt)
         <div class="modal fade" id="commentModal{{ $dt->id }}" tabindex="-1" aria-labelledby="largeModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-
                         <h5 class="modal-title" id="laergeModalLabel">Stok Produk - {{ $dt->name }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -323,7 +317,6 @@
         </div>
     @endforeach
     @foreach ($data as $dt)
-        <!-- Modal untuk menambahkan stok -->
         <div class="modal fade" id="addStockModal{{ $dt->id }}" tabindex="-1" role="dialog"
             aria-labelledby="addStockModal{{ $dt->id }}Label" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -342,7 +335,6 @@
                                 <label for="quantity">Jumlah Stok</label>
                                 <input type="number" class="form-control" id="quantity" name="quantity" required>
                             </div>
-                            <!-- Tambahkan inputan lain jika perlu -->
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Tambah Stok</button>
@@ -356,7 +348,6 @@
 @endsection
 <script>
     function DeleteData(id) {
-        // console.log('tes delete');
         Swal.fire({
             title: "Anda Yakin Ingin Menghapus Data Ini ?",
             text: "Klik Batal Untuk Membatalkan Penghapusan",
@@ -378,7 +369,5 @@
                 Swal.fire('Selamat!', 'Data anda tidak jadi dihapus', 'error');
             }
         });
-
-
     }
 </script>

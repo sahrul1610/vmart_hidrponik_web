@@ -36,18 +36,6 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="col-md-2">
-                            <div class="mb-3">
-                                <label for="basicInput" class="form-label">Stok</label>
-                                <input type="number" placeholder="Masukan stock" name="stock" class="form-control"
-                                    id="basicInput" value="{{ $edit->stock }}">
-                            </div>
-                            <div class="text-danger">
-                                @error('stock')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div> --}}
                         <div class="col-md-4">
                             <label for="basicInput" class="form-label">Satuan</label>
                             <div class="input-group mb-3">
@@ -69,14 +57,8 @@
                                 <label for="basicInput" class="form-label">kategori</label>
                                 <select class="js-example-basic-single form-select form-select-sm" name="categories_id">
                                     <option value="">- Pilih -</option>
-                                    {{-- @foreach ($kategori as $k)
-                                        <option value="{{ $k->id }}">
-                                            {{ $k->name }}
-                                        </option>
-                                    @endforeach --}}
                                     @foreach ($kategori as $k)
                                         @if ($k->id == $edit->categories_id)
-                                            )
                                             <option value="{{ $k->id }}" selected>
                                                 {{ $k->name }}
                                             </option>
@@ -87,7 +69,6 @@
                                         @endif
                                     @endforeach
                                 </select>
-
                             </div>
                             <div class="text-danger">
                                 @error('categories_id')
@@ -116,7 +97,6 @@
                                     <p>Gambar saat ini: <img
                                             src="{{ asset('storage/gambar/' . $edit->produkgaleri->url) }}" width="100px">
                                     </p>
-                                    {{-- <input type="hidden" name="url" value="{{ $edit->produkgaleri->url }}"> --}}
                                 @else
                                     tidak ada gambar
                                 @endif
@@ -143,7 +123,6 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </div>
-
             </form>
         </div>
     </div>

@@ -108,8 +108,14 @@ class OrderController extends RajaOngkirController
                     $quantityToReduce -= $stock->quantity;
                     $stock->quantity = 0;
                     $stock->save();
+
+                    if ($quantityToReduce > 0 && $stock === $stocks->last()) {
+                        // Jika stok habis sebelum jumlah yang perlu dikurangi selesai dan ini adalah stok terakhir, tampilkan pesan stok habis menggunakan Swal.fire
+                        return redirect()->back()->with('error', 'Maaf, stok habis.');
+                    }
                 }
             }
+
         }
 
         $users_id = session()->put("users_id", Auth::user()->id);

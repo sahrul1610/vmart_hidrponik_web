@@ -20,8 +20,6 @@
 
 <!-- Checkout Section Begin -->
 <section class="checkout spad">
-    {{-- <div class="container" id="checkout">
-    </div> --}}
     <div class="container">
         <div class="checkout__form">
             <h4>Billing Details</h4>
@@ -41,8 +39,6 @@
                             <li>Harga barang<span>{{ number_format($transaction->total_price) }}</span></li>
                             <li>Pembayaran<span>{{ $transaction->payment }}</span></li>
                             <li>Status<span>{{ $transaction->status }}</span></li>
-                            {{-- <li>Fresh Vegetable <span>$151.99</span></li>
-                                <li>Organic Bananas <span>$53.99</span></li> --}}
                             </ul>
                             <div class="checkout__order__subtotal">
                                 Subtotal <span>{{ number_format($transaction->total_price + $transaction->shipping_price) }}</span>
@@ -50,7 +46,6 @@
                             <div class="checkout__order__total">
                                 Total <span>Rp.{{ number_format($transaction->total_price + $transaction->shipping_price) }},-</span>
                             </div>
-
                             <form id="submit_form" method="POST">
                                 @csrf
                                 <input type="hidden" name="payment" value="{{$transaction->id}}" id="json_callback">
@@ -63,35 +58,27 @@
             </div>
         </div>
     </section>
-    {{-- {!! $snap !!} --}}
     <!-- Checkout Section End -->
     @endsection
 
     @section("client")
-
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> --}}
     <script type="text/javascript">
         let payButton = document.getElementById("pay-button");
         payButton.addEventListener("click", function() {
             window.snap.pay('{{ $snap_token }}', {
                 onSuccess: function(result) {
-                    /* You may add your own implementation here */
                     console.log(result);
                     send_response_to_form(result);
-                    //window.location.href = '/invoice/{{ $transaction->id }}';
                 },
                 onPending: function(result) {
-                    /* You may add your own implementation here */
                     console.log(result);
                     send_response_to_form(result);
                 },
                 onError: function(result) {
-                    /* You may add your own implementation here */
                     console.log(result);
                     send_response_to_form(result);
                 },
                 onClose: function() {
-                    /* You may add your own implementation here */
                     alert('Anda Menutup Halaman tanpa menyelesaikan Transaksi');
                 }
             })
@@ -101,37 +88,5 @@
             $('#submit_form').submit();
         }
     </script>
-    {{-- <script type="text/javascript">
-        var payButton = document.getElementById('pay-button');
-        payButton.addEventListener('click', function() {
-            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
-            window.snap.pay({{ '$snapToken' }}, {
-                onSuccess: function(result) {
-                    /* You may add your own implementation here */
-                    console.log(result);
-                    send_response_to_form(result);
-                },
-                onPending: function(result) {
-                    /* You may add your own implementation here */
-                    console.log(result);
-                    send_response_to_form(result);
-                },
-                onError: function(result) {
-                    /* You may add your own implementation here */
-                    console.log(result);
-                    send_response_to_form(result);
-                },
-                onClose: function() {
-                    /* You may add your own implementation here */
-                    alert('Anda Menutup Halaman tanpa menyelesaikan Transaksi');
-                }
-            })
-        });
-
-        function send_response_to_form(result) {
-            document.getElementById('json_callback').value = JSON.stringify(result);
-            $('#submit_form').submit();
-        }
-    </script> --}}
     @endsection
 

@@ -322,15 +322,13 @@
                     <div class="footer__copyright">
                         <div class="footer__copyright__text">
                             <p>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 Copyright &copy;
                                 <script>
                                     document.write(new Date().getFullYear());
                                 </script>
-                                All rights reserved | This template is made with
+                                Vmart Hidroponik
                                 <i class="fa fa-heart" aria-hidden="true"></i> by
-                                <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                <a href="#" target="_blank">Vmart</a>
                             </p>
                         </div>
                         <div class="footer__copyright__payment">
@@ -358,7 +356,8 @@
 
         // tampilkan jumlah item dalam keranjang
         var cartCount = Object.keys(cart).length;
-        document.getElementById('cart').innerHTML = '<a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i><span>' + cartCount + '</span></a>';
+        document.getElementById('cart').innerHTML =
+            '<a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i><span>' + cartCount + '</span></a>';
     </script>
 
     @yield('javascript')

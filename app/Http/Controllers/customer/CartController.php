@@ -15,15 +15,25 @@ class CartController extends Controller
 {
     public function addToCart(Request $request)
     {
-        $produk = Produk::find($request->id);
+        // $produk = Produk::find($request->id);
+        // if (!$produk) {
+        //     abort(404);
+        // }
+
+        // $cart = Session::get('cart', []);
+        // // Ambil nilai quantity dari request
+        // $quantity = $request->input('quantity', 1); // Mengambil nilai quantity dari query string, defaultnya adalah 1
+
+        $produk = Produk::find($request->input('id'));
         if (!$produk) {
             abort(404);
         }
 
         $cart = Session::get('cart', []);
-
+        $quantity = $request->input('quantity', 1);
+        
         if (isset($cart[$produk->id])) {
-            $cart[$produk->id]['quantity']++;
+            $cart[$produk->id]['quantity']+=$quantity;
         } else {
             $cart[$produk->id] = [
                 'id' => $produk->id,
@@ -31,7 +41,7 @@ class CartController extends Controller
                 'price' => $produk->price,
                 'gambar' => $produk->produkgaleri->url,
                 'tersedia' => $produk->is_available,
-                'quantity' => 1
+                'quantity' => $quantity
             ];
         }
 

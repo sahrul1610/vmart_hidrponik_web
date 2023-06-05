@@ -48,8 +48,6 @@
                                             @endif
                                         </span></li>
                                     <li>Status<span>{{ $transaction->status }}</span></li>
-                                    {{-- <li>Fresh Vegetable <span>$151.99</span></li>
-                                <li>Organic Bananas <span>$53.99</span></li> --}}
                                 </ul>
                                 <div class="checkout__order__subtotal">
                                     Subtotal
