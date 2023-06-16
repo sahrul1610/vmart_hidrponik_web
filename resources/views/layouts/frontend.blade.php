@@ -83,11 +83,13 @@
             @else
                 <div class="header__top__right__language">
                     <div class="header__top__right__auth">
-                        <a href=""><i class="fa fa-user"></i> {{ auth()->user()->username }}</a>
+                        <a href="#"><i class="fa fa-user"></i> {{ auth()->user()->username }}</a>
                     </div>
                     <span class="arrow_carrot-down"></span>
-                    <ul>
-                        <li><a href="#">Profile</a></li>
+                    <ul style="width:120px;">
+                        <li><a href="{{ url('user/profile') }}">Profile</a></li>
+
+                        <li><a href="{{ route('myorders') }}">Pesanan Saya</a></li>
                     </ul>
                 </div>
                 <div class="header__top__right__auth" style="margin-left: 20px">
@@ -146,13 +148,12 @@
                                 <div class="header__top__right__language header__top__right__auth">
                                     <a class="d-inline" href="#"><i class="fa fa-user"></i>
                                         {{ auth()->user()->name }}
-
                                     </a>
                                     <span class="arrow_carrot-down"></span>
-                                    <ul>
+                                    <ul style="width:120px">
                                         <li><a href="{{ url('user/profile') }}">Profile</a></li>
 
-                                        <li><a href="{{ route('myorders') }}">MyOrder</a></li>
+                                        <li><a href="{{ route('myorders') }}">Pesanan Saya</a></li>
                                     </ul>
                                 </div>
                                 <div class="header__top__right__auth">

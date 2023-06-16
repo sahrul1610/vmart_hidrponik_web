@@ -12,6 +12,7 @@
                 @endforeach
             </ul>
         </li>
+        <li class="{{request()->is('blog')? 'active' : ''}}"><a href="{{route('blog')}}">Blog</a></li>
         <li><a href="#">Contact</a></li>
     </ul>
 </nav>

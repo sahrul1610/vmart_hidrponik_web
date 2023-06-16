@@ -286,7 +286,7 @@ class OrderController extends RajaOngkirController
         //     ->get();
         $transactions = Transaksi::with('transactionItems.product')
             ->where('users_id', $users_id)
-            ->where('status', '!=', 'paid')
+            ->where('status', '!=', 'pending')
             ->orderByRaw("FIELD(status, 'Dikemas', 'Dikirim', 'Selesai')")
             ->get();
 
