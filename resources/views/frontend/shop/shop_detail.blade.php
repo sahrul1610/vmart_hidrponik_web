@@ -21,7 +21,26 @@
 
     <!-- Product Section Begin -->
     <section class="product-details spad">
+
         <div class="container">
+            @if (session('error'))
+            <div class="alert alert-danger">
+                {{session('error')}}
+                <i class="fa fa-warning"></i>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @elseif (session('success'))
+            <div class="alert alert-success">
+                {{session('success')}}
+                <i class="fa fa-check-circle"></i>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
+
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
@@ -43,7 +62,13 @@
                     <div class="product__details__text">
                         <h3>{{ $produks->name }}</h3>
                         <div class="product__details__rating">
-                        </div>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-o"></i>
+                            <span>(Stok tersedia {{ $produks->totalStock }})</span>
+                          </div>
                         <div class="product__details__price">{{ number_format($produks->price) }}</div>
                         <p>
                             {{ $produks->description }}
@@ -52,7 +77,9 @@
                             @csrf
                             <div class="product__details__quantity">
                                 <div class="quantity">
-                                        <input type="number" name="quantity" value="1" min="1" max="{{ $produks->stocks->sum('quantity') }}"/>
+                                    <div class="pro-qty">
+                                        <input type="text" name="quantity" value="1" min="1" max="{{ $produks->stocks->sum('quantity') }}"/>
+                                    </div>
                                 </div>
                             </div>
                             <input type="hidden" name="id" value="{{ $produks->id }}" />
@@ -65,6 +92,10 @@
                                     @else
                                         {{ $produks->is_available }} gram
                                     @endif
+                                </span></li>
+                            <li>
+                            <li><b>Stok tersedia</b> <span>
+                                {{ $produks->totalStock }}
                                 </span></li>
                             <li>
                                 <b>Share on</b>

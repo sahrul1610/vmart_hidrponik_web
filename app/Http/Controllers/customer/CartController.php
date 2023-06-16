@@ -4,6 +4,7 @@ namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Produk;
+use App\Models\Stock;
 use App\Models\Transaksi;
 use App\Models\TransaksiItem;
 use Illuminate\Http\Request;
@@ -20,18 +21,18 @@ class CartController extends Controller
         //     abort(404);
         // }
 
-        // $cart = Session::get('cart', []);
-        // // Ambil nilai quantity dari request
-        // $quantity = $request->input('quantity', 1); // Mengambil nilai quantity dari query string, defaultnya adalah 1
-
         $produk = Produk::find($request->input('id'));
         if (!$produk) {
             abort(404);
         }
-
+        $produk->totalStock = Stock::where('product_id', $produk->id)->sum('quantity');
         $cart = Session::get('cart', []);
         $quantity = $request->input('quantity', 1);
-        
+
+        if ($quantity > $produk->totalStock) {
+            return redirect()->back()->with('error', 'Jumlah yang diminta melebihi stok yang tersedia.');
+        }
+
         if (isset($cart[$produk->id])) {
             $cart[$produk->id]['quantity']+=$quantity;
         } else {

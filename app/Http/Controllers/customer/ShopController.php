@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use App\Models\Produk;
 use App\Models\Kategori;
@@ -34,6 +35,7 @@ class ShopController extends Controller
         $produk = Produk::with('produkgaleri')->whereHas('stocks', function ($query) {
             $query->where('quantity', '>', 0);
         })->get();
+        $produks->totalStock = Stock::where('product_id', $produks->id)->sum('quantity');
         $menu_categories = Kategori::all();
         $cart = Session::get('cart', []);
         // Mengirim data produk ke view untuk ditampilkan
