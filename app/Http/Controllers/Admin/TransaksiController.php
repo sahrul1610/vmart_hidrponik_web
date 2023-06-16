@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Transaksi;
 use App\Models\Comment;
+use App\Models\TransaksiItem;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use PDF;
@@ -90,7 +91,7 @@ class TransaksiController extends Controller
             $transaction->created_at_formatted = Carbon::parse($transaction->created_at)->translatedFormat('l, j F Y');
 
             return $transaction;
-        });
+        })->sortByDesc('created_at_formatted');
 
         return view('admin.transaksi.view-transaksi-sukses', compact('transactions'));
     }
@@ -111,5 +112,28 @@ class TransaksiController extends Controller
             return response()->json(['message' => 'Transaksi tidak ditemukan'], 404);
         }
     }
+
+    public function delete(Request $request)
+    {
+        $transactionId = $request->id;
+        $transaction = Transaksi::find($transactionId);
+
+        if (!$transaction) {
+            return redirect()->route('transactions')->with('gagal', 'Transaction not found');
+        }
+
+        // Menghapus item transaksi terkait
+        TransaksiItem::where('transactions_id', $transactionId)->delete();
+
+        // Menghapus transaksi
+        $transaction->delete();
+
+        return redirect()->back()->with('sukses', 'Transaksi deleted successfully');
+    }
+
+    // public function showComments()
+    // {
+    //     return view('admin.layouts.template', compact('comments'));
+    // }
 
 }

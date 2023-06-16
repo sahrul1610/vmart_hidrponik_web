@@ -116,10 +116,19 @@
                                                                     class="btn btn-warning">{{ $transaction->status }}</button> --}}
 
                                                                 @if ($transaction->status == 'Selesai' && $transaction->comments->count() > 0)
-                                                                        <button class="btn mb-2 btn-success" data-bs-toggle="modal" data-bs-target="#commentModal{{ $transaction->id }}"
-                                                                        type="button">Tanggapan<i class="fa fa-envelope"></i></button>
+                                                                    <button class="btn btn-success btn-sm"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#commentModal{{ $transaction->id }}"
+                                                                        type="button">Tanggapan <i
+                                                                            class="fa fa-envelope"></i>
+                                                                    </button>
+                                                                    <a href="#" class="btn btn-danger btn-sm"
+                                                                        onclick="DeleteData({{ $transaction->id }})"><i
+                                                                            class="fa fa-trash"></i></a>
                                                                 @else
-                                                                    -
+                                                                    <a href="#" class="btn btn-danger btn-sm"
+                                                                        onclick="DeleteData({{ $transaction->id }})"><i
+                                                                            class="fa fa-trash"></i></a>
                                                                 @endif
                                                             </td>
                                                         </tr>
@@ -145,9 +154,9 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="laergeModalLabel">Tanggapan dari {{ $transaction->user->name }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <h5 class="modal-title" id="laergeModalLabel">Tanggapan dari {{ $transaction->user->name }}
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" style="max-height: 400px; overflow: auto;">
                             @foreach ($transaction->comments as $comment)
@@ -172,38 +181,30 @@
     }
 </style>
 <script>
-    // function inputDeliveryReceipt(transactionId) {
-    //     Swal.fire({
-    //         title: "Masukkan Resi Pengiriman",
-    //         input: "text",
-    //         inputPlaceholder: "Masukkan resi pengiriman...",
-    //         showCancelButton: true,
-    //         confirmButtonColor: "#3085d6",
-    //         cancelButtonColor: "#d33",
-    //         confirmButtonText: "Simpan",
-    //         cancelButtonText: "Batal"
-    //     }).then(result => {
-    //         if (result.isConfirmed) {
-    //             const deliveryReceipt = result.value;
-    //             if (deliveryReceipt) {
-    //                 // Mengirim permintaan ke server untuk menyimpan resi pengiriman
-    //                 axios.post('/input-delivery-receipt', {
-    //                     transactionId: transactionId,
-    //                     deliveryReceipt: deliveryReceipt
-    //                 }).then(response => {
-    //                     Swal.fire('Resi Pengiriman Disimpan!', 'Resi pengiriman berhasil disimpan.',
-    //                             'success')
-    //                         .then(() => {
-    //                             // Lakukan refresh halaman atau tindakan lain jika perlu
-    //                             location.reload();
-    //                         });
-    //                 }).catch(error => {
-    //                     Swal.fire('Error', 'Terjadi kesalahan saat menyimpan resi pengiriman', 'error');
-    //                 });
-    //             } else {
-    //                 Swal.fire('Error', 'Mohon masukkan resi pengiriman', 'error');
-    //             }
-    //         }
-    //     });
-    // }
+    function DeleteData(id) {
+        // console.log('tes delete');
+        Swal.fire({
+            title: "Anda Yakin Ingin Menghapus Data Ini ?",
+            text: "Klik Batal Untuk Membatalkan Penghapusan",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Hapus"
+        }).then(result => {
+            if (result.isConfirmed) {
+                form_string =
+                    "<form method=\"POST\" action=\"{{ url('/transaksi/hapus/') }}/" +
+                    id +
+                    "\" accept-charset=\"UTF-8\"><input name=\"_method\" type=\"hidden\" value=\"DELETE\"><input name=\"_token\" type=\"hidden\" value=\"{{ csrf_token() }}\"></form>"
+                form = $(form_string)
+                form.appendTo('body');
+                form.submit();
+            } else {
+                Swal.fire('Selamat!', 'Data anda tidak jadi dihapus', 'error');
+            }
+        });
+
+
+    }
 </script>

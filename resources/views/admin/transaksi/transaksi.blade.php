@@ -64,7 +64,7 @@
                                 aria-labelledby="Produk-tab">
 
                                 <div class="card-body">
-                                    
+
                                     <div class="table-responsive">
                                         <table id="example2" class="display nowrap" style="width:100%">
                                             <thead>
@@ -178,9 +178,6 @@
                                                             @endif
                                                             <td>{{ $transaction->payment }}</td>
                                                             <td>
-                                                                <a href="#" class="btn btn-sm btn-warning"
-                                                                    onclick="changeStatus({{ $transaction->id }})"><i
-                                                                        class="fa fa-edit"></i></a>
                                                                 <a href="#" class="btn btn-danger btn-sm"
                                                                     onclick="DeleteData({{ $transaction->id }})"><i
                                                                         class="fa fa-trash"></i></a>
@@ -221,9 +218,10 @@
                     transactionId: transactionId,
                     status: status
                 }).then(response => {
-                    //Swal.fire('Status diubah!', 'Status berhasil diubah menjadi "Dikemas"', 'success');
-                    // Lakukan tindakan lain jika perlu, seperti memperbarui tampilan
-                    location.reload();
+                    Swal.fire('Status diubah!', 'Status berhasil diubah menjadi "Dikemas"', 'success')
+                    .then(() => {
+                            location.reload();
+                        });
                 }).catch(error => {
                     Swal.fire('Error', 'Terjadi kesalahan saat mengubah status', 'error');
                 });
@@ -232,5 +230,30 @@
             }
         });
 
+    }
+
+    function DeleteData(id) {
+        // console.log('tes delete');
+        Swal.fire({
+            title: "Anda Yakin Ingin Menghapus Data Ini ?",
+            text: "Klik Batal Untuk Membatalkan Penghapusan",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Hapus"
+        }).then(result => {
+            if (result.isConfirmed) {
+                form_string =
+                    "<form method=\"POST\" action=\"{{ url('/transaksi/hapus/') }}/" +
+                    id +
+                    "\" accept-charset=\"UTF-8\"><input name=\"_method\" type=\"hidden\" value=\"DELETE\"><input name=\"_token\" type=\"hidden\" value=\"{{ csrf_token() }}\"></form>"
+                form = $(form_string)
+                form.appendTo('body');
+                form.submit();
+            } else {
+                Swal.fire('Selamat!', 'Data anda tidak jadi dihapus', 'error');
+            }
+        });
     }
 </script>

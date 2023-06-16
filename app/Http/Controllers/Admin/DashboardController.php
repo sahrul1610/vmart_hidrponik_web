@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Produk;
 use App\Models\Transaksi;
@@ -84,5 +85,11 @@ class DashboardController extends Controller
             'dataBulan' => $dataBulan,
             'total_transaksi' => $total_transaksi
         ]);
+    }
+    public function showComments()
+    {
+        $comments = Comment::all();
+
+        return view('admin.layouts.template', compact('comments'));
     }
 }

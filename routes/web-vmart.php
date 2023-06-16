@@ -73,6 +73,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/transaksi/cetak-pdf', [TransaksiController::class, 'cetakPDF'])->name('transaksi.cetak-pdf');
     Route::post('/update-status', [TransaksiController::class, 'updateStatus']);
     Route::post('/input-delivery-receipt', [TransaksiController::class, 'inputDeliveryReceipt']);
+    Route::delete('/transaksi/hapus/{id}', [TransaksiController::class, 'delete']);
+    Route::get('/coba', [TransaksiController::class, 'showComments']);
 
     Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna');
     //export transaksi excel
@@ -99,6 +101,7 @@ Route::middleware(['auth', 'user'])->group(function () {
 
 
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');

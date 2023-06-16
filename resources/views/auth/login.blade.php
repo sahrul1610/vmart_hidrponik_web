@@ -5,17 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ngeIE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Authentication Login &mdash; Arfa</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" />
 
 
-    <link rel="stylesheet" href="{{ asset('template') }}/plugins/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url('template') }}/plugins/bootstrap/dist/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="{{ asset('template') }}/assets/css/style.css">
-    <!-- <link rel="stylesheet" href="{{ asset('template') }}/plugins/themify-icons/themify-icons.css"> -->
-    <link rel="stylesheet" href="{{ asset('template') }}/assets/css/bootstrap-override.css">
+    <link rel="stylesheet" href="{{ url('template') }}/assets/css/style.css">
+    <!-- <link rel="stylesheet" href="{{ url('template') }}/plugins/themify-icons/themify-icons.css"> -->
+    <link rel="stylesheet" href="{{ url('template') }}/assets/css/bootstrap-override.css">
 
 
 </head>
@@ -94,7 +95,7 @@
         </div>
     </div>
 </section>
-<script src="{{ asset('template') }}/assets/js/login.js"></script>
+<script src="{{ url('template') }}/assets/js/login.js"></script>
 {{-- <script src="https://d0aa-2001-448a-3010-adf6-146e-85e4-7314-32a0.ap.ngrok.io/login/assets/js/login.js"></script> --}}
 </body>
 </html>
