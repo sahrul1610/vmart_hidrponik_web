@@ -56,15 +56,7 @@
                                             <td>{{$no++}}</td>
                                             <td>{{$dt->name}}</td>
                                             <td>
-                                                {{-- <a href="/buku/detail/{{ $data->id_kategori }}" class="btn btn-sm btn-success"><i class="fa fa-search"></i></a> --}}
                                                 <a href="{{url('/kategori/edit')}}/{{ $dt->id }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                                                {{-- <form action="{{url('/kategori/hapus')}}" method="POST" style="display: inline;">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="id" value="{{ $dt->id }}">
-                                                    <button type="submit" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </form> --}}
                                                 <a href="#" class="btn btn-danger btn-sm"
                                                     onclick="DeleteData({{ $dt->id }})"><i
                                                         class="fa fa-trash"></i></a>

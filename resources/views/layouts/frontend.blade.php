@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Vmart Project" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="keywords" content="vmart" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -13,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    @yield('css-checkout')
+    @yield('css')
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/elegant-icons.css') }}" type="text/css" />
@@ -82,11 +83,13 @@
             @else
                 <div class="header__top__right__language">
                     <div class="header__top__right__auth">
-                        <a href=""><i class="fa fa-user"></i> {{ auth()->user()->username }}</a>
+                        <a href="#"><i class="fa fa-user"></i> {{ auth()->user()->username }}</a>
                     </div>
                     <span class="arrow_carrot-down"></span>
-                    <ul>
-                        <li><a href="#">Profile</a></li>
+                    <ul style="width:120px;">
+                        <li><a href="{{ url('user/profile') }}">Profile</a></li>
+
+                        <li><a href="{{ route('myorders') }}">Pesanan Saya</a></li>
                     </ul>
                 </div>
                 <div class="header__top__right__auth" style="margin-left: 20px">
@@ -145,13 +148,12 @@
                                 <div class="header__top__right__language header__top__right__auth">
                                     <a class="d-inline" href="#"><i class="fa fa-user"></i>
                                         {{ auth()->user()->name }}
-
                                     </a>
                                     <span class="arrow_carrot-down"></span>
-                                    <ul>
+                                    <ul style="width:120px">
                                         <li><a href="{{ url('user/profile') }}">Profile</a></li>
 
-                                        <li><a href="{{ route('myorders') }}">MyOrder</a></li>
+                                        <li><a href="{{ route('myorders') }}">Pesanan Saya</a></li>
                                     </ul>
                                 </div>
                                 <div class="header__top__right__auth">
@@ -322,15 +324,13 @@
                     <div class="footer__copyright">
                         <div class="footer__copyright__text">
                             <p>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 Copyright &copy;
                                 <script>
                                     document.write(new Date().getFullYear());
                                 </script>
-                                All rights reserved | This template is made with
+                                Vmart Hidroponik
                                 <i class="fa fa-heart" aria-hidden="true"></i> by
-                                <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                <a href="#" target="_blank">Vmart</a>
                             </p>
                         </div>
                         <div class="footer__copyright__payment">
@@ -358,7 +358,8 @@
 
         // tampilkan jumlah item dalam keranjang
         var cartCount = Object.keys(cart).length;
-        document.getElementById('cart').innerHTML = '<a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i><span>' + cartCount + '</span></a>';
+        document.getElementById('cart').innerHTML =
+            '<a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i><span>' + cartCount + '</span></a>';
     </script>
 
     @yield('javascript')

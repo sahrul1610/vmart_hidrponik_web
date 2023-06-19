@@ -20,8 +20,6 @@
 
     <!-- Checkout Section Begin -->
     <section class="checkout spad">
-        {{-- <div class="container" id="checkout">
-    </div> --}}
         <div class="container">
             <div class="checkout__form">
                 <h4>Billing Details</h4>
@@ -36,30 +34,51 @@
                                 </div>
                                 <ul>
                                     @foreach ($transaction->transactionItems as $transactionItem)
-                                        <li>produk<span>{{ $transactionItem->product->name }}</span></li>
+                                        <li>Produk<span>{{ $transactionItem->product->name }}</span></li>
                                     @endforeach
-                                    <li>nama<span>{{ $transaction->user->name }}</span></li>
+                                    <li>Nama<span>{{ $transaction->user->name }}</span></li>
                                     <li>Alamat<span>{{ $transaction->address }}</span></li>
-                                    <li>total<span>{{ $transaction->total_price }}</span></li>
-                                    <li>pembayaran<span>{{ $transaction->payment }}</span></li>
-                                    <li>status<span>{{ $transaction->status }}</span></li>
-                                    {{-- <li>Fresh Vegetable <span>$151.99</span></li>
-                                <li>Organic Bananas <span>$53.99</span></li> --}}
+                                    <li>Harga<span>{{ $transaction->total_price }}</span></li>
+                                    <li>Biaya pengiriman<span>{{ $transaction->shipping_price }}</span></li>
+                                    <li>Pembayaran<span>
+                                            @if ($transaction->payment == 'settlement')
+                                                Sukses
+                                            @else
+                                                {{ $transaction->payment }}
+                                            @endif
+                                        </span></li>
+                                        @if ($transaction->status == 'paid')
+                                        <li>Status<span>Menunggu dikonfirmasi</span></li>
+                                        @elseif ($transaction->status == 'Barang Dikemas')
+                                        <li>Status<span>Barang dikemas menunggu pengeriman</span></li>
+                                        @elseif ($transaction->status == 'Dikirim')
+                                        <li>Status<span>Dalam pengiriman</span></li>
+                                        <li>No Resi<span>{{$transaction->delivery_receipt}}</span></li>
+                                        @elseif ($transaction->status == 'Selesai')
+                                        <li>Status<span>Barang sudah diterima</span></li>
+                                        @endif
                                 </ul>
                                 <div class="checkout__order__subtotal">
-                                    Subtotal <span>$750.99</span>
+                                    Subtotal
+                                    <span>{{ number_format($transaction->total_price + $transaction->shipping_price) }}</span>
                                 </div>
                                 <div class="checkout__order__total">
-                                    Total <span>$750.99</span>
+                                    Total
+                                    <span>{{ number_format($transaction->total_price + $transaction->shipping_price) }}</span>
                                 </div>
+                                {{-- <a href="{{ route('invoice.export', $transaction->id) }}" target="_blank" class="btn btn-primary">Export to PDF</a>
 
-                                <form id="submit_form" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="payment" value="{{ $transaction->id }}" id="json_callback">
-                                </form>
-                                <a href="{{ route('invoice.export', $transaction->id) }}" target="_blank" class="btn btn-primary">Export to PDF</a>
-
-                                <a style="display: inline; border-radius: 5px;" class="btn btn-warning btn-sm center px-3" href="{{ url('/checkout', $transaction->id) }}"><i class="fa fa-shopping-cart"></i> Bayar Sekarang</a>
+                                <a style="display: inline; border-radius: 5px;" class="btn btn-warning btn-sm center px-3" href="{{ url('/checkout', $transaction->id) }}"><i class="fa fa-shopping-cart"></i> Bayar Sekarang</a> --}}
+                                @if ($transaction->status == 'Dikirim')
+                                    <form action="{{ route('order.complete', $transaction->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="site-btn">Pesanan Diterima</button>
+                                    </form>
+                                @elseif ($transaction->status == 'Selesai')
+                                    {{-- <button type="submit" class="site-btn">Berikan Tanggapan</button> --}}
+                                    <button type="button" class="site-btn" data-toggle="modal"
+                                        data-target="#commentModal{{ $transaction->id }}">Berikan Tanggapan</button>
+                                @endif
                             </div>
                         </div>
                     @endforeach
@@ -68,7 +87,33 @@
             </div>
         </div>
     </section>
-    {{-- {!! $snap !!} --}}
-    <!-- Checkout Section End -->
+    <!-- Modal -->
+    @foreach ($transactions as $transaction)
+        @if ($transaction->status == 'Selesai')
+            <div class="modal fade" id="commentModal{{ $transaction->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="commentModalLabel{{ $transaction->id }}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="commentModalLabel{{ $transaction->id }}">Berikan Tanggapan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('order.comment', $transaction->id) }}" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="comment">Komentar</label>
+                                    <textarea class="form-control" id="comment" name="comment" rows="4" placeholder="Masukkan komentar Anda"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Kirim Tanggapan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endforeach
+    <!-- Modal End -->
 @endsection
-

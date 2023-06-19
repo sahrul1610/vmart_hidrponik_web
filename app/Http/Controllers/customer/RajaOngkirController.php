@@ -83,7 +83,7 @@ class RajaOngkirController extends Controller
     public function getCost(Request $request, $cityOriginId)
     {
         $des = RajaOngkir::kota()->find($request->cityOriginId);
-        $satuan = 000;
+        //$satuan = 000;
         $weight = $request->weight;
         $courier = $request->courier;
 
@@ -91,7 +91,7 @@ class RajaOngkirController extends Controller
         $response = RajaOngkir::ongkosKirim([
             'origin' => 149,
             'destination' => $des['city_id'],
-            'weight' => $weight + $satuan,
+            'weight' => $weight,
             'courier' =>  $courier,
         ])->get();
 

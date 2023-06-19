@@ -60,7 +60,7 @@ class PostCategoriesController extends Controller
         return view("admin.blog-categories.edit-blog-kategori", $data);
     }
 
-    public function hapus(Request $request)
+    public function delete(Request $request)
     {
         $id = $request->id;
         $kategori = PostCategories::find($id);

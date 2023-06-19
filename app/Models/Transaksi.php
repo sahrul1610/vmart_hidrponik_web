@@ -24,4 +24,9 @@ class Transaksi extends Model
     {
         return $this->hasMany(TransaksiItem::class, 'transactions_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'transaction_id');
+    }
 }

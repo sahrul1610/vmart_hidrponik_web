@@ -116,7 +116,7 @@ class ExportController extends Controller
         $headerRow = WriterEntityFactory::createRowFromArray(['No', 'Customer Name', 'Product Name', 'Status', 'Transaction Date', 'Payment Method', 'Total Price', 'Shipping Price', 'Total Price + Shipping',], $borderStyle);
         $writer->addRow($headerRow);
 
-        $transactions = Transaksi::where('status', 'paid')->get();
+        $transactions = Transaksi::where('status', 'Selesai')->get();
 
         $no = 1;
         $totalKeseluruhan = 0; // Variabel untuk menghitung total keseluruhan

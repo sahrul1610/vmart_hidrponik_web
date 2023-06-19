@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Produk;
 use App\Models\Transaksi;
@@ -54,13 +55,13 @@ class DashboardController extends Controller
     public function index()
     {
         $jumlah_produk = Produk::count();
-        $jumlah_transaksi = Transaksi::where('payment', 'settlement')->where('status', 'paid')->count();
+        $jumlah_transaksi = Transaksi::where('payment', 'settlement')->where('status', 'Selesai')->count();
         $jumlah_user = User::where('roles', 'USER')->count();
         //transaksi berhasil
-        $total_transaksi = Transaksi::where('payment', 'settlement')->where('status', 'paid')
+        $total_transaksi = Transaksi::where('payment', 'settlement')->where('status', 'Selesai')
         ->sum(DB::raw('total_price + shipping_price'));
         // Mengambil data transaksi perbulan dari database
-        $transaksi = Transaksi::where('payment', 'settlement')->where('status', 'paid')
+        $transaksi = Transaksi::where('payment', 'settlement')->where('status', 'Selesai')
             ->selectRaw('SUM(total_price + shipping_price) as total, MONTH(created_at) as bulan')
             ->groupBy('bulan')
             ->get();
@@ -84,5 +85,11 @@ class DashboardController extends Controller
             'dataBulan' => $dataBulan,
             'total_transaksi' => $total_transaksi
         ]);
+    }
+    public function showComments()
+    {
+        $comments = Comment::all();
+
+        return view('admin.layouts.template', compact('comments'));
     }
 }

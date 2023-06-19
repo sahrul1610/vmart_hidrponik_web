@@ -93,7 +93,7 @@ class KategoriProdukController extends Controller
     //     return redirect()->route('kategori')->with('sukses','data berhasil di hapus');
     // }
 
-    public function hapus(Request $request)
+    public function delete(Request $request)
     {
         $id = $request->id;
         $kategori = kategori::find($id);

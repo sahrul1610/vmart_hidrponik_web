@@ -79,6 +79,7 @@
                                                     <th>Qoute</th>
                                                     <th>Photo</th>
                                                     <th>Catogory</th>
+                                                    <th>Url youtube</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -94,6 +95,7 @@
                                                         <td>{!! $dt->quote !!}</td>
                                                         <td>{{ $dt->photo }}</td>
                                                         <td>{{ $dt->categories->name}}</td>
+                                                        <td>{{ 'https://www.youtube.com/watch?v='.$dt->url}}</td>
                                                         <td>
                                                             <a href="{{ url('/posts/edit') }}/{{ $dt->id }}"
                                                                 class="btn btn-sm btn-warning"><i
@@ -128,6 +130,7 @@
                                                     <th>Qoute</th>
                                                     <th>Photo</th>
                                                     <th>Catogory</th>
+                                                    <th>Url youtube</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -143,8 +146,9 @@
                                                         <td>{!! $dt->quote !!}</td>
                                                         <td>{{ $dt->photo }}</td>
                                                         <td>{{ $dt->categories->name }}</td>
+                                                        <td>{{ 'https://www.youtube.com/watch?v='.$dt->url}}</td>
                                                         <td>
-                                                            <a href="{{ url('/produk/edit') }}/{{ $dt->id }}"
+                                                            <a href="{{ url('/posts/edit') }}/{{ $dt->id }}"
                                                                 class="btn btn-sm btn-warning"><i
                                                                     class="fa fa-edit"></i></a>
                                                             <a href="#" class="btn btn-danger btn-sm"

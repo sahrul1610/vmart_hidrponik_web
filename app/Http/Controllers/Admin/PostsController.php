@@ -8,6 +8,7 @@ use App\Models\Posts;
 use App\Models\PostCategories;
 use Illuminate\Support\Facades\Storage; // tambahkan ini
 use Illuminate\Support\Str;
+
 class PostsController extends Controller
 {
     public function index()
@@ -26,23 +27,28 @@ class PostsController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'summary' => 'required',
+            'summary' => 'required|max:255',
             'description' => 'required',
             'quote' => 'required',
             'category_id' => 'required',
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ],[
-                        'category_id.required' => 'Kategori  wajib diisi',
-                        'title.required' => 'title wajib diisi',
-                        'description.required' => 'Deskripsi  wajib diisi',
-                        'quote.required' => 'qoute  wajib diisi',
-                        'summary.required' => 'summary wajib diisi',
-                        'photo.required' => 'photo wajib  diisi',
-                        'photo.image' => 'File harus berupa gambar',
-                        'photo.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
-                        'photo.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
+            'url' => ['required', 'url', 'regex:/^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/i'],
+        ], [
+                'category_id.required' => 'Kategori  wajib diisi',
+                'title.required' => 'title wajib diisi',
+                'description.required' => 'Deskripsi  wajib diisi',
+                'quote.required' => 'qoute  wajib diisi',
+                'summary.required' => 'summary wajib diisi',
+                'summary.max' => 'Data yang dimasukkan ke dalam kolom tidak boleh melebihi 255 karakter.',
+                'photo.required' => 'photo wajib  diisi',
+                'photo.image' => 'File harus berupa gambar',
+                'photo.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+                'photo.max' => 'Ukuran gambar tidak boleh melebihi 2 MB',
+                'url.required' => 'URL YouTube wajib diisi',
+                'url.url' => 'URL YouTube tidak valid',
+                'url.regex' => 'URL YouTube tidak valid',
 
-        ]);
+            ]);
 
         if ($request->hasFile('photo')) {
             $img = $request->file('photo');
@@ -59,7 +65,9 @@ class PostsController extends Controller
             'quote' => $request->get('quote'),
             'photo' => $filename,
             'category_id' => $request->get('category_id'),
-            'created_at' => now(), // mengisi field created_at dengan waktu sekarang
+            'url' => $this->extractVideoId($request->get('url')),
+            'created_at' => now(),
+            // mengisi field created_at dengan waktu sekarang
             'updated_at' => now(), // mengisi field updated_at dengan waktu sekarang
 
         ]);
@@ -67,6 +75,18 @@ class PostsController extends Controller
         $post->save();
 
         return redirect('/posts')->with('sukses', 'Post created successfully!');
+    }
+
+    // Fungsi untuk mengambil ID video dari URL YouTube
+    private function extractVideoId($url)
+    {
+        $videoId = "";
+        $regex = '/[?&]v=([^&#]*)/i';
+        preg_match($regex, $url, $match);
+        if (isset($match[1])) {
+            $videoId = $match[1];
+        }
+        return $videoId;
     }
 
     public function show($id)
@@ -107,21 +127,23 @@ class PostsController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'summary' => 'required',
+            'summary' => 'required|max:255',
             'description' => 'required',
             'quote' => 'required',
             'category_id' => 'required',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ],[
-            'category_id.required' => 'Kategori wajib diisi',
-            'title.required' => 'Judul wajib diisi',
-            'description.required' => 'Deskripsi wajib diisi',
-            'quote.required' => 'Kutipan wajib diisi',
-            'summary.required' => 'Ringkasan wajib diisi',
-            'photo.image' => 'File harus berupa gambar',
-            'photo.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
-            'photo.max' => 'Ukuran gambar tidak boleh melebihi 2 MB'
-        ]);
+        ], [
+                'category_id.required' => 'Kategori wajib diisi',
+                'title.required' => 'Judul wajib diisi',
+                'description.required' => 'Deskripsi wajib diisi',
+                'quote.required' => 'Kutipan wajib diisi',
+                'summary.required' => 'Ringkasan wajib diisi',
+                'summary.max' => 'Data yang dimasukkan ke dalam kolom tidak boleh melebihi 255 karakter.',
+                'photo.image' => 'File harus berupa gambar',
+                'photo.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+                'photo.max' => 'Ukuran gambar tidak boleh melebihi 2 MB',
+
+            ]);
 
         $post = Posts::findOrFail($request->id);
 
@@ -145,6 +167,15 @@ class PostsController extends Controller
             $img->storeAs($path, $filename, 'public');
             $post->photo = $filename;
         }
+        if ($request->has('url')) {
+            $post->url = $this->extractVideoId($request->input('url'));
+        }
+
+        // if ($request->has('url')) {
+        //     $youtubeUrl = $request->input('url');
+        //     $videoId = $this->extractVideoId($youtubeUrl);
+        //     $post->url = $videoId;
+        // }
 
         $post->updated_at = now();
         $post->save();
@@ -153,7 +184,7 @@ class PostsController extends Controller
         return redirect('/posts')->with('sukses', 'Post updated successfully!');
     }
 
-    public function hapus(Request $request)
+    public function delete(Request $request)
     {
         $id = $request->id;
         $posts = Posts::findOrFail($id);
