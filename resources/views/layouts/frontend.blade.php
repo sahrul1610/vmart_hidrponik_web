@@ -87,7 +87,7 @@
                     </div>
                     <span class="arrow_carrot-down"></span>
                     <ul style="width:120px;">
-                        <li><a href="{{ url('user/profile') }}">Profile</a></li>
+                        <li><a href="{{ url('/profile') }}">Profile</a></li>
 
                         <li><a href="{{ route('myorders') }}">Pesanan Saya</a></li>
                     </ul>
@@ -151,7 +151,7 @@
                                     </a>
                                     <span class="arrow_carrot-down"></span>
                                     <ul style="width:120px">
-                                        <li><a href="{{ url('user/profile') }}">Profile</a></li>
+                                        <li><a href="{{ url('/profile') }}">Profile</a></li>
 
                                         <li><a href="{{ route('myorders') }}">Pesanan Saya</a></li>
                                     </ul>
@@ -249,7 +249,7 @@
                                 <i class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
+                                <h5>+62 899-3484-557</h5>
                                 <span>support 24/7 time</span>
                             </div>
                         </div>
@@ -273,8 +273,8 @@
                                     alt="" /></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
+                            <li>Address: Blk. karang malang, Jatisawit, Kec.Jatibarang, Kab.Indramayu, Jawa Barat 45273</li>
+                            <li>Phone: +62 899-3484-557</li>
                             <li>Email: VmartCorporation@gmail.com</li>
                         </ul>
                     </div>

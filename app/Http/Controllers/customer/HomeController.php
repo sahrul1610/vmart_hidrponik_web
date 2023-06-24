@@ -38,10 +38,9 @@ class HomeController extends Controller
         if(!is_null($id)){
             $produks->where('categories_id', $id);
         }
-
         //$produks = $produks->with('produkgaleri')->get();
         //$produks = Produk::with('produkgaleri')->where('new_stock', '>', 0)->get();
-        $produks = Produk::with('produkgaleri')->whereHas('stocks', function ($query) {
+        $produks = $produks->with('produkgaleri')->whereHas('stocks', function ($query) {
             $query->where('quantity', '>', 0);
         })->get();
 

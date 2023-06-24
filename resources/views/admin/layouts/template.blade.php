@@ -120,7 +120,7 @@
                         </a>
                         <ul class="dropdown-menu small">
                             <li class="menu-content ps-menu">
-                                <a href="{{ url('/user/profile') }}">
+                                <a href="{{ url('/profile') }}">
                                     <div class="description">
                                         <i class="ti-user"></i> Profile
                                     </div>

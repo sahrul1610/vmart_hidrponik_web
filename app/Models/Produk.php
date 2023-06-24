@@ -25,7 +25,7 @@ class Produk extends Model
 
     public function produkgaleri()
     {
-        return $this->hasOne(ProdukGaleri::class, 'products_id');
+        return $this->hasOne(Produkgaleri::class, 'products_id');
     }
 
     public function stocks()

@@ -60,9 +60,9 @@
                             <a href="./index.html"><img src="{{ asset('frontend/img/logo.png') }}" alt="" /></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
+                            <li>Address: Blk. karang malang, Jatisawit, Kec.Jatibarang, Kab.Indramayu, Jawa Barat 45273</li>
+                            <li>Phone: +62 899-3484-557</li>
+                            <li>Email: VmartCorporation@gmail.com</li>
                         </ul>
                     </div>
                 </div>
