@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PenggunaController;
+use App\Http\Controllers\customer\ContactController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\TransaksiController;
 use App\Http\Controllers\Admin\ExportController;
@@ -151,3 +152,6 @@ Route::post('/city/{id}/cities', [RajaOngkirController::class, 'getCost']);
 Route::get('/city', [RajaOngkirController::class, 'getCity']);
 //Route::post('/cost', [RajaOngkirController::class, 'getCost']);
 Route::post('/cost', [RajaOngkirController::class, 'getCost']);
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+

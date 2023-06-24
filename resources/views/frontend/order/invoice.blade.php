@@ -1,6 +1,5 @@
 @extends('layouts.checkout')
 @section('content')
-    <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('frontend/img/breadcrumb.jpg') }}">
         <div class="container">
             <div class="row">
@@ -8,7 +7,7 @@
                     <div class="breadcrumb__text">
                         <h2>Invoice</h2>
                         <div class="breadcrumb__option">
-                            <a href="/">Home</a>
+                            <a href="{{route('home')}}">Home</a>
                             <span>Invoice</span>
                         </div>
                     </div>
@@ -16,14 +15,11 @@
             </div>
         </div>
     </section>
-    <!-- Breadcrumb Section End -->
 
-    <!-- Checkout Section Begin -->
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
                 <h4>Invoice</h4>
-
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
                         <div class="checkout__order">
@@ -55,7 +51,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>

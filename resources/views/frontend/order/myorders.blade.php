@@ -1,6 +1,5 @@
 @extends('layouts.checkout')
 @section('content')
-    <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('frontend/img/breadcrumb.jpg') }}">
         <div class="container">
             <div class="row">
@@ -8,7 +7,7 @@
                     <div class="breadcrumb__text">
                         <h2>My Order</h2>
                         <div class="breadcrumb__option">
-                            <a href="/">Home</a>
+                            <a href="{{route('home')}}">Home</a>
                             <span>my order</span>
                         </div>
                     </div>
@@ -16,14 +15,11 @@
             </div>
         </div>
     </section>
-    <!-- Breadcrumb Section End -->
 
-    <!-- Checkout Section Begin -->
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
                 <h4>Billing Details</h4>
-
                 <div class="row">
                     @foreach ($transactions as $transaction)
                         <div class="col-lg-6 col-md-6 mb-3">
@@ -67,7 +63,6 @@
                                     <span>{{ number_format($transaction->total_price + $transaction->shipping_price) }}</span>
                                 </div>
                                 {{-- <a href="{{ route('invoice.export', $transaction->id) }}" target="_blank" class="btn btn-primary">Export to PDF</a>
-
                                 <a style="display: inline; border-radius: 5px;" class="btn btn-warning btn-sm center px-3" href="{{ url('/checkout', $transaction->id) }}"><i class="fa fa-shopping-cart"></i> Bayar Sekarang</a> --}}
                                 @if ($transaction->status == 'Dikirim')
                                     <form action="{{ route('order.complete', $transaction->id) }}" method="POST">
@@ -75,7 +70,6 @@
                                         <button type="submit" class="site-btn">Pesanan Diterima</button>
                                     </form>
                                 @elseif ($transaction->status == 'Selesai')
-                                    {{-- <button type="submit" class="site-btn">Berikan Tanggapan</button> --}}
                                     <button type="button" class="site-btn" data-toggle="modal"
                                         data-target="#commentModal{{ $transaction->id }}">Berikan Tanggapan</button>
                                 @endif
@@ -87,7 +81,7 @@
             </div>
         </div>
     </section>
-    <!-- Modal -->
+    
     @foreach ($transactions as $transaction)
         @if ($transaction->status == 'Selesai')
             <div class="modal fade" id="commentModal{{ $transaction->id }}" tabindex="-1" role="dialog"
@@ -115,5 +109,4 @@
             </div>
         @endif
     @endforeach
-    <!-- Modal End -->
 @endsection

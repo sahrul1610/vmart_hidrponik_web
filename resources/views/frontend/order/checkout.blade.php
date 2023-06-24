@@ -10,7 +10,6 @@
 
 
 @section('content')
-    <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('frontend/img/breadcrumb.jpg') }}">
         <div class="container">
             <div class="row">
@@ -18,7 +17,7 @@
                     <div class="breadcrumb__text">
                         <h2>Checkout</h2>
                         <div class="breadcrumb__option">
-                            <a href="/">Home</a>
+                            <a href="{{route('home')}}">Home</a>
                             <span>Checkout</span>
                         </div>
                     </div>
@@ -26,9 +25,7 @@
             </div>
         </div>
     </section>
-    <!-- Breadcrumb Section End -->
 
-    <!-- Checkout Section Begin -->
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
@@ -154,7 +151,6 @@
             </div>
         </div>
     </section>
-    <!-- Checkout Section End -->
 @endsection
 
 @push('js')
@@ -225,32 +221,6 @@
 
     <script>
         $(document).ready(function() {
-
-            // $('select[name="province_origin"]').on('change', function() {
-            //     let provinceId = $(this).val();
-            //     if (provinceId) {
-            //         jQuery.ajax({
-            //             url: 'province/' + provinceId + '/cities',
-            //             type: "GET",
-            //             dataType: "json",
-            //             success: function(data) {
-            //                 console.log(data);
-            //                 $('select[name="city_origin"]').empty();
-            //                 $.each(data, function(key, value) {
-            //                     $('select[name="city_origin"]').append(
-            //                         '<option value="' + value['city_id'] + '">' +
-            //                         value['city_name'] + '</option>');
-            //                 });
-            //             },
-            //             error: function(data) {
-            //                 alert('Something went wrong');
-            //             }
-
-            //         });
-            //     } else {
-            //         $('select[name="city_origin"]').empty();
-            //     }
-            // });
             $('select[name="province_origin"]').on('change', function() {
                 let provinceId = $(this).val();
                 if (provinceId) {
@@ -360,10 +330,6 @@
                                 $('select[name="shipping_cost"]').prepend(
                                     optionElement);
                             });
-                            // let price = result[0]["costs"][0]["cost"][0]["value"];
-                            // $("#shipping_cost_price").text(" (Rp " + price + ")");
-                            // let price = result[0]["cost"][0]["value"];
-                            // $("#shipping_cost_price").text(" (Rp " + price + ")");
                         }
                     })
                 } else {

@@ -13,6 +13,6 @@
             </ul>
         </li>
         <li class="{{request()->is('blog')? 'active' : ''}}"><a href="{{route('blog')}}">Blog</a></li>
-        <li><a href="#">Contact</a></li>
+        <li class="{{request()->is('contact')? 'active' : ''}}"><a href="{{route('contact')}}">Contact</a></li>
     </ul>
 </nav>

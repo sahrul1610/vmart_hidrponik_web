@@ -1,7 +1,6 @@
 @extends('layouts.frontend')
 
 @section('content')
-    <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('frontend/img/breadcrumb.jpg') }}">
         <div class="container">
             <div class="row">
@@ -9,7 +8,7 @@
                     <div class="breadcrumb__text">
                         <h2>Detail Shop</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
+                            <a href="{{ route('home') }}">Home</a>
                             <span>Detail Shop</span>
                         </div>
                     </div>
@@ -17,28 +16,25 @@
             </div>
         </div>
     </section>
-    <!-- Breadcrumb Section End -->
 
-    <!-- Product Section Begin -->
     <section class="product-details spad">
-
         <div class="container">
             @if (session('error'))
-            <div class="alert alert-danger">
-                {{session('error')}}
-                <i class="fa fa-warning"></i>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                    <i class="fa fa-warning"></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             @elseif (session('success'))
-            <div class="alert alert-success">
-                {{session('success')}}
-                <i class="fa fa-check-circle"></i>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                    <i class="fa fa-check-circle"></i>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             @endif
 
             <div class="row">
@@ -68,7 +64,7 @@
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star-half-o"></i>
                             <span>(Stok tersedia {{ $produks->totalStock }})</span>
-                          </div>
+                        </div>
                         <div class="product__details__price">{{ number_format($produks->price) }}</div>
                         <p>
                             {{ $produks->description }}
@@ -78,12 +74,14 @@
                             <div class="product__details__quantity">
                                 <div class="quantity">
                                     <div class="pro-qty">
-                                        <input type="text" name="quantity" value="1" min="1" max="{{ $produks->stocks->sum('quantity') }}"/>
+                                        <input type="text" name="quantity" value="1" min="1"
+                                            max="{{ $produks->stocks->sum('quantity') }}" />
                                     </div>
                                 </div>
                             </div>
                             <input type="hidden" name="id" value="{{ $produks->id }}" />
-                            <a href="#" class="primary-btn" onclick="event.preventDefault(); this.closest('form').submit();">ADD TO CART</a>
+                            <a href="#" class="primary-btn"
+                                onclick="event.preventDefault(); this.closest('form').submit();">ADD TO CART</a>
                         </form>
                         <ul>
                             <li><b>Berat</b> <span>
@@ -95,7 +93,7 @@
                                 </span></li>
                             <li>
                             <li><b>Stok tersedia</b> <span>
-                                {{ $produks->totalStock }}
+                                    {{ $produks->totalStock }}
                                 </span></li>
                             <li>
                                 <b>Share on</b>
@@ -110,36 +108,28 @@
                     </div>
                 </div>
                 <div class="col-lg-12">
-              <div class="product__details__tab">
-                <ul class="nav nav-tabs" role="tablist">
-                  <li class="nav-item">
-                    <a
-                      class="nav-link active"
-                      data-toggle="tab"
-                      href="#tabs-1"
-                      role="tab"
-                      aria-selected="true"
-                      >Deskripsi</a
-                    >
-                  </li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                    <div class="product__details__tab__desc">
-                      <h6>Informasi Produk</h6>
-                      <p>
-                        {{ $produks->description }}
-                      </p>
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                                    aria-selected="true">Deskripsi</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6>Informasi Produk</h6>
+                                    <p>
+                                        {{ $produks->description }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-
                 </div>
-              </div>
-            </div>
             </div>
         </div>
     </section>
-    <!-- Product Section End -->
 @endsection
 
 <style>
