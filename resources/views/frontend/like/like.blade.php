@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Vmart Shop</h2>
+                        <h2>Vmart Like</h2>
                         <div class="breadcrumb__option">
                             <a href="{{route('home')}}">Home</a>
                             <span>Like</span>
@@ -16,7 +16,7 @@
             </div>
         </div>
     </section>
-    
+
     <section class="product spad">
         <div class="container">
             <div class="row">
@@ -30,7 +30,7 @@
                                 data-setbg="{{ asset('storage/gambar/'.$lk['gambar']) }}">
                                 <ul class="featured__item__pic__hover">
                                     <li>
-                                        <a href="{{ route('cart.add', $lk['id']) }}"><i
+                                        <a href="{{ route('cart.add', ['id' => $lk['id']] ) }}"><i
                                                 class="fa fa-shopping-cart"></i></a>
                                     </li>
                                 </ul>
