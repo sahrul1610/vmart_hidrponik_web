@@ -21,7 +21,6 @@
                 <div class="card-body">
                     @csrf
                     <div class="row">
-
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="basicInput" class="form-label">Nama</label>
@@ -61,9 +60,12 @@
                         <div class="col-md-2">
                             <label for="basicInput" class="form-label">Satuan</label>
                             <div class="input-group mb-3">
-                                <input type="number" placeholder="Masukan satuan" name="is_available" class="form-control"
+                                <input type="number" placeholder="Masukkan berat" name="is_available" class="form-control"
                                     id="basicInput" value="{{ old('is_available') }}">
-                                <span class="input-group-text" id="basic-addon2">kg</span>
+                                <select class="input-group-text form-select" name="unit">
+                                    <option value="g">gram</option>
+                                    <option value="kg">kg</option>
+                                </select>
                             </div>
                             <div class="text-danger">
                                 @error('is_available')
@@ -74,12 +76,12 @@
                         <div class="col-md-4">
                             <div class="mb-3 pb-2">
                                 <label for="basicInput" class="form-label">kategori</label>
-                                <select class="js-example-basic-single form-select form-select-sm" name="categories_id"
-                                    >
+                                <select class="js-example-basic-single form-select form-select-sm" name="categories_id">
                                     <option value="">- Pilih -</option>
                                     @foreach ($kategori as $k)
-                                        <option value="{{ $k->id }}">
-                                           <h2></h2> {{ $k->name }}
+                                        <option value="{{ $k->id }}"
+                                            {{ old('categories_id') == $k->id ? 'selected' : '' }}>
+                                            <h2></h2> {{ $k->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -105,10 +107,8 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Gambar</label>
-
                                 <input type="file" class="form-control" name="url" id='url' placeholder=""
                                     value="{{ old('url') }}">
-
                             </div>
                             <div class="text-danger">
                                 @error('url')
@@ -119,7 +119,7 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                                <textarea class="form-control" name="description" rows="3" value="{{ old('description') }}"></textarea>
+                                <textarea class="form-control" name="description" rows="3" value="{{ old('description') }}">{{ old('description') }}</textarea>
                             </div>
                             <div class="text-danger">
                                 @error('description')
@@ -127,19 +127,6 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="col-md-12">
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-                                <textarea class="form-control ckeditor" class="ckeditor" name="description" id="ckeditor" rows="3"
-                                    value="{{ old('description') }}"></textarea>
-                            </div>
-                            <div class="text-danger">
-                                @error('description')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div> --}}
-
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>

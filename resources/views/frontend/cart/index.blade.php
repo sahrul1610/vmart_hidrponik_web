@@ -13,7 +13,6 @@
     @endif
 @stop
 @section('content')
-    <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('frontend/img/breadcrumb.jpg') }}">
         <div class="container">
             <div class="row">
@@ -21,7 +20,7 @@
                     <div class="breadcrumb__text">
                         <h2>Keranjang Belanja</h2>
                         <div class="breadcrumb__option">
-                            <a href="/">Home</a>
+                            <a href="{{route('home')}}">Home</a>
                             <span>Keranjang Belanja</span>
                         </div>
                     </div>
@@ -29,12 +28,8 @@
             </div>
         </div>
     </section>
-    <!-- Breadcrumb Section End -->
 
-    <!-- Shoping Cart Section Begin -->
     <section class="shoping-cart spad">
-        {{-- <div class="container" id="cart">
-        </div> --}}
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -50,28 +45,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="{{asset('frontend/img/cart/cart-1.jpg')}}" alt="">
-                                        <h5>Vegetable’s Package</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        $55.00
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        $110.00
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr> --}}
                                 @forelse ($cart as $item)
                                     <tr>
                                         <td class="shoping__cart__item">
@@ -148,6 +121,5 @@
             @endif
         </div>
     </section>
-    <!-- Shoping Cart Section End -->
 @endsection
 

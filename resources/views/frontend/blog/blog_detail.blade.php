@@ -72,7 +72,7 @@
                             <div class="col-lg-6">
                                 <div class="blog__details__author">
                                     <div class="blog__details__author__pic">
-                                        <img src="{{ asset('frontend/img/blog/details/details-author.jpg') }}"
+                                        <img src="{{ asset('frontend/img/blog/details/avatar1.png') }}"
                                             alt="">
                                     </div>
                                     <div class="blog__details__author__text">
@@ -83,10 +83,10 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="blog__details__widget">
-                                    <ul>
+                                    {{-- <ul>
                                         <li><span>Categories:</span> Food</li>
                                         <li><span>Tags:</span> All, Trending, Cooking, Healthy Food, Life Style</li>
-                                    </ul>
+                                    </ul> --}}
                                     <div class="blog__details__social">
                                         <a href="#"><i class="fa fa-facebook"></i></a>
                                         <a href="#"><i class="fa fa-twitter"></i></a>

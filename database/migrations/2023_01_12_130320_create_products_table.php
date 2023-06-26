@@ -18,8 +18,8 @@ class CreateProductsTable extends Migration
 
             $table->string('name');
             $table->float('price');
-            $table->bigInteger('stock');
-            $table->bigInteger('new_stock');
+            // $table->bigInteger('stock');
+            // $table->bigInteger('new_stock');
             $table->longText('description');
 
             $table->string('tags')->nullable();

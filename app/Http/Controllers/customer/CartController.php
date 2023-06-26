@@ -4,6 +4,7 @@ namespace App\Http\Controllers\customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Produk;
+use App\Models\Stock;
 use App\Models\Transaksi;
 use App\Models\TransaksiItem;
 use Illuminate\Http\Request;
@@ -15,15 +16,25 @@ class CartController extends Controller
 {
     public function addToCart(Request $request)
     {
-        $produk = Produk::find($request->id);
+        // $produk = Produk::find($request->id);
+        // if (!$produk) {
+        //     abort(404);
+        // }
+
+        $produk = Produk::find($request->input('id'));
         if (!$produk) {
             abort(404);
         }
-
+        $produk->totalStock = Stock::where('product_id', $produk->id)->sum('quantity');
         $cart = Session::get('cart', []);
+        $quantity = $request->input('quantity', 1);
+
+        if ($quantity > $produk->totalStock) {
+            return redirect()->back()->with('error', 'Jumlah yang diminta melebihi stok yang tersedia.');
+        }
 
         if (isset($cart[$produk->id])) {
-            $cart[$produk->id]['quantity']++;
+            $cart[$produk->id]['quantity']+=$quantity;
         } else {
             $cart[$produk->id] = [
                 'id' => $produk->id,
@@ -31,7 +42,7 @@ class CartController extends Controller
                 'price' => $produk->price,
                 'gambar' => $produk->produkgaleri->url,
                 'tersedia' => $produk->is_available,
-                'quantity' => 1
+                'quantity' => $quantity
             ];
         }
 
@@ -66,7 +77,7 @@ class CartController extends Controller
 
     public function remove(Request $request)
     {
-        if($request->id) {
+        if ($request->id) {
             $cart = session()->get('cart');
 
             unset($cart[$request->id]);
@@ -75,6 +86,17 @@ class CartController extends Controller
 
             return redirect()->back()->with('success', 'Product removed successfully');
         }
+    }
+
+    public function showMyOrders()
+    {
+        $users_id = auth()->user()->id;
+        $transactions = Transaksi::with('transactionItems.product')
+            ->where('users_id', $users_id)
+            ->where('status', '!=', 'paid')
+            ->get();
+
+        return view('frontend.order.myorders', compact('transactions'));
     }
 
     //semua kode program di bawah ini sudah di pindahkan ke OrderController
@@ -129,7 +151,7 @@ class CartController extends Controller
         //return view('frontend.order.checkout', compact('cart'),['snap_token'=>$snapToken]);
         //return redirect()->to(\Midtrans\Snap::createTransactionUrl($snapToken))->with('success', 'Transaksi berhasil.');
         // return redirect()->route('shop')->with('success', 'Transaksi berhasil.');
-        return redirect("/checkout/". $transaction->id)->with($session, $users_id);
+        return redirect("/checkout/" . $transaction->id)->with($session, $users_id);
     }
 
     public function checkout_by_id($id)
@@ -162,7 +184,7 @@ class CartController extends Controller
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-        return view("frontend.order.payment", ['snap_token'=>$snapToken, 'transaction' => $ambil_data]);
+        return view("frontend.order.payment", ['snap_token' => $snapToken, 'transaction' => $ambil_data]);
     }
 
     public function post_checkout(Request $request)
@@ -203,7 +225,8 @@ class CartController extends Controller
     //         ], 400);
     //     }
     // }
-    public function invoice($id){
+    public function invoice($id)
+    {
         $decryptedId = decrypt($id);
         $transaction = Transaksi::find($decryptedId);
         return view('frontend.order.invoice', compact('transaction'));
@@ -211,15 +234,6 @@ class CartController extends Controller
         // return view('frontend.order.invoice', compact('transaction'));
     }
 
-    public function showMyOrders()
-    {
-        $users_id = auth()->user()->id;
-        //$transactions = Transaksi::where('users_id', $users_id)->with('transactionItems.product')->get();
-        //$transaction_items = $transactions->transactionItems()->with('product')->get();
-        $transactions = Transaksi::with('transactionItems.product')->where('users_id', $users_id)->get();
-
-        return view('frontend.order.myorders', compact('transactions'));
-    }
 
     // public function callback(Request $request){
     //     $Transaksi = Transaction::findOrFail($request->id);

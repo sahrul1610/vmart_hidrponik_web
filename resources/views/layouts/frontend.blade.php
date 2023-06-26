@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Vmart Project" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="keywords" content="vmart" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -82,11 +83,13 @@
             @else
                 <div class="header__top__right__language">
                     <div class="header__top__right__auth">
-                        <a href=""><i class="fa fa-user"></i> {{ auth()->user()->username }}</a>
+                        <a href="#"><i class="fa fa-user"></i> {{ auth()->user()->username }}</a>
                     </div>
                     <span class="arrow_carrot-down"></span>
-                    <ul>
-                        <li><a href="#">Profile</a></li>
+                    <ul style="width:120px;">
+                        <li><a href="{{ url('/profile') }}">Profile</a></li>
+
+                        <li><a href="{{ route('myorders') }}">Pesanan Saya</a></li>
                     </ul>
                 </div>
                 <div class="header__top__right__auth" style="margin-left: 20px">
@@ -145,13 +148,12 @@
                                 <div class="header__top__right__language header__top__right__auth">
                                     <a class="d-inline" href="#"><i class="fa fa-user"></i>
                                         {{ auth()->user()->name }}
-
                                     </a>
                                     <span class="arrow_carrot-down"></span>
-                                    <ul>
-                                        <li><a href="{{ url('user/profile') }}">Profile</a></li>
+                                    <ul style="width:120px">
+                                        <li><a href="{{ url('/profile') }}">Profile</a></li>
 
-                                        <li><a href="{{ route('myorders') }}">MyOrder</a></li>
+                                        <li><a href="{{ route('myorders') }}">Pesanan Saya</a></li>
                                     </ul>
                                 </div>
                                 <div class="header__top__right__auth">
@@ -247,7 +249,7 @@
                                 <i class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
+                                <h5>+62 899-3484-557</h5>
                                 <span>support 24/7 time</span>
                             </div>
                         </div>
@@ -271,8 +273,8 @@
                                     alt="" /></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
+                            <li>Address: Blk. karang malang, Jatisawit, Kec.Jatibarang, Kab.Indramayu, Jawa Barat 45273</li>
+                            <li>Phone: +62 899-3484-557</li>
                             <li>Email: VmartCorporation@gmail.com</li>
                         </ul>
                     </div>
@@ -322,15 +324,13 @@
                     <div class="footer__copyright">
                         <div class="footer__copyright__text">
                             <p>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 Copyright &copy;
                                 <script>
                                     document.write(new Date().getFullYear());
                                 </script>
-                                All rights reserved | This template is made with
+                                Vmart Hidroponik
                                 <i class="fa fa-heart" aria-hidden="true"></i> by
-                                <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                <a href="#" target="_blank">Vmart</a>
                             </p>
                         </div>
                         <div class="footer__copyright__payment">
@@ -358,7 +358,8 @@
 
         // tampilkan jumlah item dalam keranjang
         var cartCount = Object.keys(cart).length;
-        document.getElementById('cart').innerHTML = '<a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i><span>' + cartCount + '</span></a>';
+        document.getElementById('cart').innerHTML =
+            '<a href="{{ route('cart.index') }}"><i class="fa fa-shopping-cart"></i><span>' + cartCount + '</span></a>';
     </script>
 
     @yield('javascript')

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PenggunaController;
+use App\Http\Controllers\customer\ContactController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Admin\TransaksiController;
 use App\Http\Controllers\Admin\ExportController;
@@ -44,6 +45,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/produk/insert', [ProdukController::class, 'insert']);
     Route::post('/produk/update', [ProdukController::class, 'update']);
     Route::delete('/produk/hapus/{id}', [ProdukController::class, 'delete']);
+    Route::post('/stok/add/{id}', [ProdukController::class, 'addStock'])->name('addStock');
 
 
     Route::get('/kategori', [KategoriProdukController::class, 'index'])->name('kategori')->middleware('auth');
@@ -65,8 +67,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/posts/update', [PostsController::class, 'update']);
     Route::delete('/posts/hapus/{id}', [PostsController::class, 'delete']);
 
-    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
+    Route::get('/transaksi/pesanan', [TransaksiController::class, 'index'])->name('transaksi');
+    Route::get('/transaksi/transaksi', [TransaksiController::class, 'viewDikemas'])->name('viewDikemas');
+    Route::get('/transaksi/selesai', [TransaksiController::class, 'viewTransaksiSukses'])->name('viewTransaksiSukses');
+    Route::get('/transaksi/konfirmasi', [TransaksiController::class, 'viewDikemas']);
     Route::get('/transaksi/cetak-pdf', [TransaksiController::class, 'cetakPDF'])->name('transaksi.cetak-pdf');
+    Route::post('/update-status', [TransaksiController::class, 'updateStatus']);
+    Route::post('/input-delivery-receipt', [TransaksiController::class, 'inputDeliveryReceipt']);
+    Route::delete('/transaksi/hapus/{id}', [TransaksiController::class, 'delete']);
+    Route::get('/coba', [TransaksiController::class, 'showComments']);
 
     Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna');
     //export transaksi excel
@@ -92,7 +101,8 @@ Route::middleware(['auth', 'user'])->group(function () {
 
 
 
-    Route::get('/cart/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
@@ -109,7 +119,14 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::post('/checkout/{id}', [OrderController::class, 'post_checkout']);
     Route::get('/invoice/{id}', [OrderController::class, 'invoice'])->name('invoice');
     Route::get('/invoice/export/{id}', [OrderController::class, 'exportInvoice'])->name('invoice.export');
-    Route::get('/myorders', [CartController::class, 'showMyOrders'])->name('myorders');
+    Route::get('/myorders', [OrderController::class, 'showMyOrders'])->name('myorders');
+    Route::post('/order/complete/{transactionId}', [OrderController::class, 'markOrderAsCompleted'])->name('order.complete');
+    // Route::get('/order/feedback/{transactionId}', [OrderController::class, 'provideFeedback'])->name('order.feedback');
+    // Route::post('/order/feedback/{transactionId}', [OrderController::class, 'submitFeedback'])->name('order.submitFeedback');
+    Route::post('/order/comment/{transactionId}', [OrderController::class, 'submitComment'])->name('order.comment');
+
+
+
 
 
 
@@ -135,3 +152,6 @@ Route::post('/city/{id}/cities', [RajaOngkirController::class, 'getCost']);
 Route::get('/city', [RajaOngkirController::class, 'getCity']);
 //Route::post('/cost', [RajaOngkirController::class, 'getCost']);
 Route::post('/cost', [RajaOngkirController::class, 'getCost']);
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+

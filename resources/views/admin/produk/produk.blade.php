@@ -142,7 +142,6 @@
                                                     <th>Name</th>
                                                     <th>Harga</th>
                                                     <th>Stok</th>
-                                                    <th>Stok Baru</th>
                                                     <th>Satuan</th>
                                                     <th>Kategori</th>
                                                     <th>Deskripsi</th>
@@ -158,18 +157,31 @@
                                                         <td>{{ $no++ }}</td>
                                                         <td>{{ $dt->name }}</td>
                                                         <td>{{ $dt->price }}</td>
-                                                        <td>{{ $dt->stock }}</td>
-                                                        <td>{{ $dt->new_stock }} </td>
-                                                        <td>{{$dt->is_available}} kg </td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-primary rounded-circle"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#commentModal{{ $dt->id }}"
+                                                                type="button">
+                                                                {{ $dt->totalStock }} <i class="ti-eye"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            @if ($dt->is_available >= 1000)
+                                                                {{ floor($dt->is_available / 1000) }} kg
+                                                            @else
+                                                                {{ $dt->is_available }} g
+                                                            @endif
+                                                        </td>
                                                         <td>{{ $dt->getKategori->name }}</td>
                                                         <td>{{ $dt->description }}</td>
                                                         <td>{{ $dt->tags }}</td>
                                                         <td>
                                                             @if ($dt->produkgaleri)
-                                                            <img src="{{ asset('storage/gambar/'.$dt->produkgaleri->url) }}"  width="45px" height="45px">
-                                                        @else
-                                                            Tidak ada gambar
-                                                        @endif
+                                                                <img src="{{ asset('storage/gambar/' . $dt->produkgaleri->url) }}"
+                                                                    width="45px" height="45px">
+                                                            @else
+                                                                Tidak ada gambar
+                                                            @endif
                                                         </td>
                                                         <td>
                                                             <a href="{{ url('/produk/edit') }}/{{ $dt->id }}"
@@ -178,6 +190,10 @@
                                                             <a href="#" class="btn btn-danger btn-sm"
                                                                 onclick="DeleteData({{ $dt->id }})"><i
                                                                     class="fa fa-trash"></i></a>
+                                                            <button class="btn btn-sm btn-success" data-bs-toggle="modal"
+                                                                data-bs-target="#addStockModal{{ $dt->id }}"
+                                                                type="button"><i class="fa fa-plus"></i>Tambah
+                                                                Stok</button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -201,7 +217,6 @@
                                                     <th>Name</th>
                                                     <th>Harga</th>
                                                     <th>Stok</th>
-                                                    <th>Stok Baru</th>
                                                     <th>Satuan</th>
                                                     <th>Kategori</th>
                                                     <th>Deskripsi</th>
@@ -217,18 +232,25 @@
                                                         <td>{{ $no++ }}</td>
                                                         <td>{{ $dt->name }}</td>
                                                         <td>{{ $dt->price }}</td>
-                                                        <td>{{ $dt->stock }}</td>
-                                                        <td>{{ $dt->new_stock }}</td>
-                                                        <td>{{$dt->is_available}} kg</td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-primary rounded-circle"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#commentModal{{ $dt->id }}"
+                                                                type="button">
+                                                                {{ $dt->totalStock }} <i class="ti-eye"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td>{{ $dt->is_available }} kg</td>
                                                         <td>{{ $dt->getKategori->name }}</td>
                                                         <td>{{ $dt->description }}</td>
                                                         <td>{{ $dt->tags }}</td>
                                                         <td>
                                                             @if ($dt->produkgaleri)
-                                                            <img src="{{ asset('storage/gambar/'.$dt->produkgaleri->url) }}"  width="45px" height="45px">
-                                                        @else
-                                                            Tidak ada gambar
-                                                        @endif
+                                                                <img src="{{ asset('storage/gambar/' . $dt->produkgaleri->url) }}"
+                                                                    width="45px" height="45px">
+                                                            @else
+                                                                Tidak ada gambar
+                                                            @endif
                                                         </td>
                                                         <td>
                                                             <a href="{{ url('/produk/edit') }}/{{ $dt->id }}"
@@ -237,6 +259,10 @@
                                                             <a href="#" class="btn btn-danger btn-sm"
                                                                 onclick="DeleteData({{ $dt->id }})"><i
                                                                     class="fa fa-trash"></i></a>
+                                                            <button class="btn btn-sm btn-success" data-bs-toggle="modal"
+                                                                data-bs-target="#addStockModal{{ $dt->id }}"
+                                                                type="button"><i class="fa fa-plus"></i>Tambah
+                                                                Stok</button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -252,10 +278,76 @@
             </div>
         </div>
     </div>
+
+    @foreach ($data as $dt)
+        <div class="modal fade" id="commentModal{{ $dt->id }}" tabindex="-1" aria-labelledby="largeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="laergeModalLabel">Stok Produk - {{ $dt->name }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="max-height: 400px; overflow: auto;">
+                        <p>Jumlah Stok: {{ $dt->totalStock }}</p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Tanggal</th>
+                                    <th>Jumlah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($dt->stocks as $key => $stock)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $stock->created_at }}</td>
+                                        <td>{{ $stock->quantity }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    @foreach ($data as $dt)
+        <div class="modal fade" id="addStockModal{{ $dt->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="addStockModal{{ $dt->id }}Label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addStockModal{{ $dt->id }}Label">Tambah Stok -
+                            {{ $dt->name }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('addStock', ['id' => $dt->id]) }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="quantity">Jumlah Stok</label>
+                                <input type="number" class="form-control" id="quantity" name="quantity" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Tambah Stok</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
 <script>
     function DeleteData(id) {
-        // console.log('tes delete');
         Swal.fire({
             title: "Anda Yakin Ingin Menghapus Data Ini ?",
             text: "Klik Batal Untuk Membatalkan Penghapusan",
@@ -277,7 +369,5 @@
                 Swal.fire('Selamat!', 'Data anda tidak jadi dihapus', 'error');
             }
         });
-
-
     }
 </script>

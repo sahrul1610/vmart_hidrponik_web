@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'dev-7.rajaongkir',
-        'version' => 'dev-7.rajaongkir',
-        'reference' => '6954b8d4a0e82b5951780eb1c0ccd9458da5ac0c',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'b73aba4afe9597a0df50840231a7516e3f67c45c',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -500,9 +500,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-7.rajaongkir',
-            'version' => 'dev-7.rajaongkir',
-            'reference' => '6954b8d4a0e82b5951780eb1c0ccd9458da5ac0c',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'b73aba4afe9597a0df50840231a7516e3f67c45c',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

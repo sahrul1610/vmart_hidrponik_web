@@ -27,7 +27,7 @@ class PostsController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'summary' => 'required',
+            'summary' => 'required|max:255',
             'description' => 'required',
             'quote' => 'required',
             'category_id' => 'required',
@@ -39,6 +39,7 @@ class PostsController extends Controller
                 'description.required' => 'Deskripsi  wajib diisi',
                 'quote.required' => 'qoute  wajib diisi',
                 'summary.required' => 'summary wajib diisi',
+                'summary.max' => 'Data yang dimasukkan ke dalam kolom tidak boleh melebihi 255 karakter.',
                 'photo.required' => 'photo wajib  diisi',
                 'photo.image' => 'File harus berupa gambar',
                 'photo.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
@@ -126,7 +127,7 @@ class PostsController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'summary' => 'required',
+            'summary' => 'required|max:255',
             'description' => 'required',
             'quote' => 'required',
             'category_id' => 'required',
@@ -137,6 +138,7 @@ class PostsController extends Controller
                 'description.required' => 'Deskripsi wajib diisi',
                 'quote.required' => 'Kutipan wajib diisi',
                 'summary.required' => 'Ringkasan wajib diisi',
+                'summary.max' => 'Data yang dimasukkan ke dalam kolom tidak boleh melebihi 255 karakter.',
                 'photo.image' => 'File harus berupa gambar',
                 'photo.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
                 'photo.max' => 'Ukuran gambar tidak boleh melebihi 2 MB',

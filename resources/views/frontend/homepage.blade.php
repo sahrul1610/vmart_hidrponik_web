@@ -1,22 +1,19 @@
 @extends('layouts.frontend')
 
 @section('content')
-    <!-- Breadcrumb Section Begin -->
     <section class="mb-5">
         <div class="container">
-            <div class="hero__item set-bg" data-setbg="{{ asset('frontend/img/hero/banner.jpg') }}">
+            <div class="hero__item set-bg" data-setbg="{{ asset('frontend/img/hero/banner.png') }}">
                 <div class="hero__text">
                     <span>FRUIT FRESH</span>
                     <h2>Vegetable <br />100% Organic</h2>
                     <p>Free Pickup and Delivery Available</p>
-                    <a href="#" class="primary-btn">SHOP NOW</a>
+                    <a href="{{ url('/shop') }}" class="primary-btn">SHOP NOW</a>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Breadcrumb Section End -->
 
-    <!-- Categories Section Begin -->
     <section class="categories mt-5">
         <div class="container">
             <div class="row">
@@ -33,9 +30,7 @@
             </div>
         </div>
     </section>
-    <!-- Categories Section End -->
 
-    <!-- Featured Section Begin -->
     <section class="featured spad">
         <div class="container">
             <div class="row">
@@ -46,7 +41,6 @@
                 </div>
             </div>
             <div class="row featured__filter">
-                {{-- s --}}
                 @foreach ($produks as $produk)
                     <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                         <div class="featured__item">
@@ -58,22 +52,8 @@
                                                 class="fa fa-heart"></i></a>
                                     </li>
                                     <li>
-                                        {{-- <a href="{{ route('cart.add') }}"><i class="fa fa-shopping-cart"></i></a> --}}
-                                        {{-- <form action="{{ route('cart.add') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="id" value="{{ $produk->id }}">
-                                            <button type="submit"><i class="fa fa-shopping-cart"></i></button>
-                                        </form> --}}
-                                        {{-- <a href="{{ route('cart.add'/{{ $produk->id }}) }}"><i class="fa fa-shopping-cart"></i></a> --}}
                                         <a href="{{ route('cart.add', ['id' => $produk->id]) }}"><i
                                                 class="fa fa-shopping-cart"></i></a>
-                                        {{-- <a href="#" class="add-to-cart" data-product-id="{{ $produk->id }}" data-product-name="{{ $produk->name }}" ><i
-                                                class="fa fa-shopping-cart"></i></a> --}}
-                                        {{-- <form style="display: inline;">
-                                            <button type="submit" class="btn btn-primary btn-sm">
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </button>
-                                        </form> --}}
                                     </li>
                                 </ul>
                             </div>
@@ -87,9 +67,7 @@
             </div>
         </div>
     </section>
-    <!-- Featured Section End -->
 
-    <!-- Banner Begin -->
     <div class="banner">
         <div class="container">
             <div class="row">
@@ -106,12 +84,9 @@
             </div>
         </div>
     </div>
-    <!-- Banner End -->
 @endsection
 
 @section('javascript')
-    
-
     <script>
         // Cari semua elemen tombol belanja dan tambahkan event listener
         const addBtns = document.querySelectorAll('.add-to-cart');

@@ -26,15 +26,8 @@
         <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-7 col-sm-8">
             <div class="fs-big text-center text-danger fw-bold">404</div>
             <div class="fs-3 text-center fw-bold mb-4">Oops! You are stuck at 404</div>
-            {{-- <div class="fs-6 text-center mb-3">
-                Unfortunately the page you were looking for could not be found.
-                It may be temporarily unavailable, moved or no longer exist.
-                Check the URL you entered for any mistakes and try again.
-            </div> --}}
-
             <div class="text-center">
                 <a href="index.html">Back to Home</a>
-
             </div>
             <div class="text-center mt-5 mb-5 text-muted">
                 Copyright &copy; 2021 &mdash; Mulai dari null
