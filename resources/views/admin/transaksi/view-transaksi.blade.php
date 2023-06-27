@@ -84,7 +84,7 @@
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 @foreach ($transactions as $transaction)
-                                                    @if ($transaction->status == 'Barang Dikemas')
+                                                    @if ($transaction->status == 'Barang Dikemas' && $transaction->payment == 'settlement')
                                                         <tr>
                                                             <td>{{ $no++ }}</td>
                                                             <td>{{ $transaction->user->name }}</td>
@@ -106,7 +106,7 @@
                                                             @else
                                                                 <td>{{ $transaction->created_at_formatted ?: 'null' }}</td>
                                                             @endif
-                                                            <td>{{ $transaction->payment }}</td>
+                                                            <td>{{ $transaction->payment == 'settlement' ? 'Dibayar' : '' }}</td>
                                                             <td>{{ $transaction->status }}</td>
                                                             <td><button
                                                                     onclick="inputDeliveryReceipt({{ $transaction->id }})"
@@ -142,7 +142,7 @@
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 @foreach ($transactions as $transaction)
-                                                    @if ($transaction->status == 'Dikirim')
+                                                    @if ($transaction->status == 'Dikirim'  && $transaction->payment == 'settlement')
                                                         <tr>
                                                             <td>{{ $no++ }}</td>
                                                             <td>{{ $transaction->user->name }}</td>
@@ -162,7 +162,7 @@
                                                             @else
                                                                 <td>{{ $transaction->created_at_formatted ?: 'null' }}</td>
                                                             @endif
-                                                            <td>{{ $transaction->payment }}</td>
+                                                            <td>{{ $transaction->payment == 'settlement' ? 'Dibayar' : '' }}</td>
                                                             <td>{{ $transaction->delivery_receipt ?: 'null' }}</td>
                                                         </tr>
                                                     @endif
