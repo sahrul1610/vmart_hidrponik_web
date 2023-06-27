@@ -70,7 +70,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
+                                                    <th>Nama</th>
                                                     <th>Produk</th>
                                                     <th>Total</th>
                                                     <th>Shipping</th>
@@ -142,7 +142,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
+                                                    <th>Nama</th>
                                                     <th>Produk</th>
                                                     <th>Total</th>
                                                     <th>Shipping</th>

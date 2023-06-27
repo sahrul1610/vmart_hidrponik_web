@@ -94,9 +94,8 @@
                                 <input type="file" class="form-control" name="url" id='url' placeholder=""
                                     value="{{ $edit->produkgaleri->url }}">
                                 @if ($edit->produkgaleri)
-                                    <p>Gambar saat ini: <img
-                                            src="{{ asset('storage/gambar/' . $edit->produkgaleri->url) }}" width="100px">
-                                    </p>
+                                    <p>gambar saat ini : <img src="{{ asset('storage/gambar/' . $edit->produkgaleri->url) }}" width="50px"></p>
+
                                 @else
                                     tidak ada gambar
                                 @endif
@@ -107,7 +106,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
                                 <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3">{{ $edit->description }}</textarea>
@@ -120,7 +119,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
             </form>

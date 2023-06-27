@@ -1,72 +1,5 @@
 @extends('admin.layouts.template')
 @section('title', 'Produk')
-{{-- @section('page_scripts')
-
-
-    @if (session('gagal'))
-        <script>
-            Swal.fire(
-                'Gagal!',
-                '{{ session('gagal') }}',
-                'error'
-            )
-        </script>
-    @elseif(session('sukses'))
-        <script>
-            Swal.fire(
-                'Berhasil!',
-                '{{ session('sukses') }}',
-                'success',
-                session()->forget('sukses');
-            )
-        </script>
-    @elseif(session('konfirmasi'))
-        <script>
-            Swal.fire(
-                'Berhasil!',
-                '{{ session('konfirmasi') }}',
-                'confirmation'
-            )
-        </script>
-    @endif
-
-@stop --}}
-{{-- @section('page_scripts')
-    @if (session('gagal'))
-        <script>
-            Swal.fire(
-                'Gagal!',
-                '{{ session('gagal') }}',
-                'error'
-            ).then((result) => {
-                // Menghapus session gagal
-                @php session()->forget('gagal'); @endphp
-            })
-        </script>
-    @elseif(session('sukses'))
-        <script>
-            Swal.fire(
-                'Berhasil!',
-                '{{ session('sukses') }}',
-                'success'
-            ).then((result) => {
-                // Menghapus session sukses
-                @php session()->forget('sukses'); @endphp
-            })
-        </script>
-    @elseif(session('konfirmasi'))
-        <script>
-            Swal.fire(
-                'Berhasil!',
-                '{{ sesi('konfirmasi') }}',
-                'konfirmasi'
-            ).then((result) => {
-                // Menghapus session konfirmasi
-                @php session()->forget('konfirmasi'); @endphp
-            })
-        </script>
-    @endif
-@stop --}}
 @section('page_scripts')
     @if (session('gagal'))
         <script>
@@ -109,7 +42,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Default tabs</h4>
+                        <h4>@yield('title')</h4>
                     </div>
                     <div class="card-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -139,7 +72,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
+                                                    <th>Nama</th>
                                                     <th>Harga</th>
                                                     <th>Stok</th>
                                                     <th>Satuan</th>
@@ -214,7 +147,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
+                                                    <th>Nama</th>
                                                     <th>Harga</th>
                                                     <th>Stok</th>
                                                     <th>Satuan</th>

@@ -40,17 +40,13 @@
                         <h4>@yield('title')</h4>
                     </div>
                     <div class="card-body">
-                        {{-- <p class="form-text mb-2">Basic datatables, support filter, sorting, and search data. add
-                            <code>.nowrap</code> for no wrapping text
-                        </p> --}}
                         <div class="table-responsive">
                             <table id="example" class="display nowrap" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Name</th>
+                                        <th>Nama</th>
                                         <th>Aksi</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,14 +56,11 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $dt->name }}</td>
                                             <td>
-                                                {{-- <a href="/buku/detail/{{ $data->id_kategori }}" class="btn btn-sm btn-success"><i class="fa fa-search"></i></a> --}}
                                                 <a href="{{ url('/posts/kategori/edit') }}/{{ $dt->id }}"
                                                     class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-
                                                 <a href="#" class="btn btn-danger btn-sm"
                                                     onclick="DeleteData({{ $dt->id }})"><i
                                                         class="fa fa-trash"></i></a>
-
                                             </td>
                                         </tr>
                                     @endforeach
@@ -89,7 +82,6 @@
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="basicInput" class="form-label">Kategori</label>
-
                                         <input class="form-control" type="text" name="name"
                                             value="{{ old('name') }}" placeholder="Masukan Kategori">
                                         <div class="text-danger">
@@ -100,14 +92,13 @@
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

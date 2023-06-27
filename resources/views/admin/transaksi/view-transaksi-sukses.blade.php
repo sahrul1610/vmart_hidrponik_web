@@ -72,7 +72,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
+                                                    <th>Nama</th>
                                                     <th>Produk</th>
                                                     <th>Total</th>
                                                     <th>Shipping</th>
@@ -114,7 +114,6 @@
                                                                 {{-- <button
                                                                     onclick="inputDeliveryReceipt({{ $transaction->id }})"
                                                                     class="btn btn-warning">{{ $transaction->status }}</button> --}}
-
                                                                 @if ($transaction->status == 'Selesai' && $transaction->comments->count() > 0)
                                                                     <button class="btn btn-success btn-sm"
                                                                         data-bs-toggle="modal"

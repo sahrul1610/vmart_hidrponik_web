@@ -127,7 +127,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
+                                                    <th>Nama</th>
                                                     <th>Produk</th>
                                                     <th>Total</th>
                                                     <th>Shipping</th>
@@ -136,7 +136,6 @@
                                                     <th>Tanggal Pesan</th>
                                                     <th>Pembayaran</th>
                                                     <th>Resi Pengiriman</th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>

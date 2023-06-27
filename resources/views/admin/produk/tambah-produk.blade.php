@@ -15,7 +15,7 @@
     <div class="content-wrapper">
         <div class="card">
             <div class="card-header">
-                <h4>Default Form</h4>
+                <h4>@yield('title')</h4>
             </div>
             <form role="form" action="/produk/insert" method="POST" enctype="multipart/form-data">
                 <div class="card-body">
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
 
