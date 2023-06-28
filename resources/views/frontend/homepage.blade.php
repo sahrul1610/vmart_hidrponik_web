@@ -87,9 +87,8 @@
 @endsection
 
 @section('javascript')
-
-
-     const addBtns = document.querySelectorAll('.add-to-cart');
+    <script>
+        const addBtns = document.querySelectorAll('.add-to-cart');
         addBtns.forEach(btn => {
             btn.addEventListener('click', function(event) {
                 event.preventDefault();
