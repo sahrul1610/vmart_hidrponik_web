@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function all(Request $request)
     {
         $id = $request->input('id');
-        $limit = $request->input('limit', 6);
+        $limit = $request->input('limit', 24);
         $name = $request->input('id');
         $description = $request->input('description');
         $tags = $request->input('tags');
@@ -23,14 +23,14 @@ class ProductController extends Controller
         $price_to = $request->input('price_to');
 
         if ($id) {
-            $product = Product::with(['category', 'galleries'])->find($id);
+            $product = Product::with(['category', 'galleries', 'stocks'])->find($id);
 
-            if ($product)  {
+            if ($product) {
                 return ResponseFormatter::success(
                     $product,
                     'Data produk berhasil diambil'
                 );
-            } else  {
+            } else {
                 return ResponseFormatter::error(
                     null,
                     'Data produk tidak ada',
@@ -39,7 +39,7 @@ class ProductController extends Controller
             }
         }
 
-        $product = Product::with(['category', 'galleries']);
+        $product = Product::with(['category', 'galleries', 'stocks']);
 
         if ($name) {
             $product->where('name', 'like', '%' . $name . '%');

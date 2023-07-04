@@ -27,6 +27,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductGallery::class, 'products_id', 'id');
     }
+    public function stocks()
+    {
+        return $this->hasMany(Stocks::class, 'product_id');
+    }
 
     public function category()
     {

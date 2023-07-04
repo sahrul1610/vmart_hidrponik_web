@@ -10,6 +10,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\TransactionController;
 use App\Http\Controllers\API\ProductCategoryController;
+use App\Http\Controllers\API\BlogController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,6 +22,7 @@ use App\Http\Controllers\API\ProductCategoryController;
 |
 */
 
+Route::get('blog', [BlogController::class, 'all']);
 Route::get('products', [ProductController::class, 'all']);
 Route::get('categories', [ProductCategoryController::class, 'all']);
 
