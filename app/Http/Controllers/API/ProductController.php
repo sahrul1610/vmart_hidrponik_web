@@ -23,7 +23,7 @@ class ProductController extends Controller
         $price_to = $request->input('price_to');
 
         if ($id) {
-            $product = Product::with(['category', 'galleries'])->find($id);
+            $product = Product::with(['category', 'galleries', 'stocks'])->find($id);
 
             if ($product) {
                 return ResponseFormatter::success(
@@ -39,7 +39,7 @@ class ProductController extends Controller
             }
         }
 
-        $product = Product::with(['category', 'galleries']);
+        $product = Product::with(['category', 'galleries', 'stocks']);
 
         if ($name) {
             $product->where('name', 'like', '%' . $name . '%');
