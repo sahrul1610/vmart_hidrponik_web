@@ -17,6 +17,7 @@ class ProductController extends Controller
         $name = $request->input('id');
         $description = $request->input('description');
         $tags = $request->input('tags');
+        $is_available = $request->input('is_available');
         $categories = $request->input('categories');
 
         $price_from = $request->input('price_from');
@@ -26,6 +27,8 @@ class ProductController extends Controller
             $product = Product::with(['category', 'galleries', 'stocks'])->find($id);
 
             if ($product) {
+                $totalStock = $product->stocks()->sum('quantity');
+                $product->total_stock = $totalStock;
                 return ResponseFormatter::success(
                     $product,
                     'Data produk berhasil diambil'
@@ -53,6 +56,10 @@ class ProductController extends Controller
             $product->where('tags', 'like', '%' . $tags . '%');
         }
 
+        if ($is_available) {
+            $product->where('is_available', 'like', '%' . $is_available . '%');
+        }
+
         if ($price_from) {
             $product->where('price', '>=', $price_from);
         }
@@ -64,9 +71,15 @@ class ProductController extends Controller
         if ($categories) {
             $product->where('categories', $categories);
         }
+        $product = $product->paginate($limit);
+
+        foreach ($product as $p) {
+            $total = $p->stocks->sum('quantity');
+            $p->totalStock = $total;
+        }
 
         return ResponseFormatter::success(
-            $product->paginate($limit),
+            $product,
             'Data produk berhasil diambil'
         );
     }

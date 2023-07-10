@@ -21,6 +21,7 @@ class Product extends Model
         'price',
         'categories_id',
         'tags',
+        'is_available',
     ];
 
     public function galleries()
@@ -32,8 +33,11 @@ class Product extends Model
         return $this->hasMany(Stocks::class, 'product_id');
     }
 
+
     public function category()
     {
         return $this->belongsTo(ProductCategory::class, 'categories_id', 'id');
     }
+
+    // public function 
 }
