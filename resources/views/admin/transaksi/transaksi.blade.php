@@ -70,7 +70,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
+                                                    <th>Nama</th>
                                                     <th>Produk</th>
                                                     <th>Total</th>
                                                     <th>Shipping</th>
@@ -84,7 +84,7 @@
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 @foreach ($transactions as $transaction)
-                                                    @if ($transaction->status == 'paid' && ($transaction->payment = 'settlement'))
+                                                    @if ($transaction->status == 'paid' && $transaction->payment == 'settlement')
                                                         <tr>
                                                             <td>{{ $no++ }}</td>
                                                             <td>{{ $transaction->user->name }}</td>
@@ -106,8 +106,8 @@
                                                             @else
                                                                 <td>{{ $transaction->created_at_formatted ?: 'null' }}</td>
                                                             @endif
-                                                            <td>{{ $transaction->payment }}</td>
-                                                            <td>{{ $transaction->status }}</td>
+                                                            <td>{{ $transaction->payment == 'settlement' ? 'Dibayar' : '' }}</td>
+                                                            <td>{{ $transaction->status == 'paid' ? 'Sukses' : '' }}</td>
                                                             <td><button onclick="changeStatus({{ $transaction->id }})"
                                                                     class="btn btn-success">
                                                                     <i class="fa fa-arrow-up"></i>
@@ -142,14 +142,14 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
+                                                    <th>Nama</th>
                                                     <th>Produk</th>
                                                     <th>Total</th>
                                                     <th>Shipping</th>
                                                     <th>Grand total</th>
-                                                    <th>Status</th>
                                                     <th>Tanggal Pesan</th>
                                                     <th>Pembayaran</th>
+                                                    <th>Status</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -169,14 +169,14 @@
                                                             <td>{{ number_format($transaction->shipping_price) }}</td>
                                                             <td>{{ number_format($transaction->total_price + $transaction->shipping_price) }}
                                                             </td>
-                                                            <td>{{ $transaction->status }}</td>
                                                             @if ($transaction->created_at_formatted)
-                                                                <td>{{ $transaction->created_at_formatted }}
-                                                                </td>
+                                                            <td>{{ $transaction->created_at_formatted }}
+                                                            </td>
                                                             @else
-                                                                <td>{{ $transaction->created_at_formatted ?: 'null' }}</td>
+                                                            <td>{{ $transaction->created_at_formatted ?: 'null' }}</td>
                                                             @endif
-                                                            <td>{{ $transaction->payment }}</td>
+                                                            <td>{{ $transaction->payment == 'not paid' ? 'Gagal' : '' }}</td>
+                                                            <td>{{ $transaction->status == 'pending' ? 'Pending' : '' }}</td>
                                                             <td>
                                                                 <a href="#" class="btn btn-danger btn-sm"
                                                                     onclick="DeleteData({{ $transaction->id }})"><i

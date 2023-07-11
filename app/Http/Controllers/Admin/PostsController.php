@@ -14,13 +14,13 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Posts::all();
-        return view('Admin.blog.index', compact('posts'));
+        return view('admin.blog.index', compact('posts'));
     }
 
     public function create()
     {
         $categories = PostCategories::all();
-        return view('Admin.blog.tambah_blog', compact('categories'));
+        return view('admin.blog.tambah_blog', compact('categories'));
     }
 
     public function store(Request $request)
@@ -99,7 +99,7 @@ class PostsController extends Controller
     {
         $post = Posts::find($id);
         $categories = PostCategories::all();
-        return view('Admin.blog.edit_blog', compact('post', 'categories'));
+        return view('admin.blog.edit_blog', compact('post', 'categories'));
     }
 
     // public function update(Request $request, $id)

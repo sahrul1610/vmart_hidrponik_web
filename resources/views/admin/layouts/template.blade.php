@@ -155,7 +155,7 @@
                 </a>
             </div>
             <div class="sidebar-header">
-                <div class="text">Vmart</div>
+                <div class="text"><img src="{{ asset('template/assets/images/logo.png')}}" alt="" style="width: 150px; height:60px;"></div>
                 <div class="close-sidebar action-toggle">
                     <i class="ti-close"></i>
                 </div>

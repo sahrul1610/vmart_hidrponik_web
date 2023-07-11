@@ -88,7 +88,6 @@
 
 @section('javascript')
     <script>
-        // Cari semua elemen tombol belanja dan tambahkan event listener
         const addBtns = document.querySelectorAll('.add-to-cart');
         addBtns.forEach(btn => {
             btn.addEventListener('click', function(event) {

@@ -42,7 +42,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Default tabs</h4>
+                        <h4>@yield('title')</h4>
                     </div>
                     <div class="card-body">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -72,13 +72,13 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
+                                                    <th>Nama</th>
                                                     <th>Slug</th>
-                                                    <th>Summary</th>
-                                                    <th>Description</th>
-                                                    <th>Qoute</th>
-                                                    <th>Photo</th>
-                                                    <th>Catogory</th>
+                                                    <th>Ringkasan</th>
+                                                    <th>Deskripsi</th>
+                                                    <th>kutipan</th>
+                                                    <th>Foto</th>
+                                                    <th>Kategori</th>
                                                     <th>Url youtube</th>
                                                     <th>Aksi</th>
                                                 </tr>
@@ -123,13 +123,13 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
+                                                    <th>Nama</th>
                                                     <th>Slug</th>
-                                                    <th>Summary</th>
-                                                    <th>Description</th>
-                                                    <th>Qoute</th>
-                                                    <th>Photo</th>
-                                                    <th>Catogory</th>
+                                                    <th>Ringkasan</th>
+                                                    <th>Deskripsi</th>
+                                                    <th>kutipan</th>
+                                                    <th>Foto</th>
+                                                    <th>Kategori</th>
                                                     <th>Url youtube</th>
                                                     <th>Aksi</th>
                                                 </tr>

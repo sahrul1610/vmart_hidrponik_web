@@ -4,7 +4,7 @@
     <div class="content-wrapper">
         <div class="card">
             <div class="card-header">
-                <h4>Default Form</h4>
+                <h4>@yield('title')</h4>
             </div>
             <form role="form" action="/posts/update" method="POST" enctype="multipart/form-data">
                 <div class="card-body">
@@ -51,7 +51,7 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="basicInput" class="form-label">Photo</label>
+                                <label for="basicInput" class="form-label">Foto</label>
                                 <input type="file" class="form-control" name="photo" value="{{ $post->photo }}"
                                     id="basicInput">
                             </div>
@@ -77,7 +77,7 @@
 
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Summary</label>
+                                <label for="exampleFormControlTextarea1" class="form-label">Ringkasan</label>
                                 <textarea class="form-control ckeditor" class="ckeditor" name="summary" id="ckeditor" rows="3">{{ $post->summary }}</textarea>
                             </div>
                             <div class="text-danger">
@@ -99,7 +99,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Quote</label>
+                                <label for="exampleFormControlTextarea1" class="form-label">Kutipan</label>
                                 <textarea class="form-control ckeditor" class="ckeditor" name="quote" id="ckeditor" rows="3">{{ $post->quote }}</textarea>
                             </div>
                             <div class="text-danger">
@@ -111,7 +111,7 @@
 
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
 

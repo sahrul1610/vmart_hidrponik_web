@@ -72,7 +72,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Name</th>
+                                                    <th>Nama</th>
                                                     <th>Produk</th>
                                                     <th>Total</th>
                                                     <th>Shipping</th>
@@ -86,7 +86,7 @@
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 @foreach ($transactions as $transaction)
-                                                    @if ($transaction->status == 'Selesai')
+                                                    @if ($transaction->status == 'Selesai' && $transaction->payment == 'settlement')
                                                         <tr>
                                                             <td>{{ $no++ }}</td>
                                                             <td>{{ $transaction->user->name }}</td>
@@ -108,13 +108,12 @@
                                                             @else
                                                                 <td>{{ $transaction->created_at_formatted ?: 'null' }}</td>
                                                             @endif
-                                                            <td>{{ $transaction->payment }}</td>
+                                                            <td>{{ $transaction->payment == 'settlement' ? 'Dibayar' : '' }}</td>
                                                             <td>{{ $transaction->status }}</td>
                                                             <td>
                                                                 {{-- <button
                                                                     onclick="inputDeliveryReceipt({{ $transaction->id }})"
                                                                     class="btn btn-warning">{{ $transaction->status }}</button> --}}
-
                                                                 @if ($transaction->status == 'Selesai' && $transaction->comments->count() > 0)
                                                                     <button class="btn btn-success btn-sm"
                                                                         data-bs-toggle="modal"
