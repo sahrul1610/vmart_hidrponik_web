@@ -34,7 +34,7 @@ class ProductGallery extends Model
 
         //    $test = "https://disk.mediaindonesia.com/files/news/2022/12/30/WhatsApp%20Image%202022-12-22%20at%2017.07.10%20(1).jpg";
         // return ( $test);
-        return config('app.url') . Storage::url("gambar/$url");
+        return  Storage::url("gambar/$url");
         //return("$url");
     }
 }
