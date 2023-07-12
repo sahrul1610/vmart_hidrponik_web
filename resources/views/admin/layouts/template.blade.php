@@ -125,11 +125,6 @@
                                         <i class="ti-user"></i> Profile
                                     </div>
                                 </a>
-                                <a href="#">
-                                    <div class="description">
-                                        <i class="ti-settings"></i> Setting
-                                    </div>
-                                </a>
                                 <a href="{{ url('/logout') }}">
                                     <div class="description">
                                         <i class="ti-power-off"></i> Logout
