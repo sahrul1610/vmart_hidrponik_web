@@ -7,7 +7,7 @@
     </li>
     <li class="{{ request()->is('kategori','produk')? 'active open' : '' }}">
         <a href="#" class="main-menu has-dropdown">
-            <i class="ti-desktop"></i>
+            <i class="ti-shopping-cart"></i>
             <span>Produk</span>
         </a>
         {{-- <ul class="{{ request()->is('kategori')? 'sub-menu expand' : '' }}" > --}}
@@ -37,7 +37,7 @@
     </li>
     <li class="{{ request()->is('transaksi/pesanan','transaksi/transaksi', 'transaksi/selesai')? 'active open' : '' }}">
         <a href="#" class="main-menu has-dropdown">
-            <i class="ti-desktop"></i>
+            <i class="ti-reload"></i>
             <span>Transaksi</span>
         </a>
         {{-- <ul class="{{ request()->is('kategori')? 'sub-menu expand' : '' }}" > --}}
