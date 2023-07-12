@@ -13,11 +13,6 @@
     <!-- End CSS  -->
     <!-- CSS for this page only -->
     <link rel="stylesheet" href="{{ url('/template') }}/plugins/chart.js/dist/Chart.min.css">
-    <!-- End CSS  -->
-
-    <link rel="stylesheet" href="{{ url('/template') }}/assets/css/style.min.css">
-    <link rel="stylesheet" href="{{ url('/template') }}/assets/css/bootstrap-override.min.css">
-    <link rel="stylesheet" id="theme-color" href="{{ url('/template') }}/assets/css/dark.min.css">
 
 
 
@@ -27,9 +22,14 @@
 
     <!-- CSS for datapicker only -->
     <link rel="stylesheet"
-        href="{{ url('/template') }}/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    href="{{ url('/template') }}/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <!-- End CSS  -->
 
     <!-- CSS for alert only -->
     <link rel="stylesheet" href="{{ url('/template') }}/plugins/izitoast/dist/css/iziToast.min.css">
     <!-- End CSS  -->
+    <!-- End CSS  -->
+
+    <link rel="stylesheet" href="{{ url('/template') }}/assets/css/style.min.css">
+    <link rel="stylesheet" href="{{ url('/template') }}/assets/css/bootstrap-override.min.css">
+    <link rel="stylesheet" id="theme-color" href="{{ url('/template') }}/assets/css/dark.min.css">
