@@ -29,7 +29,7 @@ class KategoriProdukController extends Controller
         ];
 
         $this->validate($request, [
-            "name" => "required|min:4"
+            "name" => "required|min:4|max:255"
         ], $message);
 
         $cek_double = Kategori::where(["name" => $request->name])->count();
@@ -67,7 +67,7 @@ class KategoriProdukController extends Controller
         ];
 
         $this->validate($request, [
-            "name" => "required|min:4"
+            "name" => "required|min:4|max:255"
         ], $message);
 
         $cek_double = Kategori::where(["name" => $request->name])->count();

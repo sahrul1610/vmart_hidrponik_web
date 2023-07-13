@@ -69,36 +69,40 @@ class ProdukController extends Controller
         $request->validate([
             "categories_id" => "required",
             // 'sku' => 'required',
-            'name' => 'required',
+            'name' => 'required|max:255|min:4',
             'description' => 'required',
             'is_available' => 'required|numeric',
             'unit' => 'required|in:kg,g',
             //'product_unit' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
-            'tags' => 'required',
+            'tags' => 'required|max:255|min:4',
             'url' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
         ], [
-                'categories_id.required' => "Kategori wajib diisi!",
-                'name.required' => "Nama produk wajib diisi!",
-                'description.required' => "Deskripsi wajib diisi!",
-                'price.required' => "Harga wajib diisi!",
-                'price.numeric' => "Harga harus berupa angka!",
-                'stock.required' => "Stok wajib diisi!",
-                'stock.numeric' => "Stok harus berupa angka!",
-                'tags.required' => "Harga wajib diisi!",
-                'is_available.required' => "Satuan wajib diisi!",
-                'is_available.numeric' => "Satuan harus berupa angka!",
-                'url.required' => 'Gambar wajib  diisi',
-                'url.image' => 'File harus berupa gambar',
-                'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
-                'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB',
-                'unit.required' => "Satuan wajib diisi!",
-                'unit.in' => "Satuan berat tidak valid!",
+            'categories_id.required' => "Kategori wajib diisi!",
+            'name.required' => "Nama produk wajib diisi!",
+            'name.max' => "Nama maksimal 255 karakter!",
+            'name.min' => "Nama minimal 4 karakter!",
+            'description.required' => "Deskripsi wajib diisi!",
+            'price.required' => "Harga wajib diisi!",
+            'price.numeric' => "Harga harus berupa angka!",
+            'stock.required' => "Stok wajib diisi!",
+            'stock.numeric' => "Stok harus berupa angka!",
+            'tags.required' => "Harga wajib diisi!",
+            'tags.max' => "Tag maksimal 255 karakter!",
+            'tags.min' => "Tag minimal 4 karakter!",
+            'is_available.required' => "Satuan wajib diisi!",
+            'is_available.numeric' => "Satuan harus berupa angka!",
+            'url.required' => 'Gambar wajib  diisi',
+            'url.image' => 'File harus berupa gambar',
+            'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB',
+            'unit.required' => "Satuan wajib diisi!",
+            'unit.in' => "Satuan berat tidak valid!",
 
 
-            ]);
+        ]);
 
         $categories_id = $request->categories_id;
 
@@ -155,30 +159,36 @@ class ProdukController extends Controller
 
     public function update(Request $request)
     {
+
         $request->validate([
             "categories_id" => "required",
-            'name' => 'required',
+            'name' => 'required|max:255|min:4',
             'description' => 'required',
             'price' => 'required|numeric',
             //'stock' => 'required|numeric',
-            'tags' => 'required',
-            'is_available' => 'required',
+            'tags' => 'required|max:255|min:4',
+            'is_available' => 'required|numeric',
             'unit' => 'required|in:kg,g',
             'url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
-                'categories_id.required' => 'Kategori produk wajib diisi',
-                'name.required' => 'Nama produk wajib diisi',
-                'description.required' => 'Deskripsi produk wajib diisi',
-                'price.required' => 'Harga produk wajib diisi',
-                'price.numeric' => 'Harga produk harus diisi dengan angka',
-                'tags.required' => 'Tag produk wajib diisi',
-                'is_available.required' => 'Satuan produk wajib diisi',
-                'url.image' => 'File harus berupa gambar',
-                'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
-                'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB',
-                'unit.required' => "Satuan wajib diisi!",
-                'unit.in' => "Satuan berat tidak valid!",
-            ]);
+            'categories_id.required' => 'Kategori produk wajib diisi',
+            'name.required' => 'Nama produk wajib diisi',
+            'name.max' => "Nama maksimal 255 karakter!",
+            'name.min' => "Nama minimal 4 karakter!",
+            'description.required' => 'Deskripsi produk wajib diisi',
+            'price.required' => 'Harga produk wajib diisi',
+            'price.numeric' => 'Harga produk harus diisi dengan angka',
+            'tags.required' => 'Tag produk wajib diisi',
+            'tags.max' => "Tag maksimal 255 karakter!",
+            'tags.min' => "Tag minimal 4 karakter!",
+            'is_available.required' => 'Satuan produk wajib diisi',
+            'is_available.numeric' => 'Satuan produk harus diisi dengan angka',
+            'url.image' => 'File harus berupa gambar',
+            'url.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif',
+            'url.max' => 'Ukuran gambar tidak boleh melebihi 2 MB',
+            'unit.required' => "Satuan wajib diisi!",
+            'unit.in' => "Satuan berat tidak valid!",
+        ]);
         $categories_id = $request->categories_id;
 
         // Cek apakah categories_id ada di tabel kategori
