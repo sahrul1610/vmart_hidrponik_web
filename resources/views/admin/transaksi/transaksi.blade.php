@@ -156,7 +156,7 @@
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 @foreach ($transactions as $transaction)
-                                                    @if ($transaction->status == 'pending')
+                                                    @if ($transaction->status == 'pending' || $transaction->payment == 'pending' || $transaction->payment == 'failure')
                                                         <tr>
                                                             <td>{{ $no++ }}</td>
                                                             <td>{{ $transaction->user->name }}</td>
