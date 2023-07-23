@@ -113,15 +113,6 @@
                                                                     <i class="fa fa-arrow-up"></i>
                                                                 </button>
                                                             </td>
-
-                                                            {{-- <td>
-                                                                <a href="#"
-                                                                    class="btn btn-sm btn-warning"  onclick="changeStatus({{ $transaction->id }})"><i
-                                                                        class="fa fa-edit"></i></a>
-                                                                <a href="#" class="btn btn-danger btn-sm"
-                                                                    onclick="DeleteData({{ $transaction->id }})"><i
-                                                                        class="fa fa-trash"></i></a>
-                                                            </td> --}}
                                                         </tr>
                                                     @endif
                                                 @endforeach

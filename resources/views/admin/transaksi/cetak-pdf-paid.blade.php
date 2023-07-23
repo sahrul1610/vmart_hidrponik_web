@@ -51,7 +51,6 @@
 
 <body>
     <h1>Daftar Transaksi</h1>
-
     <table>
         <thead>
             <tr>
