@@ -81,7 +81,7 @@
             </div>
         </div>
     </section>
-    
+
     @foreach ($transactions as $transaction)
         @if ($transaction->status == 'Selesai')
             <div class="modal fade" id="commentModal{{ $transaction->id }}" tabindex="-1" role="dialog"

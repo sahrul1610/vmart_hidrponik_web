@@ -28,7 +28,9 @@ class TransaksiController extends Controller
     {
         setlocale(LC_TIME, 'id_ID');
         Carbon::setLocale('id');
-        $transactions = Transaksi::all()->map(function ($transaction) {
+        $transactions = Transaksi::orderBy('created_at', 'DESC')
+        ->get()
+        ->map(function ($transaction) {
             // Mengubah format created_at menjadi nama hari, tanggal, bulan, dan tahun dalam bahasa Indonesia
             $transaction->created_at_formatted = Carbon::parse($transaction->created_at)->translatedFormat('l, j F Y');
 
@@ -40,7 +42,9 @@ class TransaksiController extends Controller
 
     public function cetakPDF()
     {
-        $transactions = Transaksi::where('status', 'paid')->get()->map(function ($transaction) {
+        $transactions = Transaksi::where('status', 'Selesai')
+        ->where('payment', 'settlement')
+        ->get()->map(function ($transaction) {
             // Mengubah format created_at menjadi nama hari, tanggal, bulan, dan tahun dalam bahasa Indonesia
             $transaction->created_at_formatted = Carbon::parse($transaction->created_at)->translatedFormat('l, j F Y');
 
@@ -73,7 +77,9 @@ class TransaksiController extends Controller
     {
         setlocale(LC_TIME, 'id_ID');
         Carbon::setLocale('id');
-        $transactions = Transaksi::all()->map(function ($transaction) {
+        $transactions = Transaksi::orderBy('created_at', 'DESC')
+        ->get()
+        ->map(function ($transaction) {
             // Mengubah format created_at menjadi nama hari, tanggal, bulan, dan tahun dalam bahasa Indonesia
             $transaction->created_at_formatted = Carbon::parse($transaction->created_at)->translatedFormat('l, j F Y');
 
@@ -86,7 +92,9 @@ class TransaksiController extends Controller
     {
         setlocale(LC_TIME, 'id_ID');
         Carbon::setLocale('id');
-        $transactions = Transaksi::all()->map(function ($transaction) {
+        $transactions = Transaksi::orderBy('created_at', 'DESC')
+        ->get()
+        ->map(function ($transaction) {
             // Mengubah format created_at menjadi nama hari, tanggal, bulan, dan tahun dalam bahasa Indonesia
             $transaction->created_at_formatted = Carbon::parse($transaction->created_at)->translatedFormat('l, j F Y');
 

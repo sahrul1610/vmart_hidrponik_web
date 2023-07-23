@@ -121,9 +121,12 @@
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="https://app.midtrans.com/snap/snap.js"
-        data-client-key="Mid-server-Uff1P4lxK0b2DCo9YFZ7RfEr"></script>
+        data-client-key="{{env('MIDTRANS_CLIENT_KEY')}}"></script>
     @yield('client')
     <script src="{{ url('/template') }}/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    {{-- <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="{{env('MIDTRANS_CLIENT_KEY')}}"></script> --}}
+
     @yield('page_scripts')
     @stack('js')
 </body>

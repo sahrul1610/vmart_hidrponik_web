@@ -7,7 +7,7 @@
                     <div class="breadcrumb__text">
                         <h2>Invoice</h2>
                         <div class="breadcrumb__option">
-                            <a href="{{route('home')}}">Home</a>
+                            <a href="{{ route('home') }}">Home</a>
                             <span>Invoice</span>
                         </div>
                     </div>
@@ -38,7 +38,17 @@
                                             {{ $transaction->payment }}
                                         @endif
                                     </span></li>
-                                <li>status<span>{{ $transaction->status }}</span></li>
+                                {{-- <li>status<span>{{ $transaction->status }}</span></li> --}}
+                                @if ($transaction->status == 'paid')
+                                    <li>Status<span>Menunggu dikonfirmasi</span></li>
+                                @elseif ($transaction->status == 'Barang Dikemas')
+                                    <li>Status<span>Barang dikemas menunggu pengeriman</span></li>
+                                @elseif ($transaction->status == 'Dikirim')
+                                    <li>Status<span>Dalam pengiriman</span></li>
+                                    <li>No Resi<span>{{ $transaction->delivery_receipt }}</span></li>
+                                @elseif ($transaction->status == 'Selesai')
+                                    <li>Status<span>Barang sudah diterima</span></li>
+                                @endif
                             </ul>
 
                             <div class="checkout__order__subtotal">

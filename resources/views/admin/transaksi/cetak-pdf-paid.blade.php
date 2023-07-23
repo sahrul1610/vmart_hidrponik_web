@@ -50,7 +50,7 @@
 </head>
 
 <body>
-    <h1>Daftar Transaksi Pending</h1>
+    <h1>Daftar Transaksi</h1>
 
     <table>
         <thead>
@@ -63,13 +63,13 @@
                 <th>Total Bayar</th>
                 <th>Status</th>
                 <th>Tanggal</th>
-                <th>Metode Pembayaran</th>
+                <th>Pembayaran</th>
             </tr>
         </thead>
         <tbody>
             <?php $no = 1; $totalBayar = 0; ?>
             @foreach ($transactions as $transaction)
-                @if ($transaction->status == 'paid')
+                @if ($transaction->status == 'Selesai' && $transaction->payment == 'settlement')
                     <tr>
                         <td>{{ $no++ }}</td>
                         <td>{{ $transaction->user->name }}</td>
@@ -83,7 +83,7 @@
                         <td>{{ number_format($transaction->total_price + $transaction->shipping_price) }}</td>
                         <td>{{ $transaction->status }}</td>
                         <td>{{ $transaction->created_at_formatted }}</td>
-                        <td>{{ $transaction->payment }}</td>
+                        <td>{{ $transaction->payment == 'settlement' ? 'Dibayar' : '' }}</td>
                     </tr>
                     <?php $totalBayar += $transaction->total_price + $transaction->shipping_price; ?>
                 @endif
