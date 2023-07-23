@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
         rel="stylesheet" />
     {{-- mitrands --}}
-    <link href="{{ url('/template') }}/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ url('/template') }}/plugins/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css"/>
     @yield('css-checkout')
     <!-- Css Styles -->
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" />

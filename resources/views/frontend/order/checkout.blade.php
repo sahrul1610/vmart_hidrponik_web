@@ -17,7 +17,7 @@
                     <div class="breadcrumb__text">
                         <h2>Checkout</h2>
                         <div class="breadcrumb__option">
-                            <a href="{{route('home')}}">Home</a>
+                            <a href="{{ route('home') }}">Home</a>
                             <span>Checkout</span>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                                     <div class="checkout__input">
                                         <p>provinsi<span>*</span></p>
                                         <select name="province_origin"
-                                            class="js-example-basic-single form-select form-select-sm">
+                                            class="js-example-basic-single form-select">
                                             <option value="">Pilih Provinsi asal</option>
                                             @foreach ($province as $province => $value)
                                                 <option value="{{ $value['province_id'] }}">{{ $value['province'] }}
@@ -104,6 +104,9 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div id="loading-spinner" style="display: none;">
+                                <i class="fa fa-spinner fa-spin"></i> Loading...
+                            </div>
                             <div class="checkout__input" id="jasa" style="display: none">
                                 <p>Opsi pengiriman<span>*</span></p>
                                 <select name="shipping_cost" class="js-example-basic-single form-select form-select-lg">
@@ -116,6 +119,15 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- Ubah elemen select menjadi elemen radio (checkbox) -->
+                            {{-- <div id="shipping-options"  style="display:none">
+                                <p>Pilih Opsi Pengiriman<span>*</span></p>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="shipping_cost" id="defaultShipping"
+                                        value="" checked>
+                                    <label class="form-check-label" for="defaultShipping">Pilih Opsi Pengiriman</label>
+                                </div>
+                            </div> --}}
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
@@ -176,11 +188,11 @@
                 title: 'Oops...',
                 text: '{{ session('error') }}',
             }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "{{ route('home') }}";
-                sessionStorage.removeItem('cart');
-            }
-        });
+                if (result.isConfirmed) {
+                    window.location.href = "{{ route('home') }}";
+                    sessionStorage.removeItem('cart');
+                }
+            });
         </script>
     @endif
 
@@ -229,7 +241,7 @@
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
-                            console.log(data);
+                            //console.log(data);
                             $('select[name="city_origin"]').empty();
 
                             // Tambahkan opsi pertama sebagai placeholder
@@ -271,7 +283,7 @@
                             type: "GET",
                             dataType: "json",
                             success: function(data) {
-                                console.log(data);
+                                //console.log(data);
                                 $('select[name="city_origin"]').empty();
                                 $.each(data, function(key, value) {
                                     let cityName = value['city_name'];
@@ -292,12 +304,116 @@
                 }
             });
 
+            // Event handler untuk elemen "courier" menggunakan elemen "select"
+            // $('select[name="courier"]').on('change', function() {
+            //     let courier = $(this).val();
+            //     let cityOriginId = $('select[name="city_origin"]').val();
+            //     let weight = $('input[name="weight"]').val();
+            //     if (cityOriginId) {
+            //         // Tampilkan spinner saat melakukan AJAX request
+            //         $('#loading-spinner').show();
+
+            //         $.ajax({
+            //             url: "{{ url('/city') }}/" + cityOriginId + "/cities",
+            //             type: "POST",
+            //             data: {
+            //                 _token: "{{ csrf_token() }}",
+            //                 cityOriginId: cityOriginId,
+            //                 courier: courier,
+            //                 weight: weight,
+            //             },
+            //             success: function(result) {
+            //                 // Sembunyikan spinner setelah AJAX request selesai
+            //                 $('#loading-spinner').hide();
+            //                 //$("#jasa").show();
+
+            //                 // Hapus opsi pengiriman yang ada sebelumnya
+            //                 $('#shipping-options').empty();
+
+            //                 // Tambahkan elemen radio (checkbox) untuk setiap opsi pengiriman
+            //                 $.each(result, function(key, value) {
+            //                     var optionValue = value["cost"][0]["value"];
+            //                     var optionService = value["service"];
+            //                     var optionDescription = value["description"];
+            //                     var optionEtd = value["cost"][0]["etd"];
+            //                     var optionText = optionService + '-' + optionValue +
+            //                         '-' + optionEtd;
+
+            //                     // Buat elemen radio (checkbox) untuk setiap opsi pengiriman
+            //                     var optionElement = $(
+            //                         '<div class="form-check form-check-inline">' +
+            //                         '<input class="form-check-input" type="radio" name="shipping_cost" value="' +
+            //                         optionValue + '">' +
+            //                         '<label class="form-check-label" data-description="' +
+            //                         optionDescription + '" data-etd="' + optionEtd +
+            //                         '">' +
+            //                         optionText + '</label>' +
+            //                         '</div>'
+            //                     ).prop('checked', key ===
+            //                         0); // Centang opsi pertama sebagai default
+
+            //                     // Tambahkan elemen radio (checkbox) ke dalam div #shipping-options
+            //                     $('#shipping-options').append(optionElement);
+            //                 });
+            //                 // Tampilkan elemen "shipping_options" setelah mengisi opsi pengiriman
+            //                 $('#shipping-options').show();
+            //             },
+            //             error: function() {
+            //                 // Sembunyikan spinner jika terjadi error pada AJAX request
+            //                 $('#loading-spinner').hide();
+            //                 $("#jasa").hide();
+            //             }
+            //         });
+            //     } else {
+            //         // Sembunyikan opsi pengiriman jika cityOriginId kosong
+            //         $('#shipping-options').empty().hide();
+            //         $("#jasa").hide();
+            //     }
+            // });
+
+
+            // // Event handler untuk elemen "shipping_cost" menggunakan elemen "radio"
+            // $('div#shipping-options').on('change', 'input[type="radio"][name="shipping_cost"]', function() {
+            //     var selectedOption = $(this).val();
+            //     if (selectedOption !== '') {
+            //         var optionService = $(this).next('label').text().split('-')[0];
+            //         var optionValue = $(this).val();
+            //         // var optionEtd1 = $(this).next('label').text().split('-')[2];
+            //         // var optionEtd2 = $(this).next('label').text().split('-')[3];
+            //         var optionDescription = $(this).next('label').data(
+            //             'description');
+            //         var optionEtd = $(this).next('label').data(
+            //             'etd');
+            //         console.log(optionEtd);
+
+            //         // Mengambil nilai terkecil dan terbesar dari etd
+            //         var etdValues = optionEtd.split('-');
+            //         var minEtd = etdValues[0];
+            //         var maxEtd = etdValues[1];
+            //         var optionText = '<p><strong>Opsi Pengiriman:</strong></p>' +
+            //             '<div style="margin-top: 10px;">Opsi Service: ' + optionService + '</div>' +
+            //             '<div style="margin-top: 5px;">Description: ' + optionDescription + '</div>' +
+            //             '<div style="margin-top: 5px;">Estimasi Waktu (Hari): ' + minEtd + '-' + maxEtd +
+            //             ' (Hari) '
+            //         '</div>';
+            //         Swal.fire({
+            //             title: 'Pilihan Pengiriman',
+            //             html: optionText,
+            //             icon: 'success',
+            //             confirmButtonText: 'OK',
+            //             customClass: {
+            //                 content: 'my-swal-content'
+            //             }
+            //         });
+            //     }
+            // });
 
             $('select[name="courier"]').on('change', function() {
                 let courier = $(this).val();
                 let cityOriginId = $('select[name="city_origin"]').val();
                 let weight = $('input[name="weight"]').val();
                 if (cityOriginId) {
+                    $('#loading-spinner').show();
                     $.ajax({
                         url: "{{ url('/city') }}/" + cityOriginId + "/cities",
                         type: "POST",
@@ -308,10 +424,11 @@
                             weight: weight,
                         },
                         success: function(result) {
-                            $("#jasa").show();
                             // Hapus opsi pengiriman yang ada sebelumnya
-                            // $('select[name="shipping_cost"]').empty();
-
+                            // Sembunyikan spinner setelah AJAX request selesai
+                            $('#loading-spinner').hide();
+                            $("#jasa").show();
+                            //$('select[name="shipping_cost"]').empty();
                             // Menambahkan opsi pertama sebagai placeholder
                             $('select[name="shipping_cost"]').append(
                                 '<option value="">Pilih Opsi Pengiriman</option>'
@@ -364,6 +481,7 @@
                     });
                 }
             });
+
             $('select[name="city_destination"]').on('change', function() {
                 $('select[name="city_origin"]').trigger('change');
             });

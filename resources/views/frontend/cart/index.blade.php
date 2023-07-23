@@ -57,7 +57,7 @@
                                         <td class="shoping__cart__quantity">
                                             <div class="quantity">
                                                 <div class="pro-qty">
-                                                    <input type="text" value="{{ $item['quantity'] }}" min="1">
+                                                    <input type="text" value="{{ $item['quantity'] }}" min="1" readonly>
                                                 </div>
                                             </div>
                                         </td>
@@ -92,13 +92,13 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="shoping__continue">
-                            <div class="shoping__discount">
+                            {{-- <div class="shoping__discount">
                                 <h5>Discount Codes</h5>
                                 <form action="#">
                                     <input type="text" placeholder="Enter your coupon code">
                                     <button type="submit" class="site-btn">APPLY COUPON</button>
                                 </form>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     @php
