@@ -109,7 +109,7 @@
                                                             <td>{{ $transaction->payment == 'settlement' ? 'Dibayar' : '' }}</td>
                                                             <td>{{ $transaction->status == 'paid' ? 'Sukses' : '' }}</td>
                                                             <td><button onclick="changeStatus({{ $transaction->id }})"
-                                                                    class="btn btn-success">
+                                                                    class="btn btn-success" title="tombol konfirmasi mengemas barang.">
                                                                     <i class="fa fa-arrow-up"></i>
                                                                 </button>
                                                             </td>
