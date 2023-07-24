@@ -23,7 +23,7 @@
                 <div class="col-lg-3 col-md-5">
                     @include('frontend.shop.sidebar')
                 </div>
-                @foreach ($produks as $produk)
+                @forelse($produks as $produk)
                     <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                         <div class="featured__item">
                             <div class="featured__item__pic set-bg"
@@ -44,7 +44,16 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                    @empty
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__text text-center">
+                                <h5>Data produk tidak ditemukan.</h5>
+                                <img src="{{ asset('frontend/img/empty.png') }}" alt="Empty Blog Image">
+                            </div>
+                        </div>
+                    </div>
+                @endforelse
             </div>
         </div>
         </div>

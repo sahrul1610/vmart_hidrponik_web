@@ -12,8 +12,12 @@
 @endsection
 <div class="blog__sidebar">
     <div class="blog__sidebar__search">
-        <form action="#">
+        {{-- <form action="#">
             <input type="text" placeholder="Search...">
+            <button type="submit"><span class="icon_search"></span></button>
+        </form> --}}
+        <form action="{{ route('blog.search') }}" method="GET">
+            <input type="text" placeholder="Apa yang anda butuhkan?" name="keyword" />
             <button type="submit"><span class="icon_search"></span></button>
         </form>
     </div>
