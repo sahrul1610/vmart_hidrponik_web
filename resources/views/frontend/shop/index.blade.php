@@ -8,7 +8,7 @@
                     <div class="breadcrumb__text">
                         <h2>Vmart Shop</h2>
                         <div class="breadcrumb__option">
-                            <a href="{{route('home')}}">Home</a>
+                            <a href="{{ route('home') }}">Home</a>
                             <span>Shop</span>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                             </div>
                         </div>
                     </div>
-                    @empty
+                @empty
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="blog__item">
                             <div class="blog__item__text text-center">
