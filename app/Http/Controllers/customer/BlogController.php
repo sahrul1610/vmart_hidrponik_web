@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use App\Models\Posts;
 use App\Models\PostCategories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class BlogController extends Controller
 {
@@ -45,12 +46,28 @@ class BlogController extends Controller
         $blogs = Posts::query();
 
         if(!is_null($id)){
-            $blogs->where('category_id', $id);
+            $blogs->where('category_id', $id)->paginate(10);
         }
-        $blogs = Posts::with('categories')->paginate(10); // menampilkan 10 data per halaman
+        $blogs = $blogs->get();
+        //$blogs = Posts::with('categories')->paginate(10); // menampilkan 10 data per halaman
         $menu_categories = Kategori::all();
         $blog = Posts::with('categories')->paginate(4);
         return view('frontend.blog.index', compact('blogs', 'menu_categories', 'blog', 'blog_categories'))
         ->with('i', (request()->input('page', 1) - 1) * 10);
     }
+
+    public function search(Request $request){
+        // untuk mencari keyword nama produk
+        $keyword = $request->input('keyword');
+        //$produks = Produk::with('produkgaleri')->where('name', 'like', "%$keyword%")->get();
+        $blogs = Posts::with('categories')
+                ->where('title', 'like', "%$keyword%")
+                ->get();
+        $blog = Posts::with('categories')->paginate(4);
+        $blog_categories = PostCategories::all();
+        $menu_categories = Kategori::all();
+        // Mengirim data produk ke view untuk ditampilkan
+        return view('frontend.blog.index', compact('blogs', 'menu_categories', 'blog', 'blog_categories'))
+        ->with('i', (request()->input('page', 1) - 1) * 10);
+        }
 }

@@ -143,6 +143,7 @@ Route::get('/shop/detail/{id}', [ShopController::class, 'detail'])->name('shop.d
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
 Route::get('/blog/detail/{id}', [BlogController::class, 'detail'])->name('blog.detail');
 Route::get('/blog/kategori/{id}', [BlogController::class, 'kategori'])->name('blog.by.category');
+Route::get('/blog/search', [BlogController::class, 'search'])->name('blog.search');
 
 //Route::get('/province', [RajaOngkirController::class, 'getProvince']);
 // Route::get('/city', [RajaOngkirController::class, 'getCity']);
