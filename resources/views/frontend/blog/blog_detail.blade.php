@@ -66,6 +66,7 @@
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{$blogs->url}}" frameborder="0" allowfullscreen></iframe>
                         </div>
+                        <p>{!!$blogs->quote!!}</p>
                     </div>
                     <div class="blog__details__content">
                         <div class="row">
