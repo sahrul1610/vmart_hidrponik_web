@@ -78,6 +78,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/coba', [TransaksiController::class, 'showComments']);
 
     Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna');
+    Route::delete('/pengguna/hapus/{id}', [PenggunaController::class, 'delete']);
     //export transaksi excel
     Route::get('/excel/export', [ExportController::class, 'exportData'])->name('transaksi.export');
 
