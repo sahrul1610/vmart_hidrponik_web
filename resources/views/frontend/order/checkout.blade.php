@@ -48,7 +48,7 @@
                             <div class="checkout__input">
                                 <p>Alamat<span>*</span></p>
                                 <input type="text" name="address"
-                                    placeholder="Nama Kecamatan, Nama desa, Gedung, No. rumah"
+                                    placeholder="Masukan Nama Kecamatan, Nama desa, Gedung, No. rumah"
                                     value="{{ old('address') }}" />
                                 <div class="text-danger">
                                     @error('address')

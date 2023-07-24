@@ -51,12 +51,23 @@ class OrderController extends RajaOngkirController
     public function checkout(Request $request)
     {
         $request->validate([
-            'address' => 'required',
+            'address' => 'required|min:4',
             'total_price' => 'required|numeric',
             'shipping_cost' => 'required|numeric',
             'province_origin' => 'required',
             'city_origin' => 'required',
             'courier' => 'required',
+        ], [
+            'address.required' => 'Alamat wajib diisi',
+            //'address.max' => "Alamat maksimal 255 karakter!",
+            'address.min' => "Alamat minimal 4 karakter!",
+            'total_price.required' => 'Total wajib diisi',
+            'total_price.numeric' => 'Total harus diisi dengan angka',
+            'shipping_cost.required' => 'Total wajib diisi',
+            'shipping_cost.numeric' => 'Total harus diisi dengan angka',
+            'courier.required' => 'Pengiriman wajib diisi',
+            'city_origin.required' => 'Kota wajib diisi',
+            'province_origin.required' => 'Provinsi wajib diisi',
         ]);
         //dd($request);
 
@@ -136,11 +147,15 @@ class OrderController extends RajaOngkirController
 
     public function checkout_by_id($id)
     {
-        $data["transaksi_id"] = session()->get("transaksi_id");
-        $data["users_id"] = session()->get("users_id");
+        $transaksi_id = session()->get("transaksi_id");
+        $users_id = session()->get("users_id");
 
-        $ambil_data = Transaksi::where("id", $data["transaksi_id"])->first();
-        $ambil_user = User::where("id", $data["users_id"])->first();
+        if (!$transaksi_id || !$users_id) {
+            return redirect('/')->with('error', 'Data transaksi tidak ditemukan. Silakan coba lagi.');
+        }
+
+        $ambil_data = Transaksi::where("id", $transaksi_id)->first();
+        $ambil_user = User::where("id", $users_id)->first();
 
         //Pengecekan apakah order_id sudah digunakan
         if ($ambil_data->status == 'paid') {
@@ -157,7 +172,7 @@ class OrderController extends RajaOngkirController
 
         $params = array(
             'transaction_details' => array(
-                'order_id' => $data["transaksi_id"],
+                'order_id' => $transaksi_id,
                 //'order_id' => 'ORDER-' . time(),
                 'gross_amount' => $ambil_data["total_price"] + $ambil_data["shipping_price"],
             ),
