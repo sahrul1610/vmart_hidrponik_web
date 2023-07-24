@@ -30,7 +30,8 @@
                                 data-setbg="{{ asset('storage/gambar/' . $produk->produkgaleri->url) }}">
                                 <ul class="featured__item__pic__hover">
                                     <li>
-                                        <a href="#"><i class="fa fa-heart"></i></a>
+                                        <a href="{{ route('like.add', ['id' => $produk->id]) }}"><i
+                                            class="fa fa-heart"></i></a>
                                     </li>
                                     <li>
                                         <a href="{{ route('cart.add', ['id' => $produk->id]) }}"><i
