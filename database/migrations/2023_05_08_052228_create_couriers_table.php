@@ -17,7 +17,6 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->String('code');
             $table->String('title');
-
             $table->timestamps();
         });
     }
