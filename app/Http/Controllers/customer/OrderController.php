@@ -78,6 +78,19 @@ class OrderController extends RajaOngkirController
         }
 
         $users_id = auth()->user()->id;
+        // Memeriksa stok sebelum menyimpan transaksi
+        foreach ($cart as $item) {
+            $product = Produk::find($item['id']);
+            $quantityToReduce = $item['quantity'];
+
+            // Mengambil total stok yang tersedia untuk produk
+            $totalStock = $product->stocks()->sum('quantity');
+
+            if ($totalStock < $quantityToReduce) {
+                // Jika stok tidak cukup, tampilkan pesan stok habis atau pesan lain sesuai kebutuhan
+                return redirect()->back()->with('error', 'Maaf, stok produk ' . $product->name . ' tidak cukup.');
+            }
+        }
 
         $transaction = new Transaksi;
         $transaction->id = time();
@@ -164,7 +177,7 @@ class OrderController extends RajaOngkirController
 
         \Midtrans\Config::$serverKey = env("MIDTRANS_SERVER_KEY");
         // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = true;
+        \Midtrans\Config::$isProduction = false;
         // Set sanitization on (default)
         \Midtrans\Config::$isSanitized = true;
         // Set 3DS transaction for credit card to true

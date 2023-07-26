@@ -60,3 +60,41 @@
         </div>
     </section>
 @endsection
+@push('js')
+    <script src="{{ url('/template') }}/plugins/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '{{ session('error') }}',
+                timer: 4000, // Waktu dalam milidetik (5 detik)
+                showConfirmButton: false, // Menghilangkan tombol OK
+            });
+        </script>
+    @elseif (session('success'))
+        <script>
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                timer: 4000, // Waktu dalam milidetik (5 detik)
+                showConfirmButton: false, // Menghilangkan tombol OK
+                didOpen: () => {
+                    // Ketika alert ditampilkan, atur opacity menjadi 0.3 untuk memberikan efek fade in
+                    Swal.getPopup().style.opacity = 0.3;
+                    // Selanjutnya, animasikan opacity kembali menjadi 1 dalam 1 detik untuk memudarkan alert secara perlahan
+                    Swal.getPopup().style.transition = 'opacity 1s';
+                    Swal.getPopup().style.opacity = 1;
+                },
+                willClose: () => {
+                    // Ketika alert ditutup, atur opacity menjadi 0 dalam 1 detik untuk memudarkan alert secara perlahan sebelum ditutup sepenuhnya
+                    Swal.getPopup().style.transition = 'opacity 1s';
+                    Swal.getPopup().style.opacity = 0;
+                },
+            });
+        </script>
+    @endif
+@endpush
