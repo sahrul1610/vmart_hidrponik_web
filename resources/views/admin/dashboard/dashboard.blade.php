@@ -67,7 +67,7 @@
                     </span>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('produk') }}" class="text-white" style="text-decoration: none;">
+                    <a href="{{ url('/transaksi/selesai') }}" class="text-white" style="text-decoration: none;">
                         More Information
                         <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
                     </a>
