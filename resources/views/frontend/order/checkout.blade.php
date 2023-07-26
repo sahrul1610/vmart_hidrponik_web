@@ -37,13 +37,9 @@
                             <input type="hidden" name="weight" value="{{ $item['tersedia'] }}">
                         @endforeach
                         <div class="col-lg-8 col-md-6">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Nama<span>*</span></p>
-                                        <input type="text" placeholder="{{ auth()->user()->name }}" readonly />
-                                    </div>
-                                </div>
+                            <div class="checkout__input">
+                                <p>Nama<span>*</span></p>
+                                <input type="text" placeholder="{{ auth()->user()->name }}" readonly />
                             </div>
                             <div class="checkout__input">
                                 <p>Alamat<span>*</span></p>
@@ -60,8 +56,7 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>provinsi<span>*</span></p>
-                                        <select name="province_origin"
-                                            class="js-example-basic-single form-select">
+                                        <select name="province_origin" class="js-example-basic-single form-select">
                                             <option value="">Pilih Provinsi asal</option>
                                             @foreach ($province as $province => $value)
                                                 <option value="{{ $value['province_id'] }}">{{ $value['province'] }}
@@ -467,7 +462,8 @@
                     var maxEtd = etdValues[1];
                     var optionText = '<p><strong>Opsi Pengiriman:</strong></p>' +
                         '<div style="margin-top: 10px;">Opsi Service: ' + optionService + '</div>' +
-                        '<div style="margin-top: 5px;">Description: ' + optionDescription + '</div>' +
+                        '<div style="margin-top: 5px;">Biaya Pengiriman: ' + optionValue + '</div>' +
+                        '<div style="margin-top: 5px;">Deskripsi: ' + optionDescription + '</div>' +
                         '<div style="margin-top: 5px;">Estimasi Waktu (Hari): ' + minEtd + '-' + maxEtd +
                         '</div>';
                     Swal.fire({

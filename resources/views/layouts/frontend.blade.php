@@ -351,7 +351,7 @@
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-
+    @stack('js')
     <script>
         // ambil data dari local storage
         var cart = JSON.parse(localStorage.getItem('cart')) || {};
