@@ -39,7 +39,7 @@ class LikeController extends Controller
         public function index()
         {
             $like = Session::get('like', []);
-            $cart = Session::get('like', []);
+            $cart = Session::get('cart', []);
             //dd($like);
             $menu_categories = Kategori::all();
             return view('frontend.like.like', compact('like', 'menu_categories', 'cart'));

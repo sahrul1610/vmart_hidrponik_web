@@ -70,7 +70,7 @@
                 icon: 'error',
                 title: 'Oops...',
                 text: '{{ session('error') }}',
-                timer: 4000, // Waktu dalam milidetik (5 detik)
+                timer: 2000, // Waktu dalam milidetik (5 detik)
                 showConfirmButton: false, // Menghilangkan tombol OK
             });
         </script>
@@ -80,7 +80,7 @@
                 title: 'Berhasil!',
                 text: '{{ session('success') }}',
                 icon: 'success',
-                timer: 4000, // Waktu dalam milidetik (5 detik)
+                timer: 2000, // Waktu dalam milidetik (5 detik)
                 showConfirmButton: false, // Menghilangkan tombol OK
                 didOpen: () => {
                     // Ketika alert ditampilkan, atur opacity menjadi 0.3 untuk memberikan efek fade in
