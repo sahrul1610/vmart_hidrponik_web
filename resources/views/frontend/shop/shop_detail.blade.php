@@ -69,7 +69,7 @@
                         <p>
                             {{ $produks->description }}
                         </p>
-                        <form action="{{ route('cart.add') }}" method="POST">
+                        <form action="{{ route('cart.tambah') }}" method="POST">
                             @csrf
                             <div class="product__details__quantity">
                                 <div class="quantity">

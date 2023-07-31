@@ -60,17 +60,20 @@
                                 </div>
                             </div>
                         @endforelse
+                        {{-- <div class="col-sm-2">
+                            {{ $blog->links() }}
+                        </div> --}}
                         <div class="col-lg-12">
+                            {!! $paginationHtml !!}
+                        </div>
+
+                        {{-- <div class="col-lg-12">
                             <div class="product__pagination blog__pagination">
-                                {{-- <a href="#">1</a>
+                                <a href="#">1</a>
                                 <a href="#">2</a>
                                 <a href="#">3</a>
-                                <a href="#"><i class="fa fa-long-arrow-right"></i></a> --}}
-
-                                {{-- nanti coba terapkan tanpa menggunakan a href --}}
-                                {{ $blog->links() }}
-                            </div>
-                        </div>
+                                <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                        </div> --}}
                     </div>
                 </div>
             </div>

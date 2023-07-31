@@ -30,7 +30,8 @@
                                 data-setbg="{{ asset('storage/gambar/' . $produk->produkgaleri->url) }}">
                                 <ul class="featured__item__pic__hover">
                                     <li>
-                                        <a href="#"><i class="fa fa-heart"></i></a>
+                                        <a href="{{ route('like.add', ['id' => $produk->id]) }}"><i
+                                            class="fa fa-heart"></i></a>
                                     </li>
                                     <li>
                                         <a href="{{ route('cart.add', ['id' => $produk->id]) }}"><i
@@ -69,7 +70,7 @@
                 icon: 'error',
                 title: 'Oops...',
                 text: '{{ session('error') }}',
-                timer: 4000, // Waktu dalam milidetik (5 detik)
+                timer: 2000, // Waktu dalam milidetik (5 detik)
                 showConfirmButton: false, // Menghilangkan tombol OK
             });
         </script>
@@ -79,7 +80,7 @@
                 title: 'Berhasil!',
                 text: '{{ session('success') }}',
                 icon: 'success',
-                timer: 4000, // Waktu dalam milidetik (5 detik)
+                timer: 2000, // Waktu dalam milidetik (5 detik)
                 showConfirmButton: false, // Menghilangkan tombol OK
                 didOpen: () => {
                     // Ketika alert ditampilkan, atur opacity menjadi 0.3 untuk memberikan efek fade in

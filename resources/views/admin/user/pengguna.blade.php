@@ -49,6 +49,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
+                                    <th>Email</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -58,6 +59,7 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $dt->name }}</td>
+                                        <td>{{ $dt->email }}</td>
                                         <td><a href="#" class="btn btn-danger btn-sm"
                                                 onclick="DeleteData({{ $dt->id }})"><i class="fa fa-trash"></i></a>
                                         </td>
