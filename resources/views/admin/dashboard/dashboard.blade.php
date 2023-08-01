@@ -63,7 +63,7 @@
                     <h5 class="card-title">Total Pendapatan</h5>
                     <span class="h2 font-weight-bold mb-0">{{number_format($total_transaksi)}}</span>
                     <span class="float-right">
-                        <i class="ti-money fa-2x"></i>
+                        <i class="ti-wallet fa-2x"></i>
                     </span>
                 </div>
                 <div class="card-footer">

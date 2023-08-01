@@ -1,12 +1,12 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <img src="{{ asset('frontend/img/logo.png') }}" alt="">
         </x-slot>
 
         <x-validation-errors class="mb-4" />
 
-        <form method="POST" action="{{ route('password.update') }}">
+        <form method="POST" action="{{ url('/reset-password') }}">
             @csrf
 
             <input type="hidden" name="token" value="{{ $request->route('token') }}">
