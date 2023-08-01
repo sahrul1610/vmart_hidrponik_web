@@ -28,6 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.update.password');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+Auth::routes(['verify' => true]);
 require __DIR__.'/auth.php';
 require __DIR__.'/web-vmart.php';

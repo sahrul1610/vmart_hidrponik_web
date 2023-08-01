@@ -32,8 +32,15 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ], [
+            'email.unique' => 'Email yang anda masukan sudah terdaftar',
+            'email.max' => 'Email maximal 225 karakter!',
+            'email.required' => 'Email harus diisi!',
+            'name.max' => 'nama maximal 225 karakter!',
+            'name.required' => 'nama harus diisi!',
+            'password.required' => 'Email harus diisi!',
         ]);
 
         $user = User::create([
@@ -44,8 +51,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        //Auth::login($user);
+        return redirect()->route('login');
+        //return redirect(RouteServiceProvider::HOME);
     }
 }

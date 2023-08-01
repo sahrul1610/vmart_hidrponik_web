@@ -25,7 +25,7 @@ class ProfileController extends Controller
         return view('profile.edit', [
             'user' => $request->user(), 'menu_categories' => $menu_categories,
         ]);
-        
+
     }
 
     /**
@@ -46,14 +46,14 @@ class ProfileController extends Controller
 
     public function updatePassword(Request $request): RedirectResponse
     {
-        $request->validate([
-            'current_password' => ['required', function ($attribute, $value, $fail) use ($request) {
-                if (!Hash::check($value, $request->user()->password)) {
-                    $fail(__('The current password is incorrect.'));
-                }
-            }],
-            'new_password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        // $request->validate([
+        //     'current_password' => ['required', function ($attribute, $value, $fail) use ($request) {
+        //         if (!Hash::check($value, $request->user()->password)) {
+        //             $fail(__('The current password is incorrect.'));
+        //         }
+        //     }],
+        //     'new_password' => ['required', 'string', 'min:8', 'confirmed'],
+        // ]);
 
         $request->user()->forceFill([
             'password' => Hash::make($request->input('new_password')),
