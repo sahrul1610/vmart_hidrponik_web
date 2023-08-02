@@ -46,9 +46,9 @@
                             <div class="mb-3">
                                 <div class="mb-2 w-100">
                                     <label class="text-muted" for="password">Password</label>
-                                    {{-- <a href="forgot.html" class="float-end">
+                                    <a href="{{url('/forgot-password')}}" class="float-end">
                                         Forgot Password?
-                                    </a> --}}
+                                    </a>
                                 </div>
                                 <div class="input-group input-group-join mb-3">
                                     <input type="password" class="form-control" name="password"
