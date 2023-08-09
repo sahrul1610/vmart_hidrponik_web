@@ -67,7 +67,7 @@
                         </div>
                         <div class="product__details__price">{{ number_format($produks->price) }}</div>
                         <p>
-                            {{ $produks->description }}
+                            {{ $produks->tags }}
                         </p>
                         <form action="{{ route('cart.tambah') }}" method="POST">
                             @csrf
